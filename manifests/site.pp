@@ -17,7 +17,7 @@ node default {
 
 }
 
-node 'hf-puppet2*' {
+node 'hf-puppet1*' {
 
 
   class { "homelab-puppet::server_lite": }
