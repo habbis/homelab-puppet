@@ -18,7 +18,7 @@ node default {
 
 
   #class { "homelab-puppet::server_lite": }
-  hiera_include('classe')
+  hiera_include('classes')
   #lookup('classes').include
 
 
