@@ -1,0 +1,4 @@
+---
+server_lite::ntp_server: 'pool.habbfarm.net'
+server_lite::nameserver1: '10.17.2.2'
+server_lite::nameserver2: '10.17.2.3'

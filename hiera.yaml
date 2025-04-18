@@ -1,7 +1,7 @@
 ---
 version: 5
 backends:
-  datadir: data
+  datadir: hierdata
   data_hash: yaml_data
 hierarchy:
   - name: "Secret data: per-node, per-datacenter, common"

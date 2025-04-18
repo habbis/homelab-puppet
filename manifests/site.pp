@@ -20,15 +20,21 @@ node default {
 node 'hf-puppet1*' {
 
 
-  class { "homelab-puppet::server_lite": }
+  #class { "homelab-puppet::server_lite": }
 
   # Configure puppetdb and its underlying database
-  class { 'puppetdb': }
+  #class { 'puppetdb': }
 
   # Configure the Puppet master to use puppetdb
-  class { 'puppetdb::master::config': }
+  #class { 'puppetdb::master::config': }
 
 
+}
+
+
+node 'hf-puppet-client*' {
+
+  class { "homelab-puppet::server_lite": }
 }
 
 
