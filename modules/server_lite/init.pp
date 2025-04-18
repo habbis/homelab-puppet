@@ -1,5 +1,5 @@
 # basic server setup
-class puppet_homelab::server_lite {
+class server_lite {
 
   include server_lite::sshd
   include server_lite::resolve_conf

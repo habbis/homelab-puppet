@@ -1,3 +1,8 @@
+
+
+node default {
+# Global - All code outside a node definition gets applied to all nodes
+#
 #
 # Global - All code outside a node definition gets applied to all nodes
 #
@@ -13,11 +18,13 @@ node default {
 
 
   #class { "homelab-puppet::server_lite": }
+  hiera_include('classe')
+  #lookup('classes').include
 
 
 }
 
-node 'hf-puppet1*' {
+node 'hf-puppet1' {
 
 
   #class { "homelab-puppet::server_lite": }
@@ -32,14 +39,10 @@ node 'hf-puppet1*' {
 }
 
 
-node 'hf-puppet-client*' {
+node 'hf-puppet-client1.dc1.ncop.no' {
+  include server_lite
 
-  class { "homelab-puppet::server_lite": }
+  #class { "homelab-puppet::server_lite": }
 }
 
 
-#
-# Use Hiera to classify nodes
-#
-
-#hiera_include('classes')
