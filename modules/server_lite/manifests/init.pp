@@ -1,7 +1,7 @@
 # basic server setup
 class server_lite {
   include server_lite::sshd
-  #include server_lite::resolve_conf
+  include server_lite::resolve_conf
   #include server_lite::bash_profile
   #include server_lite::packages
   #include server_lite::ansible_user

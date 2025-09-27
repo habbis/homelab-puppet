@@ -17,7 +17,7 @@ class server_lite::sshd::rhel inherits server_lite::sshd {
     file { '/etc/ssh/sshd_config':
       owner   => root,
       group   => root,
-      mode    => '0644',
+      mode    => '0600',
       content => template('server_lite/sshd/rhel/sshd_config.erb');
     }
 

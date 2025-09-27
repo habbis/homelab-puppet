@@ -14,10 +14,10 @@ class server_lite::sshd::debian inherits server_lite::sshd {
   }
 
   file { '/etc/ssh/sshd_config':
-    ensure => 'present',
-    owner  => root,
-    group  => root,
-    mode   => '0644',
+    ensure  => 'present',
+    owner   => root,
+    group   => root,
+    mode    => '0600',
     content => template('server_lite/sshd/debian/sshd_config.erb');
   }
 
