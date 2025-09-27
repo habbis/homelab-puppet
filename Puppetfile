@@ -7,6 +7,7 @@ mod 'puppetlabs-inifile', '6.2.0'
 mod 'puppetlabs-postgresql', '10.5.0'
 mod 'puppetlabs-concat', '9.1.0'
 mod 'puppetlabs-patching_as_code', '2.0.1'
+mod 'puppetlabs-apt', '11.1.0'
 
 #mod 'habbfarm_puppet',
 #  :git => 'git@github.com:habbfarm/habbfarm_puppet.git',
