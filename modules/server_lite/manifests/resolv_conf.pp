@@ -8,10 +8,10 @@ class server_lite::resolv_conf {
   }
 
   file { '/etc/resolv.conf':
-    ensure => present,
-    owner  => root,
-    group  => root,
-    mode   => '0644',
-    source => template('server_lite/resolv_conf/resolv.conf.erb'),
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => template('server_lite/resolv_conf/resolv.conf.erb'),
   }
 }
