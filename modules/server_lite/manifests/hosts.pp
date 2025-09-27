@@ -1,5 +1,5 @@
 #basic setup for /etc/hosts
-class puppet_homelab::server_lite::hosts {
+class server_lite::hosts {
   file {
     '/etc/hosts':
       mode    => '0644',
