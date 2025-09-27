@@ -1,6 +1,5 @@
 # Class for basic packages we want on all servers
-class :server_lite::packages {
-
+class server_lite::packages {
   package {
     'sude':          ensure => installed;
     'file':          ensure => installed;
@@ -15,9 +14,11 @@ class :server_lite::packages {
     'python3-pip':   ensure => installed;
   }
 
-
-  case $::osfamily {
+  case $facts['os']['name'] {
     'Debian': { include server_lite::packages::debian }
     'RedHat': { include server_lite::packages::redhat }
+    default: {
+      include server_lite::sshd::rhel
+    }
   }
 }

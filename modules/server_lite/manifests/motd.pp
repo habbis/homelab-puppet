@@ -1,3 +1,4 @@
+# Class to setup message of the day.
 class server_lite::motd {
   file {
     '/etc/motd':

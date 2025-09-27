@@ -11,7 +11,6 @@ class server_lite::packages::redhat {
       'net-tools': ensure => installed;
       'tldr': ensure => installed;
       'yum-utils': ensure => installed;
-
     }
   }
 }

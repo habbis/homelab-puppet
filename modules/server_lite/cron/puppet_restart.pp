@@ -1,5 +1,6 @@
+# Class to restart puppet agent.
 class server_lite::cron::puppet_restart {
-  unless $::osfamily == 'windows' {
+  unless $facts['os']['name'] == 'windows' {
     cron { 'puppet-restart':
       ensure      => 'present',
       environment => 'PATH=/bin:/sbin:/usr/bin:/usr/sbin',
