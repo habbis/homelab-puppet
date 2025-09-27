@@ -1,0 +1,6 @@
+---
+classes:
+  - puppetdb 
+   
+puppetdb::puppetdb_package: openvoxdb
+puppetdb::master::config::terminus_package: openvoxdb-termini
