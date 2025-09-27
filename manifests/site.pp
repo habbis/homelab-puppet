@@ -10,17 +10,14 @@
 #
 
 node default {
-  #class { "homelab-puppet::server_lite": }
+# this is magic: it will include whatever classes says we should
+# include, based on the value of the "classes" array
   hiera_include('classes')
 }
 
-node 'hf-puppet1.dc1.ncop.no' {
+node 'hf-t-puppet1.dc1.ncop.no' {
   # Configure puppetdb and its underlying database
   class { 'puppetdb': }
   # Configure the Puppet master to use puppetdb
   class { 'puppetdb::master::config': }
 }
-#
-# Use Hiera to classify nodes
-#
-
