@@ -11,6 +11,7 @@
 
 node default {
   #class { "homelab-puppet::server_lite": }
+  hiera_include('classes')
 }
 
 node 'hf-puppet1.dc1.ncop.no' {
@@ -23,4 +24,3 @@ node 'hf-puppet1.dc1.ncop.no' {
 # Use Hiera to classify nodes
 #
 
-#hiera_include('classes')
