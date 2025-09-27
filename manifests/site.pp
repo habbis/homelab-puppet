@@ -10,28 +10,15 @@
 #
 
 node default {
-
-
   #class { "homelab-puppet::server_lite": }
-
-
 }
 
-node 'hf-puppet1*' {
-
-
-  class { "homelab-puppet::server_lite": }
-
+node 'hf-puppet1.dc1.ncop.no' {
   # Configure puppetdb and its underlying database
   class { 'puppetdb': }
-
   # Configure the Puppet master to use puppetdb
   class { 'puppetdb::master::config': }
-
-
 }
-
-
 #
 # Use Hiera to classify nodes
 #
