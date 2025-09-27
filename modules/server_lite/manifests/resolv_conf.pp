@@ -11,6 +11,6 @@ class server_lite::resolv_conf {
     owner  => root,
     group  => root,
     mode   => '0644',
-    source => 'puppet:///modules/server_lite/resolv_conf/resolv.conf',
+    source => 'puppet:///modules/server_lite/resolv.conf',
   }
 }
