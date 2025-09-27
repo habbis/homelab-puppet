@@ -1,7 +1,6 @@
 # Class to install nrpe on debian and ubuntu
-class server_lite::sshd::rhel inherits puppet_homelab::sshd {
-
- if $facts['os']['family'] =='RedHat' {
+class server_lite::sshd::rhel inherits server_lite::sshd {
+  if $facts['os']['family'] =='RedHat' {
     package {
       'openssh-server':       ensure => installed;
     }
@@ -16,9 +15,9 @@ class server_lite::sshd::rhel inherits puppet_homelab::sshd {
     }
 
     file { '/etc/ssh/sshd_config':
-      owner  => root,
-      group  => root,
-      mode   => '0644',
+      owner   => root,
+      group   => root,
+      mode    => '0644',
       content => template('server_lite/sshd/rhel/sshd_config.erb');
     }
 
@@ -27,5 +26,4 @@ class server_lite::sshd::rhel inherits puppet_homelab::sshd {
         command     => '/usr/bin/systemctl restart sshd',
         refreshonly => true;
     }
-
-}
+  }
