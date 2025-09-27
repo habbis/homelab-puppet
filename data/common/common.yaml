@@ -1,6 +1,5 @@
 ---
 classes:
-  #- homelab::server_lite
   - server_lite
 
 
