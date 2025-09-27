@@ -1,9 +1,10 @@
 # Class to setuo resolve.conf and disable systemd-resolved.
 class server_lite::resolv_conf {
-  exec {
-    'disable_systemd_resolv':
-      path    => ['/bin'],
-      command => 'systemctl disable --now systemd-resolved.service',
+  service {
+    'systemd-resolved':
+      ensure    => stopped,
+      enable    => false,
+      hasstatus => true,
   }
 
   file { '/etc/resolv.conf':
@@ -11,6 +12,6 @@ class server_lite::resolv_conf {
     owner  => root,
     group  => root,
     mode   => '0644',
-    source => 'puppet:///modules/server_lite/resolv.conf',
+    source => template('server_lite/resolv.conf.erb'),
   }
 }
