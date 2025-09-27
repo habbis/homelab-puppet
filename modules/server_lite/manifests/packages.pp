@@ -1,7 +1,7 @@
 # Class for basic packages we want on all servers
 class server_lite::packages {
   package {
-    'sude':          ensure => installed;
+    'sudo':          ensure => installed;
     'file':          ensure => installed;
     'wget':          ensure => installed;
     'less':          ensure => installed;
