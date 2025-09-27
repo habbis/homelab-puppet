@@ -1,3 +1,5 @@
+moduledir 'modules2'
+
 #mod 'puppetlabs-ntp', '9.2.0'
 #mod 'puppetlabs-stdlib', '8.5.0'
 mod 'puppetlabs-puppetdb', '8.1.0'

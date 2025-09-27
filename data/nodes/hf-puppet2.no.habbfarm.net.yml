@@ -1,0 +1,3 @@
+---
+puppetdb
+puppetdb::master::config

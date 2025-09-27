@@ -1,22 +1,22 @@
 ---
 version: 5
-backends:
+defaults:
   datadir: data
+  #datadir: "/etc/puppetlabs/code/environments/%{environment}/data"
   data_hash: yaml_data
 hierarchy:
-  - name: "Secret data: per-node, per-datacenter, common"
-    lookup_key: eyaml_lookup_key # eyaml backend
+  - name: 'YAML hierarchy levels'
     paths:
-      - "secrets/nodes/%{trusted.certname}.eyaml"  # Include explicit file extension
-      - "secrets/location/%{facts.whereami}.eyaml"
-      - "common.eyaml"
+      - 'nodes/%{trusted.certname}.yaml'
+      - 'hosters/%{hoster}.yaml'
+  - name: 'Common secret data'
+    lookup_key: eyaml_lookup_key
+    paths:
+      - 'secrets/common.eyaml'
     options:
       pkcs7_private_key: /etc/puppetlabs/puppet/eyaml/private_key.pkcs7.pem
       pkcs7_public_key:  /etc/puppetlabs/puppet/eyaml/public_key.pkcs7.pem
-  - name: "Normal data"
-    data_hash: yaml_data
-      - "node/%{trusted.certname}"
-      - "role/%{role}"
-      - "location/%{location}"
-      - "common.yaml"
-
+  - name: "More common options"
+    glob: "common/*.yaml"
+  - name: "Common YAML hierarchy level"
+    path: 'common.yaml'
