@@ -7,7 +7,7 @@
 #pool ntp03.no.habbfarm.net iburst
 
 # dns roundrobin
-<% pool scope['server_lite::ntp_server'] iburst -%>
+<%= pool scope['server_lite::ntp_server'] iburst %>
 
 # Record the rate at which the system clock gains/losses time.
 driftfile /var/lib/chrony/drift
