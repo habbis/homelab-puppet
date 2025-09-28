@@ -13,17 +13,18 @@ class server_lite::ansible_user {
       ensure => present,
     }
 
-    file { '/home/ebbestad/.ssh/authorized_keys2':
-      ensure  => file,
-      backup  => false,
-      content => template('server_lite/sshkeys/authorized_keys.erb'),
-      mode    => '0600',
-    }
     file { '/home/ansible/.ssh':
       ensure => 'directory',
       owner  => 'ansible',
       group  => 'ansible',
       mode   => '0700',
+    }
+
+    file { '/home/ebbestad/.ssh/authorized_keys2':
+      ensure  => file,
+      backup  => false,
+      content => template('server_lite/sshkeys/authorized_keys.erb'),
+      mode    => '0600',
     }
   }
 }
