@@ -21,7 +21,7 @@ class server_lite::ansible_user {
     }
 
     file { '/home/ebbestad/.ssh/authorized_keys2':
-      ensure  => file,
+      ensure  => present,
       backup  => false,
       content => template('server_lite/sshkeys/authorized_keys.erb'),
       mode    => '0600',
