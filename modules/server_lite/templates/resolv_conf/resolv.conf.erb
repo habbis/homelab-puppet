@@ -1,6 +1,6 @@
 ##
 # managed by puppet
 ##
-search <% pool scope['server_lite::search'] -%>
-nameserver <% pool scope['server_lite::nameserver1'] -%>
-nameserver <% pool scope['server_lite::nameserver2'] -%>
+search <% scope['server_lite::search'] -%>
+nameserver <% scope['server_lite::nameserver1'] -%>
+nameserver <% scope['server_lite::nameserver2'] -%>
