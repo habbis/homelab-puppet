@@ -1,4 +1,0 @@
-##
-# File under puppet control
-##
-%ansible ALL=(ALL) NOPASSWD:ALL
