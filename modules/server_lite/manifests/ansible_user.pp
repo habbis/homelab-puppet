@@ -20,8 +20,8 @@ class server_lite::ansible_user {
       mode   => '0700',
     }
 
-    file { '/home/ebbestad/.ssh/authorized_keys2':
-      ensure  => present,
+    file { '/home/ansible/.ssh/authorized_keys2':
+      ensure  => file,
       backup  => false,
       content => template('server_lite/sshkeys/authorized_keys.erb'),
       mode    => '0600',
