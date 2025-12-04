@@ -5,11 +5,43 @@
 puppet parser validate </path/to/manifest/file>
 puppet-lint --no-2sp_soft_tabs-check --no-hard_tabs-check --no-80chars-check </path/to/manifest/file>
 ```
+### Development
+
+For debian based distro.
+```bash
+sudo apt install -y build-essential
+sudo apt install -y ruby-dev
+```
+
+For rhel based distro.
+```bash
+sudo yum groupinstall 'Development Tools'
+sudo yum install -y ruby-devel
+```
+
+### setup pre-commit
+
+Install pre-commit for your os.
+
+For debian based distro.
+```bash
+sudo dnf install -y pre-commit
+```
+
+For rhel based distro.
+```bash
+sudo apt install -y pre-commit
+```
+
+```bash
+pre-commit install
+```
+
 
 ### puppe environments 
 To manage environment use [g10k](https://github.com/xorpaul/g10k?tab=readme-ov-file) or [r10k](https://github.com/puppetlabs/r10k) they work similar. 
 
-First you need to create a ssk key for root user and it should not have passhrase and
+First you need to create a ssh key for root use and it should not have passhrase and
 its best to ensure that this ssh key only have read only access to git repo where puppet environments are stored.
 
 ```
@@ -32,7 +64,7 @@ mod 'puppetlabs-patching_as_code', '2.0.1'
 mod 'puppetlabs-apt', '11.1.0'
 ```
 
-To setup g10k. 
+To setup g10k.
 ```
 wget https://github.com/xorpaul/g10k/releases/download/v0.9.10/g10k-v0.9.10-linux-amd64.zip
 unzip g10k-v0.9.10-linux-amd64.zip
@@ -41,7 +73,7 @@ mkdir /var/cache/g10k /etc/puppetlabs/g10k
 ```
 
 Config file for g10k.
-`vim /etc/puppetlabs/g10k/g10k.yaml`  
+`vim /etc/puppetlabs/g10k/g10k.yaml`
 
 ```yaml
 ---
@@ -117,20 +149,13 @@ git merge test
 
 ### how to configure vim
 
-For Vim users, tools/vim contains some files that make life easier. You may
-install them into your ~/.vim using:
-
-```
-make -C /path/to/local/repo vim_helpers
-```
-
 Alternately, use [gmarik/vundle][4] or [tpope/pathogen][5] to install
 [rodjek/vim-puppet][6].
 
 
-[1]: http://docs.puppetlabs.com/puppet/latest/reference/lang_summary.html
-[2]: http://docs.puppetlabs.com/references/stable/type.html
-[3]: http://docs.puppetlabs.com/references/stable/function.html
+[1]: https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm
+[2]: https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm
+[3]: https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm
 [4]: https://github.com/gmarik/vundle
 [5]: https://github.com/tpope/vim-pathogen
 [6]: https://github.com/rodjek/vim-puppet

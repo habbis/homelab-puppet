@@ -1,6 +1,5 @@
 #Class for Debian specific packages
 class server_lite::packages::debian {
-
   package {
     'chase':     ensure => installed;
     'iotop':     ensure => installed;

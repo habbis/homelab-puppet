@@ -1,6 +1,6 @@
 # Class for setup ansible user
 class server_lite::ansible_user {
-  if $kernel == 'Linux' {
+  if $facts['os'] == 'Linux' {
     user { 'ansible':
       ensure     => present,
       home       => '/home/ansible',
