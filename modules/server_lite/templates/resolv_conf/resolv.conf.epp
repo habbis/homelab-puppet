@@ -1,0 +1,6 @@
+##
+# managed by puppet
+##
+search <%= $server_lite::search %>
+nameserver <%= $server_lite::nameserver1 %>
+nameserver <%= $server_lite::nameserver2 %>

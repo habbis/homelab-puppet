@@ -12,6 +12,6 @@ class server_lite::resolv_conf {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('server_lite/resolv_conf/resolv.conf.erb'),
+    content => epp('server_lite/resolv_conf/resolv.conf.epp'),
   }
 }

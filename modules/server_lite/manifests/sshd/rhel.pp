@@ -1,6 +1,5 @@
 # Class to install nrpe on debian and ubuntu
 class server_lite::sshd::rhel inherits server_lite::sshd {
-  if $facts['os']['family'] =='RedHat' {
     package {
       'openssh-server':       ensure => installed;
     }
@@ -15,6 +14,7 @@ class server_lite::sshd::rhel inherits server_lite::sshd {
     }
 
     file { '/etc/ssh/sshd_config':
+      ensure  => 'present',
       owner   => root,
       group   => root,
       mode    => '0600',
