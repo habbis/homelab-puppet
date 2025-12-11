@@ -178,6 +178,8 @@ git merge test
 Alternately, use [gmarik/vundle](https://github.com/gmarik/vundle) or [tpope/pathogen](https://github.com/tpope/vim-pathogen) to install
 [rodjek/vim-puppet](https://github.com/rodjek/vim-puppet).
 
-[puppet_language](https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm)
-[lang_data_type_list](https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm)
-[function](https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm)
+### links to puppet doc
+
+- [puppet_language](https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm)
+- [lang_data_type_list](https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm)
+- [function](https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm)
