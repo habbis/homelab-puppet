@@ -175,13 +175,9 @@ git merge test
 
 ### how to configure vim
 
-Alternately, use [gmarik/vundle][1] or [tpope/pathogen][2] to install
-[rodjek/vim-puppet][3].
+Alternately, use [gmarik/vundle](https://github.com/gmarik/vundle) or [tpope/pathogen](https://github.com/tpope/vim-pathogen) to install
+[rodjek/vim-puppet](https://github.com/rodjek/vim-puppet).
 
 [puppet_language](https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm)
 [lang_data_type_list](https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm)
 [function](https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm)
-[1]: https://github.com/gmarik/vundle
-[2]: https://github.com/tpope/vim-pathogen
-[3]: https://github.com/rodjek/vim-puppet
-
