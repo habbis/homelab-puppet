@@ -1,8 +1,10 @@
-# Class for installing squid on linux server
+# Class for installing squid on unix server
 class server_lite::ntp_client {
+ if $facts['kernel'] == 'Linux' {
   package {
     'chrony':  ensure => installed;
   }
+ }
 
   if  $facts['os']['family'] =='RedHat' {
     file { '/etc/chrony.conf':
@@ -34,6 +36,22 @@ class server_lite::ntp_client {
       'chrony':
         ensure     => running,
         require    => Package['chrony'],
+        enable     => true,
+        hasstatus  => true,
+        hasrestart => true;
+    }
+  }
+  if $facts['os']['family'] =='FreeBSD' {
+    file { '/etc/ntp.conf':
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0644',
+      content => template('server_lite/ntpd/freebsd_ntp.conf.erb');
+    }
+    service {
+      'ntpd':
+        ensure     => running,
         enable     => true,
         hasstatus  => true,
         hasrestart => true;
