@@ -179,10 +179,10 @@ Alternately, use [gmarik/vundle][4] or [tpope/pathogen][5] to install
 [rodjek/vim-puppet][6].
 
 
-[1]: https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm
-[2]: https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm
-[3]: https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm
-[4]: https://github.com/gmarik/vundle
-[5]: https://github.com/tpope/vim-pathogen
-[6]: https://github.com/rodjek/vim-puppet
+1 https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm
+2 https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm
+3 https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm
+4 https://github.com/gmarik/vundle
+5 https://github.com/tpope/vim-pathogen
+6 https://github.com/rodjek/vim-puppet
 
