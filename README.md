@@ -98,13 +98,17 @@ Install via puppet gem.
 /opt/puppetlabs/puppet/bin/gem install r10k
 ```
 
-Setup dir.
+Setup dir on linux.
 ```bash
 mkdir /etc/puppetlabs/r10k
 ```
 
+Setup dir on freebsd.
+```bash
+mkdir /usr/local/etc/r10k
+```
 
-Config file for r10k.
+Config file for r10k on linux.
 `vim /etc/puppetlabs/r10k/r10k.yaml`
 
 ```yaml
@@ -113,6 +117,28 @@ cachedir: '/var/cache/r10k'
 sources:
   homelab-puppet:
     remote:  'git@github.com:habbis/homelab-puppet.git'
+    basedir: '/etc/puppetlabs/code/environments'
+```
+
+Config file for r10k on freebsd.
+` vim /usr/local/etc/r10k/r10k.yaml
+
+```yaml
+cachedir: '/var/puppet/r10k/cache'
+
+sources:
+  homelab-puppet:
+    remote:  'https://github.com/habbis/homelab-puppet.git'
+    basedir: '/usr/local/etc/puppet/code/environments'
+```
+
+If repo is public you can clone using https
+```yaml
+cachedir: '/var/cache/r10k'
+
+sources:
+  homelab-puppet:
+    remote:  'https://github.com/habbis/homelab-puppet.git'
     basedir: '/etc/puppetlabs/code/environments'
 ```
 
