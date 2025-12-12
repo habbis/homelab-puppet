@@ -20,7 +20,7 @@ sudo yum install -y ruby-devel
 ```
 
 For all install gem
-```
+```bash
 gem install racc
 ```
 
@@ -38,10 +38,16 @@ For rhel based distro.
 sudo apt install -y pre-commit
 ```
 
+Install pre-commit.
+
 ```bash
 pre-commit install
 ```
 
+Run pre-commit.
+```bash
+pre-commit run --all-files
+```
 
 ### puppe environments 
 To manage environment use [g10k](https://github.com/xorpaul/g10k?tab=readme-ov-file) or [r10k](https://github.com/puppetlabs/r10k) they work similar. 
