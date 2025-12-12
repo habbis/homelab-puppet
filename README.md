@@ -155,7 +155,7 @@ sources:
 
 To run.
 ```
-r10k deploy environment
+r10k deploy environment -v
 ```
 
 

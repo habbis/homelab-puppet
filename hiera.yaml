@@ -2,7 +2,7 @@
 version: 5
 defaults:
   datadir: data
-  #datadir: "/etc/puppetlabs/code/environments/%{environment}/data"
+  # datadir: "/etc/puppetlabs/code/environments/%{environment}/data"
   data_hash: yaml_data
 hierarchy:
   - name: 'YAML hierarchy levels'
@@ -15,7 +15,7 @@ hierarchy:
       - 'secrets/common.eyaml'
     options:
       pkcs7_private_key: /etc/puppetlabs/puppet/eyaml/private_key.pkcs7.pem
-      pkcs7_public_key:  /etc/puppetlabs/puppet/eyaml/public_key.pkcs7.pem
+      pkcs7_public_key: /etc/puppetlabs/puppet/eyaml/public_key.pkcs7.pem
   - name: "More common options"
     glob: "common/*.yaml"
   - name: "Common YAML hierarchy level"
