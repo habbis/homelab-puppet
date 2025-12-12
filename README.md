@@ -19,6 +19,11 @@ sudo yum groupinstall 'Development Tools'
 sudo yum install -y ruby-devel
 ```
 
+For all install gem
+```
+gem install racc
+```
+
 ### setup pre-commit
 
 Install pre-commit for your os.

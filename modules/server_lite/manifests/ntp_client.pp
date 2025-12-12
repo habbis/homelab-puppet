@@ -1,10 +1,10 @@
 # Class for installing squid on unix server
 class server_lite::ntp_client {
- if $facts['kernel'] == 'Linux' {
+  if $facts['kernel'] == 'Linux' {
   package {
     'chrony':  ensure => installed;
+    }
   }
- }
 
   if  $facts['os']['family'] =='RedHat' {
     file { '/etc/chrony.conf':
