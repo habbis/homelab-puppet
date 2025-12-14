@@ -1,4 +1,4 @@
-# Class for installing squid on unix server
+# Class for setting up ntp client on unix server
 class server_lite::ntp_client {
   if $facts['kernel'] == 'Linux' {
   package {

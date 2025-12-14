@@ -1,6 +1,6 @@
 # Class for setup ansible user
 class server_lite::ansible_user {
-  if $facts['os'] == 'Linux' {
+  if $facts['os']['name'] == 'Linux' {
     user { 'ansible':
       ensure     => present,
       home       => '/home/ansible',
@@ -27,7 +27,7 @@ class server_lite::ansible_user {
       mode    => '0600',
     }
   }
-  if $facts['os'] == 'FreeBSD' {
+  if $facts['os']['name'] == 'FreeBSD' {
     user { 'ansible':
       ensure     => present,
       home       => '/home/ansible',
