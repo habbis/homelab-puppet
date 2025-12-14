@@ -35,7 +35,7 @@ class server_lite::root_user {
     file { '/root/.ssh':
       ensure => 'directory',
       owner  => 'root',
-      group  => 'whee',
+      group  => 'wheel',
       mode   => '0700',
     }
 
