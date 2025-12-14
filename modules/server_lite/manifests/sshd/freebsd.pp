@@ -14,7 +14,8 @@ class server_lite::sshd::freebsd inherits server_lite::sshd {
     owner   => root,
     group   => wheel,
     mode    => '0600',
-    content => template('server_lite/sshd/freebsd/sshd_config.erb');
+    # content => template('server_lite/sshd/freebsd/sshd_config.erb');
+    content => epp('server_lite/sshd/freebsd/sshd_config.epp');
   }
 
   exec {
