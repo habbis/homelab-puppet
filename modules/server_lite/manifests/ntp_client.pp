@@ -45,7 +45,7 @@ class server_lite::ntp_client {
     file { '/etc/ntp.conf':
       ensure  => present,
       owner   => root,
-      group   => root,
+      group   => wheel,
       mode    => '0644',
       content => template('server_lite/ntpd/freebsd_ntp.conf.erb');
     }
