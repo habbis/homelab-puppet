@@ -32,6 +32,12 @@ class server_lite::root_user {
       ensure => present,
     }
 
+  exec {
+    'root_change_shell':
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+      command => 'chsh -s /usr/local/bin/bash root',
+    }
+
     file { '/root/.ssh':
       ensure => 'directory',
       owner  => 'root',
