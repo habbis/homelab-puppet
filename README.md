@@ -19,6 +19,11 @@ sudo yum groupinstall 'Development Tools'
 sudo yum install -y ruby-devel
 ```
 
+For all install gem
+```bash
+gem install racc
+```
+
 ### setup pre-commit
 
 Install pre-commit for your os.
@@ -33,10 +38,16 @@ For rhel based distro.
 sudo apt install -y pre-commit
 ```
 
+Install pre-commit.
+
 ```bash
 pre-commit install
 ```
 
+Run pre-commit.
+```bash
+pre-commit run --all-files
+```
 
 ### puppe environments 
 To manage environment use [g10k](https://github.com/xorpaul/g10k?tab=readme-ov-file) or [r10k](https://github.com/puppetlabs/r10k) they work similar. 
@@ -98,13 +109,17 @@ Install via puppet gem.
 /opt/puppetlabs/puppet/bin/gem install r10k
 ```
 
-Setup dir.
+Setup dir on linux.
 ```bash
 mkdir /etc/puppetlabs/r10k
 ```
 
+Setup dir on freebsd.
+```bash
+mkdir /usr/local/etc/r10k
+```
 
-Config file for r10k.
+Config file for r10k on linux.
 `vim /etc/puppetlabs/r10k/r10k.yaml`
 
 ```yaml
@@ -116,9 +131,31 @@ sources:
     basedir: '/etc/puppetlabs/code/environments'
 ```
 
+Config file for r10k on freebsd.
+` vim /usr/local/etc/r10k/r10k.yaml
+
+```yaml
+cachedir: '/var/puppet/r10k/cache'
+
+sources:
+  homelab-puppet:
+    remote:  'https://github.com/habbis/homelab-puppet.git'
+    basedir: '/usr/local/etc/puppet/code/environments'
+```
+
+If repo is public you can clone using https
+```yaml
+cachedir: '/var/cache/r10k'
+
+sources:
+  homelab-puppet:
+    remote:  'https://github.com/habbis/homelab-puppet.git'
+    basedir: '/etc/puppetlabs/code/environments'
+```
+
 To run.
 ```
-r10k deploy environment
+r10k deploy environment -v
 ```
 
 
@@ -149,14 +186,11 @@ git merge test
 
 ### how to configure vim
 
-Alternately, use [gmarik/vundle][4] or [tpope/pathogen][5] to install
-[rodjek/vim-puppet][6].
+Alternately, use [gmarik/vundle](https://github.com/gmarik/vundle) or [tpope/pathogen](https://github.com/tpope/vim-pathogen) to install
+[rodjek/vim-puppet](https://github.com/rodjek/vim-puppet).
 
+### links to puppet doc
 
-[1]: https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm
-[2]: https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm
-[3]: https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm
-[4]: https://github.com/gmarik/vundle
-[5]: https://github.com/tpope/vim-pathogen
-[6]: https://github.com/rodjek/vim-puppet
-
+- [puppet_language](https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm)
+- [lang_data_type_list](https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm)
+- [function](https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm)

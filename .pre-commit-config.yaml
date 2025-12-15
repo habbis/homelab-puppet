@@ -1,4 +1,9 @@
+---
 repos:
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.37.1
+    hooks:
+      - id: yamllint
   - repo: https://github.com/chriskuehl/puppet-pre-commit-hooks.git
     rev: v2.2.0
     hooks:
