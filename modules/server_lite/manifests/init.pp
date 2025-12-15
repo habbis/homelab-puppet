@@ -17,5 +17,6 @@ class server_lite (
   contain server_lite::ntp_client
   contain server_lite::hosts
   contain server_lite::motd
+  contain server_lite::sysctl
   contain server_lite::cron::puppet_restart
 }
