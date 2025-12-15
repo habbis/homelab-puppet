@@ -14,13 +14,18 @@ class server_lite::sshd::freebsd inherits server_lite::sshd {
     owner   => root,
     group   => wheel,
     mode    => '0600',
-    # content => template('server_lite/sshd/freebsd/sshd_config.erb');
     content => epp('server_lite/sshd/freebsd/sshd_config.epp');
   }
 
   exec {
+    'ssh_enable':
+      command     => '/usr/sbin/sysrc sshd_enable="YES"',
+      refreshonly => true;
+  }
+
+  exec {
     'ssh_restart':
-      command     => '/usr/bin/systemctl restart sshd',
+      command     => '/usr/sbin/service sshd restart',
       refreshonly => true;
   }
 }
