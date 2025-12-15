@@ -19,13 +19,14 @@ class server_lite::sshd::freebsd inherits server_lite::sshd {
 
   exec {
     'ssh_enable':
-      command     => '/usr/sbin/sysrc sshd_enable="YES"',
-      refreshonly => true;
+      command => '/usr/sbin/sysrc sshd_enable="YES"',
+      unless  => 'grep ^sshd /etc/rc.conf 2>/dev/null';
   }
 
   exec {
     'ssh_restart':
       command     => '/usr/sbin/service sshd restart',
-      refreshonly => true;
+      subscribe   => File['/etc/ssh/sshd_config'],
+      refreshonly => true,
   }
 }
