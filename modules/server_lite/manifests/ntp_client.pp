@@ -41,7 +41,7 @@ class server_lite::ntp_client {
         hasrestart => true;
     }
   }
-  if $facts['os']['family'] =='FreeBSD' {
+  if $facts['os']['family'] == 'FreeBSD' {
     file { '/etc/ntp.conf':
       ensure  => present,
       owner   => root,

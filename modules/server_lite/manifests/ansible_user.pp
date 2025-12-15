@@ -13,6 +13,14 @@ class server_lite::ansible_user {
       ensure => present,
     }
 
+  file { '/etc/sudoers.d/00_ansible':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0550',
+    source => 'puppet:///modules/server_lite/sudo/00_ansible'
+    }
+
     file { '/home/ansible/.ssh':
       ensure => 'directory',
       owner  => 'ansible',
@@ -38,6 +46,14 @@ class server_lite::ansible_user {
 
     group { 'ansible':
       ensure => present,
+    }
+
+  file { '/usr/local/etc/sudoers.d/00_ansible':
+    ensure => present,
+    owner  => 'root',
+    group  => 'wheel',
+    mode   => '0550',
+    source => 'puppet:///modules/server_lite/sudo/00_ansible'
     }
 
     file { '/home/ansible/.ssh':
