@@ -35,6 +35,7 @@ class server_lite::root_user {
   exec {
     'root_change_shell':
       path    => ['/bin','/usr/bin', '/usr/sbin'],
+      unless  => 'grep /root:/usr/local/bin/bash /etc/passwd 2>/dev/null',
       command => 'chsh -s /usr/local/bin/bash root',
     }
 
