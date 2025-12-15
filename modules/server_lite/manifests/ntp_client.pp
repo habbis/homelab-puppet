@@ -49,6 +49,18 @@ class server_lite::ntp_client {
       mode    => '0644',
       content => template('server_lite/ntpd/freebsd_ntp.conf.erb');
     }
+  exec {
+    'ntpd_enable':
+      command => '/usr/sbin/sysrc ntpd_enable="YES"',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+      unless  => 'grep ^ntpd /etc/rc.conf 2>/dev/null';
+    }
+  exec {
+    'ntpd_sync_on_start':
+      command => '/usr/sbin/sysrc ntpd_sync_on_start="YES"',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+      unless  => 'grep ^ntpd_sync_on_start /etc/rc.conf 2>/dev/null';
+    }
     service {
       'ntpd':
         ensure     => running,
