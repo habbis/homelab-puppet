@@ -30,6 +30,8 @@ class server_lite::ansible_user {
     file { '/home/ansible/.ssh/authorized_keys2':
       ensure  => file,
       backup  => false,
+      owner   => 'ansible',
+      group   => 'ansible',
       content => template('server_lite/sshkeys/authorized_keys.erb'),
       mode    => '0600',
     }
@@ -65,6 +67,8 @@ class server_lite::ansible_user {
     file { '/home/ansible/.ssh/authorized_keys2':
       ensure  => file,
       backup  => false,
+      owner   => 'ansible',
+      group   => 'ansible',
       content => template('server_lite/sshkeys/authorized_keys.erb'),
       mode    => '0600',
     }
