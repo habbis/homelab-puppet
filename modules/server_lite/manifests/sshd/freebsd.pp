@@ -4,7 +4,7 @@ class server_lite::sshd::freebsd inherits server_lite::sshd {
   $file_path = '/etc/ssh/ssh_host_ecdsa_key'
   $file_exists = find_file($file_path)
 
-  unless $file_exists {
+  if $file_exists {
   file { '/etc/ssh/ssh_host_ecdsa_key':
     ensure => 'absent',
   }
@@ -31,25 +31,25 @@ class server_lite::sshd::freebsd inherits server_lite::sshd {
 
   exec {
     'ssh_disable_dsa':
-      command => '/usr/sbin/sysrc sshd_dsa_enable="no"',
+      command => '/usr/sbin/sysrc sshd_dsa_enable="NO"',
       path    => ['/bin','/usr/bin', '/usr/sbin'],
   }
 
   exec {
     'ssh_disable_ecdsa':
-      command => '/usr/sbin/sysrc sshd_ecdsa_enable="no"',
+      command => '/usr/sbin/sysrc sshd_ecdsa_enable="NO"',
       path    => ['/bin','/usr/bin', '/usr/sbin'],
   }
 
   exec {
     'ssh_enable_ed25519':
-      command => '/usr/sbin/sysrc sshd_ed25519_enable="yes"',
+      command => '/usr/sbin/sysrc sshd_ed25519_enable="YES"',
       path    => ['/bin','/usr/bin', '/usr/sbin'],
   }
 
   exec {
     'ssh_enable_rsa':
-      command => '/usr/sbin/sysrc sshd_rsa_enable="yes"',
+      command => '/usr/sbin/sysrc sshd_rsa_enable="YES"',
       path    => ['/bin','/usr/bin', '/usr/sbin'],
   }
 
