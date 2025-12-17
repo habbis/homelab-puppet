@@ -6,6 +6,7 @@ class server_lite::ansible_user {
       home       => '/home/ansible',
       shell      => '/bin/bash',
       managehome => true,
+      gid        => 'ansible',
     }
 
     group { 'ansible':
