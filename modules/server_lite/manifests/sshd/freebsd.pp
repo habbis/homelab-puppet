@@ -5,11 +5,29 @@ class server_lite::sshd::freebsd inherits server_lite::sshd {
   $file_exists = find_file($file_path)
 
   if $file_exists {
-  exec {
-    'rm_ssh_host_key':
-      command => '/bin/rm -f  /etc/ssh/ssh_host_*"',
-      path    => ['/bin','/usr/bin', '/usr/sbin'],
-    }
+  file { '/etc/ssh/ssh_host_ecdsa_key':
+    ensure => 'absent',
+  }
+
+  file { '/etc/ssh/ssh_host_ecdsa_key.pub':
+    ensure => 'absent',
+  }
+
+  file { '/etc/ssh/ssh_host_ed25519_key':
+    ensure => 'absent',
+  }
+
+  file { '/etc/ssh/ssh_host_ed25519_key.pub':
+    ensure => 'absent',
+  }
+
+  file { '/etc/ssh/ssh_host_rsa_key':
+    ensure => 'absent',
+  }
+
+  file { '/etc/ssh/ssh_host_rsa_key.pub':
+    ensure => 'absent',
+  }
 
   exec {
     'ssh_disable_dsa':
