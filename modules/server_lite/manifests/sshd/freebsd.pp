@@ -1,6 +1,54 @@
 # Class to install nrpe on debian and ubuntu
 class server_lite::sshd::freebsd inherits server_lite::sshd {
 
+  $file_path = '/etc/ssh/ssh_host_ecdsa_key'
+  $file_exists = find_file($file_path)
+
+  if $file_exists {
+  exec {
+    'rm_ssh_host_key':
+      command => '/bin/rm  /etc/ssh/ssh_host_*"',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+    }
+
+  exec {
+    'ssh_disable_dsa':
+      command => '/usr/sbin/sysrc sshd_dsa_enable="no"',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+  }
+
+  exec {
+    'ssh_disable_ecdsa':
+      command => '/usr/sbin/sysrc sshd_ecdsa_enable="no"',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+  }
+
+  exec {
+    'ssh_enable_ed25519':
+      command => '/usr/sbin/sysrc sshd_ed25519_enable="yes"',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+  }
+
+  exec {
+    'ssh_enable_rsa':
+      command => '/usr/sbin/sysrc sshd_rsa_enable="yes"',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+  }
+
+  exec {
+    'ssh_keygen':
+      command => '/usr/sbin/service sshd keygen',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+  }
+
+  exec {
+    'ssh_restart_once':
+      command => '/usr/sbin/service sshd restart',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+  }
+
+  }
+
   service {
     'sshd':
       ensure     => running,
@@ -25,7 +73,7 @@ class server_lite::sshd::freebsd inherits server_lite::sshd {
   }
 
   exec {
-    'ssh_restart':
+    'ssh_restart_default':
       command     => '/usr/sbin/service sshd restart',
       path        => ['/bin','/usr/bin', '/usr/sbin'],
       subscribe   => File['/etc/ssh/sshd_config'],
