@@ -10,7 +10,6 @@ class server_lite::packages::debian {
     'sysstat':   ensure => installed;
     'virt-what': ensure => installed;
     'net-tools': ensure => installed;
-    'tldr': ensure => installed;
     'netcat-openbsd': ensure => installed;
     'locales-all': ensure => installed;
     'psmisc': ensure => installed;
