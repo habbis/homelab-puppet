@@ -1,6 +1,6 @@
 # Class for setup ansible user
 class server_lite::ansible_user {
-  if $facts['os']['name'] == 'Linux' {
+  if $facts['kernel'] == 'Linux' {
     user { 'ansible':
       ensure     => present,
       home       => '/home/ansible',
@@ -31,6 +31,8 @@ class server_lite::ansible_user {
     file { '/home/ansible/.ssh/authorized_keys2':
       ensure  => file,
       backup  => false,
+      owner   => 'ansible',
+      group   => 'ansible',
       content => template('server_lite/sshkeys/authorized_keys.erb'),
       mode    => '0600',
     }
@@ -66,6 +68,8 @@ class server_lite::ansible_user {
     file { '/home/ansible/.ssh/authorized_keys2':
       ensure  => file,
       backup  => false,
+      owner   => 'ansible',
+      group   => 'ansible',
       content => template('server_lite/sshkeys/authorized_keys.erb'),
       mode    => '0600',
     }
