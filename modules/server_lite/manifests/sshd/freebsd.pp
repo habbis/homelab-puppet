@@ -7,7 +7,7 @@ class server_lite::sshd::freebsd inherits server_lite::sshd {
   if $file_exists {
   exec {
     'rm_ssh_host_key':
-      command => '/bin/rm  /etc/ssh/ssh_host_*"',
+      command => '/bin/rm -f  /etc/ssh/ssh_host_*"',
       path    => ['/bin','/usr/bin', '/usr/sbin'],
     }
 
