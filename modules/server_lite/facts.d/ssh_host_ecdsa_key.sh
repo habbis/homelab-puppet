@@ -6,4 +6,4 @@ if [ ! -f "$what" ]; then
         what="deleted"
 fi
 
-echo "ssh_host_ecdsa=$what"
+echo "ssh_host_ecdsa_key=$what"
