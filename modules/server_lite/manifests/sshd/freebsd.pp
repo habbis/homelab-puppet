@@ -1,10 +1,9 @@
-# Class to install nrpe on debian and ubuntu
+# Class to setup sshd on freebsd
 class server_lite::sshd::freebsd inherits server_lite::sshd {
 
   $file_path = '/etc/ssh/ssh_host_ecdsa_key'
-  $file_exists = find_file($file_path)
 
-  if $file_exists {
+  if $facts['ssh_host_ecdsa'] == $file_path {
   file { '/etc/ssh/ssh_host_ecdsa_key':
     ensure => 'absent',
     purge  => true,
