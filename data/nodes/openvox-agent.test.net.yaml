@@ -1,0 +1,5 @@
+---
+classes:
+  - patching
+
+patch_policy: 010000
