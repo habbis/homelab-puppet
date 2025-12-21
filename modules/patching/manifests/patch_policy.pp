@@ -1,7 +1,7 @@
 # Class for setting patche policy unix server
 class patching::patch_policy (
   #$patch_policy  = '000000',
-  $patch_policy2 = String($patch_policy),) {
+  $patch_policy2 = String($patching::patch_policy),) {
     #validate_string($patch_policy2)
 
   # Convert $patch_policy to humane readable $patch_policy_content
