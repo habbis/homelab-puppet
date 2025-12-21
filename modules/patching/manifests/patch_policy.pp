@@ -1,11 +1,10 @@
 # Class for setting patche policy unix server
 class patching::patch_policy (
-  #$patch_policy  = '000000',
-  $patch_policy2 = String($patching::patch_policy),) {
+  $patch_policy = String($patching::patch_policy),) {
     #validate_string($patch_policy2)
 
   # Convert $patch_policy to humane readable $patch_policy_content
-  case $patch_policy2 {
+  case $patch_policy {
     '000000':   {$patch_policy_content = 'policy: 000000 - No patche poliy has been set!'}
     '010000':   {$patch_policy_content = 'policy: 010000 - Wednesday one week after Patch Tuesday kl 03:00'}
     '010100':   {$patch_policy_content = 'policy: 010100 - Wednesday one week after Patch Tuesday kl 07:00'}
@@ -25,7 +24,7 @@ class patching::patch_policy (
     '040200':   {$patch_policy_content = 'policy: 040200 - No patching, Restart only. Each 3. Wednesday kl 01:00'}
     '040300':   {$patch_policy_content = 'policy: 040300 - No patching, Restart only. Each 3. Wednesday kl 10:00 (daytime)"'}
     default:  {
-      $patch_policy_content = "policy: Invalid parameter - ${patch_policy2}"
+      $patch_policy_content = "policy: Invalid parameter - ${patch_policy}"
       }
   }
 
