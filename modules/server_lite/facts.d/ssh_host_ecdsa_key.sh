@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-what="$(ls /etc/ssh/ssh_host_ecdsa_key /dev/null 2>&1)"
+what="$(find / -name ssh_host_ecdsa_key)"
 
-if [ ! -f "$what" ]; then
+if [ ! -n "$what" ]; then
         what="deleted"
 fi
 

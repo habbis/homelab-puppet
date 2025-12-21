@@ -3,7 +3,7 @@ class server_lite::sshd::freebsd inherits server_lite::sshd {
 
   $file_path = '/etc/ssh/ssh_host_ecdsa_key'
 
-  if $facts['ssh_host_ecdsa'] == $file_path {
+  if $facts['ssh_host_ecdsa_key'] == $file_path {
   file { '/etc/ssh/ssh_host_ecdsa_key':
     ensure => 'absent',
     purge  => true,
