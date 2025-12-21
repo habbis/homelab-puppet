@@ -2,4 +2,4 @@
 classes:
   - patching
 
-patching::patch_policy: 010000
+patching::patch_policy: '010000'
