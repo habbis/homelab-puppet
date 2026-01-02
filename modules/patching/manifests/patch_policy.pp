@@ -4,6 +4,7 @@ class patching::patch_policy (
     #validate_string($patch_policy2)
 
   # Convert $patch_policy to humane readable $patch_policy_content
+  # test comment
   case $patch_policy {
     '000000':   {$patch_policy_content = 'policy: 000000 - No patche poliy has been set!'}
     '010000':   {$patch_policy_content = 'policy: 010000 - Wednesday one week after Patch Tuesday kl 03:00'}
