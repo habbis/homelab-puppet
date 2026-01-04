@@ -1,0 +1,5 @@
+---
+classes:
+  - patching
+
+patching::patch_policy: '010100'
