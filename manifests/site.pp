@@ -15,9 +15,13 @@ node default {
   hiera_include('classes')
 }
 
-node 'hf-t-puppet1.dc1.ncop.no' {
+node 'openvox-server.test.net' {
   # Configure puppetdb and its underlying database
-  #class { 'puppetdb': }
+  class { 'puppetdb': }
   # Configure the Puppet master to use puppetdb
   #class { 'puppetdb::master::config': }
+  class { 'puppetboard':
+    manage_virtualenv => true,
+    secret_key        => fqdn_rand_string(32),
+  }
 }
