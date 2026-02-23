@@ -20,4 +20,8 @@ node 'openvox-server.test.net' {
   class { 'puppetdb': }
   # Configure the Puppet master to use puppetdb
   #class { 'puppetdb::master::config': }
+  class { 'puppetboard':
+    manage_virtualenv => true,
+    secret_key        => fqdn_rand_string(32),
+  }
 }
