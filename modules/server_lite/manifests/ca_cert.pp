@@ -32,6 +32,12 @@ class server_lite::ca_cert {
     }
   }
   if $facts['os']['family'] == 'FreeBSD' {
+    file { '/usr/local/etc/ssl':
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'wheel',
+      mode   => '0644',
+    }
     file { '/usr/local/etc/ssl/certs':
       ensure => 'directory',
       owner  => 'root',
