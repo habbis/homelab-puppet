@@ -1,9 +1,5 @@
 # Class to install nrpe on debian and ubuntu
 class server_lite::sshd::rhel inherits server_lite::sshd {
-    package {
-      'openssh-server':       ensure => installed;
-    }
-
     service {
       'sshd':
         ensure     => running,
@@ -22,7 +18,7 @@ class server_lite::sshd::rhel inherits server_lite::sshd {
     }
 
     exec {
-      'ssh_restart':
+      'ssh_restart_rhel':
         command     => '/usr/bin/systemctl restart sshd',
         refreshonly => true;
     }
