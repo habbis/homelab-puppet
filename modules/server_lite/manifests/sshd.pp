@@ -8,4 +8,7 @@ class server_lite::sshd {
       include server_lite::sshd::rhel
     }
   }
+  if $facts['kernel'] == 'Linux' {
+  include server_lite::sshd::linux_start_restard_sshd
+  }
 }

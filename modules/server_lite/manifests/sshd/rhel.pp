@@ -1,4 +1,4 @@
-# Class to install nrpe on debian and ubuntu
+# Class to deploy sshd config
 class server_lite::sshd::rhel inherits server_lite::sshd {
     service {
       'sshd':
