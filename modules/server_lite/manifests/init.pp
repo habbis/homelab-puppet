@@ -19,4 +19,5 @@ class server_lite (
   contain server_lite::motd
   contain server_lite::sysctl
   contain server_lite::cron::puppet_restart
+  contain server_lite::ca_cert
 }

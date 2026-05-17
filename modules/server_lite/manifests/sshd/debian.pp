@@ -32,7 +32,7 @@ class server_lite::sshd::debian inherits server_lite::sshd {
     }
 
   exec {
-    'ssh_restart':
+    'ssh_restart_debian':
       command     => '/usr/bin/systemctl restart sshd',
       path        => ['/bin','/usr/bin', '/usr/sbin'],
       subscribe   => File['/etc/ssh/sshd_config'],
