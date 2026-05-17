@@ -1,6 +1,7 @@
 ---
 classes:
-  - puppetdb
+  - openvoxdb
 
-puppetdb::puppetdb_package: openvoxdb
-puppetdb::master::config::terminus_package: openvoxdb-termini
+#openvoxdb::openvoxdb_package: openvoxdb
+#openvoxdb::master::config::terminus_package: openvoxdb-termini
+#openvoxdb::ssl_deploy_certs: true
