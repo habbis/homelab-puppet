@@ -1,7 +1,9 @@
 ---
 classes:
   - patching_as_code
+  - ntp_server
 
 
 patching_as_code::patch_group: always
 server_lite::ntp_server: true
+ntp_server:ntp_pool: "0.no.pool.ntp.org"
