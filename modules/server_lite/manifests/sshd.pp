@@ -1,5 +1,9 @@
 # Class for installing ssh on linux servers
 class server_lite::sshd {
+  if $facts['kernel'] == 'Linux' {
+  include server_lite::sshd::linux_install_ssh
+  }
+
   case $facts['os']['name'] {
     'RedHat': { include server_lite::sshd::rhel }
     'Debian': { include server_lite::sshd::debian }
@@ -8,7 +12,8 @@ class server_lite::sshd {
       include server_lite::sshd::rhel
     }
   }
+
   if $facts['kernel'] == 'Linux' {
-  include server_lite::sshd::linux_start_restard_sshd
+  include server_lite::sshd::linux_start_sshd
   }
 }
