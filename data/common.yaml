@@ -8,6 +8,7 @@ server_lite::search: 'no.habbfarm.net habbfarm.net ncop.no dc1.ncop.no'
 server_lite::nameserver1: '10.17.2.2'
 server_lite::nameserver2: '10.17.2.3'
 server_lite::ntp_server: false
+server_lite::dns_resolver: false
 
 patching_as_code::patch_schedule:
   group_monday:
