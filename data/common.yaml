@@ -7,3 +7,4 @@ server_lite::ntp_pool: 'pool.habbfarm.net'
 server_lite::search: 'no.habbfarm.net habbfarm.net ncop.no dc1.ncop.no'
 server_lite::nameserver1: '10.17.2.2'
 server_lite::nameserver2: '10.17.2.3'
+server_lite::ntp_server: false
