@@ -1,6 +1,6 @@
 # Class to setup message of the day.
 class server_lite::motd {
-  if $facts['kernel'] == ['Linux'] {
+  if $facts['kernel'] == 'Linux' {
   file {
     '/etc/motd':
       ensure  => 'present',
