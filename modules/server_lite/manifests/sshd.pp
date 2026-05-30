@@ -4,7 +4,7 @@ class server_lite::sshd {
   include server_lite::sshd::linux_install_sshd
   }
 
-  case $facts['os']['name'] {
+  case $facts['os']['family'] {
     'RedHat': { include server_lite::sshd::rhel }
     'Debian': { include server_lite::sshd::debian }
     'FreeBSD': { include server_lite::sshd::freebsd }
