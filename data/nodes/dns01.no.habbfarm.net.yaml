@@ -1,0 +1,6 @@
+---
+classes:
+  - patching_as_code
+
+
+patching_as_code::patch_group: always

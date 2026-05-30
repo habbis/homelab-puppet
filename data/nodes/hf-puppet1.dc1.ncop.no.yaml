@@ -1,6 +1,6 @@
 ---
-classes:
-  - openvoxdb
+#classes:
+#  - openvoxdb
 
 #openvoxdb::openvoxdb_package: openvoxdb
 #openvoxdb::master::config::terminus_package: openvoxdb-termini
