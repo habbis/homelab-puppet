@@ -32,7 +32,8 @@ tos minclock 3 maxclock 6
 #
 # The option `iburst' is used for faster initial synchronization.
 #
-pool <%= scope['server_lite::ntp_pool'] %> iburst
+pool <%= scope['ntp_server::ntp_pool'] %> iburst
+
 #
 # If you want to pick yourself which country's public NTP server
 # you want to sync against, comment out the above pool statements,
@@ -85,8 +86,11 @@ restrict source  limited kod nomodify notrap noquery
 #restrict 2.pool.ntp.org nomodify nopeer noquery notrap
 #
 # The following settings allow unrestricted access from the localhost
-restrict 127.0.0.1
-restrict ::1
+#restrict 127.0.0.1
+#restrict ::1
+restrict 10.31.1.0 mask 255.255.0.0 nomodify notrap
+
+
 
 #
 # If a server loses sync with all upstream servers, NTP clients

@@ -3,10 +3,12 @@ class server_lite (
 # @param search dns domains
 # @param nameserver1 dns server
 # @param nameserver2 dns server
+# @param ntp_server set if server is ntp server true or false
   String  $search,
   String  $nameserver1,
   String  $nameserver2,
   String  $ntp_pool,
+  Boolean $ntp_server
 ) {
   contain server_lite::sshd
   contain server_lite::resolv_conf
