@@ -1,7 +1,9 @@
 ---
-#classes:
-#  - openvoxdb
+classes:
+  - openvoxdb
+  - openvoxdb::master::config
+  - puppetboard
 
-#openvoxdb::openvoxdb_package: openvoxdb
-#openvoxdb::master::config::terminus_package: openvoxdb-termini
-#openvoxdb::ssl_deploy_certs: true
+puppetboard::python_version: '3.13'
+puppetboard::manage_virtualenv: true
+puppetboard::secret_key: fqdn_rand_string(32)

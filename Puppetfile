@@ -12,6 +12,7 @@ mod 'puppetlabs-apt', '11.1.0'
 mod 'puppet-puppetboard', '12.0.0'
 mod 'puppetlabs-puppet_agent', '4.28.0'
 mod 'albatrossflavour-os_patching', '0.23.0'
+mod 'puppetlabs-apache', '13.1.0'
 
 #mod 'habbfarm_puppet',
 #  :git => 'git@github.com:habbfarm/habbfarm_puppet.git',
