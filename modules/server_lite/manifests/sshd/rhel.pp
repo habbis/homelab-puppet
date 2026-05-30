@@ -1,6 +1,6 @@
 # Class to deploy sshd config
 class server_lite::sshd::rhel inherits server_lite::sshd {
-if $facts['os']['release']['full']['major'] == '9' {
+if $facts['os']['release']['full']['major'] == 9 {
     file { '/etc/ssh/sshd_config':
       ensure  => 'present',
       owner   => root,
@@ -17,7 +17,7 @@ if $facts['os']['release']['full']['major'] == '9' {
     }
   }
 
-if $facts['os']['release']['full']['major'] == '10' {
+if $facts['os']['release']['full']['major'] == 10 {
     file { '/etc/ssh/sshd_config':
       ensure  => 'present',
       owner   => root,
