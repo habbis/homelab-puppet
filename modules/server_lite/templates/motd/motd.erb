@@ -1,10 +1,10 @@
 This server is delivered and managed by habbfarm.
 
 Hostname:       <%= @networking['fqdn'] %>
-Architecture:   <%= @architecture %>
-Platform:       <%= @virtual %>
-Product:        <%= @productname %>
+Architecture:   <%= @os['architecture'] %>
+Platform:       <%= @habbfarm_virtual %>
+Product:        <%= @dmi['product']['name'] %>
 Kernel:         <%= @kernel %> <%= @kernelrelease %>
-OS:             <%= @lsbdistdescription %>
-Processor:      <%= @processor0 %>
-Memory:         <%= @memorysize %>
+OS:             <%= @os['distro']['description'] %>
+Processor:      <%= @processors['cores'] %>
+Memory:         <%= @memory['system']['total'] %>

@@ -16,7 +16,7 @@ class server_lite::packages {
     }
   }
 
-  case $facts['os']['name'] {
+  case $facts['os']['family'] {
     'Debian': { include server_lite::packages::debian }
     'FreeBSD': { include server_lite::packages::freebsd }
     'RedHat': { include server_lite::packages::redhat }

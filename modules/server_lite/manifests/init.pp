@@ -3,23 +3,26 @@ class server_lite (
 # @param search dns domains
 # @param nameserver1 dns server
 # @param nameserver2 dns server
+# @param ntp_pool ntp pool for server
 # @param ntp_server set if server is ntp server true or false
+# @param dns_resolver if server is a dns resolve true or false
   String  $search,
   String  $nameserver1,
   String  $nameserver2,
   String  $ntp_pool,
-  Boolean $ntp_server
+  Boolean $ntp_server,
+  Boolean $dns_resolver,
 ) {
-  contain server_lite::sshd
-  contain server_lite::resolv_conf
-  contain server_lite::bash_profile
-  contain server_lite::packages
-  contain server_lite::root_user
-  contain server_lite::ansible_user
-  contain server_lite::ntp_client
-  contain server_lite::hosts
-  contain server_lite::motd
-  contain server_lite::sysctl
-  contain server_lite::cron::puppet_restart
-  contain server_lite::ca_cert
+  include server_lite::sshd
+  include server_lite::resolv_conf
+  include server_lite::bash_profile
+  include server_lite::packages
+  include server_lite::root_user
+  include server_lite::ansible_user
+  include server_lite::ntp_client
+  include server_lite::hosts
+  include server_lite::motd
+  include server_lite::sysctl
+  include server_lite::cron::puppet_restart
+  include server_lite::ca_cert
 }
