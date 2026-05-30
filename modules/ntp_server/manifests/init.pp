@@ -22,7 +22,7 @@ if $facts['os']['family'] =='Debian' {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('server_lite/chrony/debian_chrony.conf.erb');
+    content => template('ntp_server/chrony/debian_chrony.conf.erb');
   }
 }
     service {
@@ -41,7 +41,7 @@ if $facts['os']['family'] =='Debian' {
       owner   => root,
       group   => wheel,
       mode    => '0644',
-      content => template('server_lite/ntpd/freebsd_ntp.conf.erb');
+      content => template('ntp_server/ntpd/freebsd_ntp.conf.erb');
     }
   exec {
     'ntpd_enable':
