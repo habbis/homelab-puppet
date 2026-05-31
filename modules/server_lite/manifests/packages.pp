@@ -11,8 +11,8 @@ class server_lite::packages {
     'git':           ensure => installed;
     'tmux':          ensure => installed;
     'ethtool':       ensure => installed;
-    'python3':       ensure => installed;
-    'python3-pip':   ensure => installed;
+    #'python3':       ensure => installed;
+    #'python3-pip':   ensure => installed;
     }
   }
 
