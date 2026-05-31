@@ -9,7 +9,7 @@ class server_lite::packages::redhat {
       'sysstat':         ensure => installed;
       'virt-what':       ensure => installed;
       'net-tools':       ensure => installed;
-      'tldr':            ensure => installed;
+      'tldr':            ensure => absent;
       'yum-utils':       ensure => installed;
     }
   }
