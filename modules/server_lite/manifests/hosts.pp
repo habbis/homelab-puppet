@@ -5,7 +5,7 @@ class server_lite::hosts {
   file { '/etc/hosts':
     ensure  => present,
     owner   => root,
-    group   => root,
+    group   => wheel,
     mode    => '0644',
     content => template('server_lite/etc_hosts/freebsd/hosts.erb'),
       }
