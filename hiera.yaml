@@ -8,7 +8,7 @@ hierarchy:
   - name: 'YAML hierarchy levels'
     paths:
       - 'nodes/%{trusted.certname}.yaml'
-      - 'hosters/%{hoster}.yaml'
+      - 'hosts/%{hosts}.yaml'
   - name: 'Common secret data'
     lookup_key: eyaml_lookup_key
     paths:
