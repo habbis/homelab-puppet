@@ -4,6 +4,6 @@ classes:
   - ntp_server
 
 
-patching_as_code::patch_group: always
+patching_as_code::patch_group: group_tuesday
 server_lite::ntp_server: true
 ntp_server::ntp_pool: "0.no.pool.ntp.org"

@@ -3,5 +3,5 @@ classes:
   - patching_as_code
 
 
-patching_as_code::patch_group:  group_wednesday
+patching_as_code::patch_group: group_monday
 server_lite::dns_resolver: true
