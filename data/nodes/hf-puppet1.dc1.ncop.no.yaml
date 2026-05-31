@@ -3,6 +3,7 @@ classes:
   - openvoxdb
   - openvoxdb::master::config
   - puppetboard
+  - puppetboard::apache::vhost
 
 puppetboard::python_version: '3'
 puppetboard::manage_virtualenv: true
