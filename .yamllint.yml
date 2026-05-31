@@ -1,0 +1,15 @@
+---
+# This file is used to override the yaml-specific rules that ansible-lint uses.
+# Since ansible-lint uses yamllint under the hood, it has its own config file.
+rules:
+
+  # Override empty lines from 1 to 2, to allow some readability by adding spacing
+  empty-lines:
+    max: 2
+    max-start: 1
+    max-end: 1
+
+  # 80 chars should be enough, but don't fail if a line is longer
+  line-length:
+    max: 800
+    level: warning

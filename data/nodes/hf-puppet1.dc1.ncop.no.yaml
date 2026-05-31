@@ -4,6 +4,16 @@ classes:
   - openvoxdb::master::config
   - puppetboard
 
-puppetboard::python_version: '3.13'
+puppetboard::python_version: '3'
 puppetboard::manage_virtualenv: true
-puppetboard::secret_key: fqdn_rand_string(32)
+puppetboard::reports_count: 40
+puppetboard::secret_key: >-
+  ENC[PKCS7,MIIBiQYJKoZIhvcNAQcDoIIBejCCAXYCAQAxggEhMIIBHQIBAD
+  AFMAACAQAwDQYJKoZIhvcNAQEBBQAEggEAnDXeAwhLN/W2er8Yby2yEi00zZ
+  QCW4Hugly8nGY2YkT4KOZqhu/3a4QZgVyiI9P0O5yHHzakR1xYUmbZkC96Iw
+  zS1/L/jDHYSoXA2sCEDn8qAD/JgOMRMySnp428yuItG12PHloa5nr+yy6e9k
+  dmzJ+fMqBYh0bf+fd1NF6+2OZhvYzE7Gqw2gTdoR1DoiyHKuadcnUATPU9gO                                                                                                                                                                                                   G4hvZuwIb4dsS9V8zL7nnqyYGYAyOqoG+SHwM1HBStkr1DuNw1QcV5lZ2rz6                                                                                                                                                                                                   DO2lbetybB6q9+AKUc3eKvaJa5+lqPQIN2Ghpx45YdhJ++hBZhF3wQTM/LP1
+  xTbEFuPe9Os/yo2zBMBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBCjkZoVRH
+  kSqi3CyG+qQCRPgCBngtKwa3KiM9gs8n6JCAvbzqAId5rORFmpTAAOitN1xw==]
+puppetboard::apache::vhost::vhost_name: hf-puppet1.dc1.ncop.no
+puppetboard::apache::vhost::port: 80
