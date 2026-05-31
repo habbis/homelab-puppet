@@ -158,6 +158,106 @@ To run.
 r10k deploy environment -v
 ```
 
+### encrypting variables
+One method to encrypt and decrypt variables are [hiera-eyaml](https://github.com/voxpupuli/hiera-eyaml)
+
+On puppet master install hiera-eyaml
+```
+puppetserver gem install hiera-eyaml
+```
+Create pair of keys
+```
+eyaml createkeys
+```
+Create dir for eyaml
+```
+mkdir /etc/puppetlabs/puppet/eyaml/
+```
+Move keys
+```
+mv keys/private_key.pkcs7.pem keys/public_key.pkcs7.pem /etc/puppetlabs/puppet/eyaml/
+```
+Set permissions
+```
+chown -R puppet:puppet /etc/puppetlabs/puppet/eyaml
+chmod -R 0500 /etc/puppetlabs/puppet/eyaml
+chmod 0400 /etc/puppetlabs/puppet/eyaml/*.pem
+```
+Encryption
+```
+eyaml encrypt -s 'hello there'       # Encrypt a string
+eyaml encrypt -p                     # Encrypt a password (prompt for it)
+```
+Decryption
+```
+eyaml decrypt -f filename               # Decrypt a file
+eyaml decrypt -s 'ENC[PKCS7,.....]'     # Decrypt a string
+```
+Setup for local eyaml encryption on you dev vm or laptop
+Install eyaml
+```
+gem install hiera-eyaml
+```
+create dir to place config and pub key
+```
+mkdir ~/.eyaml/
+```
+Add pub key
+```
+vim  ~/.eyaml/key.pub
+```
+Add config
+```
+vim ~/.eyaml/config.yaml
+```
+Config should look like this
+```
+pkcs7_public_key: '/home/ebbestad/.eyaml/key.pub'
+```
+Now you can encrypt variables
+```
+eyaml encrypt -s 'hello there'
+```
+The output comes in string og block
+```
+string: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQAwDQYJKoZIhvcNAQEBBQAEggEAaukj5U8en8eduCxu1Pv6preDlLp/+SBIQ/F+ubLZ22TvYvPTmKQCOG9J+zH+Mq2xUe7hFxQtQW3FxmtHCF0JupKg19F27LRLOB9om2WzqoeAmAT9f/FzGV9EE7L+qOucizOVfX89s/FBz43pSyUvRDq2msh+CppFLQtxSGiX4tGUxJ5Xeu6oe4ziyQasYCpal7DptgsLxveWCH7ZNtGX0TtNnZNhy/DXMcLQbgBEzPvuYp2ynCNZ+jfQt4rUsRNEYlyFLGkG/oDhJTcxmPn7pA6S8G6797/ZMtTSlqpzijjOuKu6PrwCxdW9qE3hf5Jy3vETk/KKxWr1LNQok9krUDA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBC73Q1FgL2tVD5+sqDFeJRRgBCBmeQGMj9Pn6t17/ejgKEw]
+
+OR
+
+block: >
+  ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBAD
+  AFMAACAQAwDQYJKoZIhvcNAQEBBQAEggEAaukj5U8en8eduCxu1Pv6preDlL
+  p/+SBIQ/F+ubLZ22TvYvPTmKQCOG9J+zH+Mq2xUe7hFxQtQW3FxmtHCF0Jup
+  Kg19F27LRLOB9om2WzqoeAmAT9f/FzGV9EE7L+qOucizOVfX89s/FBz43pSy
+  UvRDq2msh+CppFLQtxSGiX4tGUxJ5Xeu6oe4ziyQasYCpal7DptgsLxveWCH
+  7ZNtGX0TtNnZNhy/DXMcLQbgBEzPvuYp2ynCNZ+jfQt4rUsRNEYlyFLGkG/o
+  DhJTcxmPn7pA6S8G6797/ZMtTSlqpzijjOuKu6PrwCxdW9qE3hf5Jy3vETk/
+  KKxWr1LNQok9krUDA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBC73Q1FgL
+  2tVD5+sqDFeJRRgBCBmeQGMj9Pn6t17/ejgKEw]
+```
+In the hiera.yaml you need to add these lines to make it work
+```
+    lookup_key: eyaml_lookup_key
+    paths:
+      - 'secrets/common.eyaml'
+    options:
+      #  linux
+      pkcs7_private_key: /etc/puppetlabs/puppet/eyaml/private_key.pkcs7.pem
+      pkcs7_public_key: /etc/puppetlabs/puppet/eyaml/public_key.pkcs7.pem
+```
+Now you can add encrypted variabels to common.eyaml in hiera dir
+```
+yourmodule::myvar: >
+  ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBAD
+  AFMAACAQAwDQYJKoZIhvcNAQEBBQAEggEAaukj5U8en8eduCxu1Pv6preDlL
+  p/+SBIQ/F+ubLZ22TvYvPTmKQCOG9J+zH+Mq2xUe7hFxQtQW3FxmtHCF0Jup
+  Kg19F27LRLOB9om2WzqoeAmAT9f/FzGV9EE7L+qOucizOVfX89s/FBz43pSy
+  UvRDq2msh+CppFLQtxSGiX4tGUxJ5Xeu6oe4ziyQasYCpal7DptgsLxveWCH
+  7ZNtGX0TtNnZNhy/DXMcLQbgBEzPvuYp2ynCNZ+jfQt4rUsRNEYlyFLGkG/o
+  DhJTcxmPn7pA6S8G6797/ZMtTSlqpzijjOuKu6PrwCxdW9qE3hf5Jy3vETk/
+  KKxWr1LNQok9krUDA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBC73Q1FgL
+  2tVD5+sqDFeJRRgBCBmeQGMj9Pn6t17/ejgKEw]
+```
 
 
 ### use test branch when creating a class.
@@ -194,3 +294,6 @@ Alternately, use [gmarik/vundle](https://github.com/gmarik/vundle) or [tpope/pat
 - [puppet_language](https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm)
 - [lang_data_type_list](https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm)
 - [function](https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm)
+
+### links to puppet/openvox related articles
+- [my-journey-to-securing-sensitive-data-in-puppet-code](https://beanbag.technicalissues.us/my-journey-to-securing-sensitive-data-in-puppet-code/)
