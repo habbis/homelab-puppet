@@ -1,7 +1,8 @@
 # Class to manage gloabal proxy setting
 class server_lite::bash_profile::proxy {
+if  $facts['set_proxy_server'] == true {
 if  $facts['kernel'] == 'Linux' {
-  file { '/etc/profile.d/shell_alias.sh':
+  file { '/etc/profile.d/proxy.sh':
     owner  => root,
     group  => root,
     mode   => '0755',
@@ -9,11 +10,13 @@ if  $facts['kernel'] == 'Linux' {
     }
   }
 if  $facts['os']['family'] =='FreeBSD' {
-  file { '/etc/profile.d/shell_alias.sh':
-    owner  => root,
-    group  => wheel,
-    mode   => '0755',
-    source => 'puppet:///modules/server_lite/bash_profile/shell_alias.sh'
+  file { '/etc/profile.d/proxy.sh':
+    ensure  => present,
+    owner   => root,
+    group   => wheel,
+    mode    => '0755',
+    content => epp('server_lite/templates/bash_profile/proxy.sh.epp'),
+      }
     }
   }
 }

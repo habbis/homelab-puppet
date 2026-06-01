@@ -1,0 +1,13 @@
+###
+# managed by puppet
+###
+# system wide proxy
+export http_proxy="http://<%= $server_lite::proxy_server %>"
+export https_proxy="http:/<%= $server_lite::proxy_server %>"
+export ftp_proxy="http://<%= $server_lite::proxy_server %>"
+export no_proxy="http://<%= $server_lite::proxy_server %>"
+# curl
+export HTTP_PROXY="$http_proxy"
+export HTTPS_PROXY="$http_proxy"
+export FTP_PROXY="$http_proxy"
+export NO_PROXY="$no_proxy"
