@@ -6,7 +6,7 @@ if  $facts['kernel'] == 'Linux' {
     owner  => root,
     group  => root,
     mode   => '0755',
-    source => 'puppet:///modules/server_lite/bash_profile/shell_alias.sh'
+    source => epp('server_lite/templates/bash_profile/proxy.sh.epp')
     }
   }
 if  $facts['os']['family'] =='FreeBSD' {
