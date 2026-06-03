@@ -12,7 +12,7 @@ class server_lite::resolv_conf {
   file { '/etc/resolv.conf':
     ensure  => present,
     owner   => root,
-    group   => root,
+    group   => wheel,
     mode    => '0644',
     content => epp('server_lite/resolv_conf/resolv.conf.epp'),
       }
