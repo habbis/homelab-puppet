@@ -2,5 +2,9 @@
 # managed by puppet
 ##
 search <%= $server_lite::search %>
+<% if server_lite::nameserver1 { -%>
 nameserver <%= $server_lite::nameserver1 %>
+<% } -%>
+<% if server_lite::nameserver2 { -%>
 nameserver <%= $server_lite::nameserver2 %>
+<% } -%>

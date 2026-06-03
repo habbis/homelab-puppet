@@ -33,3 +33,11 @@ FreeBSD-base: {
   fingerprints: "/usr/share/keys/pkgbase-${VERSION_MAJOR}",
   enabled: no
 }
+
+<% if $server_lite::proxy_server and server_lite::set_proxy_server == true { -%>
+pkg_env : {
+  HTTP_PROXY: "<%= $server_lite::proxy_server %>"
+  HTTPS_PROXY: "<%= $server_lite::proxy_server %>"
+  FTP_PROXY: "<%= $server_lite::proxy_server %>"
+}
+<% } -%>

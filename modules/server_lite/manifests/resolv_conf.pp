@@ -1,6 +1,5 @@
 # Class to setup resolve.conf and disable systemd-resolved on linux servers.
 class server_lite::resolv_conf {
-if $facts['dns_resolver'] == false {
   if $facts['kernel'] == 'Linux' {
   service {
     'systemd-resolved':
@@ -28,4 +27,3 @@ if $facts['dns_resolver'] == false {
       }
     }
   }
-}

@@ -5,7 +5,6 @@ class server_lite (
 # @param nameserver2 dns server
 # @param ntp_pool ntp pool for server
 # @param ntp_server set if server is ntp server true or false
-# @param dns_resolver if server is a dns resolve true or false
 # @param http_proxy server
 # @param no_proxy domain name
 # @param set_proxy_server
@@ -16,7 +15,6 @@ class server_lite (
   String  $proxy_server,
   String  $no_proxy,
   Boolean $ntp_server,
-  Boolean $dns_resolver,
   Boolean $set_proxy_server,
 ) {
   include server_lite::sshd

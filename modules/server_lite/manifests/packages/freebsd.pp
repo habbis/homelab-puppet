@@ -1,6 +1,5 @@
 #Class for freebsd specific packages
 class server_lite::packages::freebsd {
-if  $facts['set_proxy_server'] == true {
   file { '/etc/pkg/FreeBSD.conf':
     ensure  => present,
     owner   => root,
@@ -8,17 +7,6 @@ if  $facts['set_proxy_server'] == true {
     mode    => '0644',
     content => epp('server_lite/pgk/proxy_FreeBSD.conf.epp'),
     }
-  }
-
-if  $facts['set_proxy_server'] == false {
-  file { '/etc/pkg/FreeBSD.conf':
-    ensure  => present,
-    owner   => root,
-    group   => wheel,
-    mode    => '0644',
-    content => epp('server_lite/pgk/FreeBSD.conf.epp'),
-    }
-  }
 
   package {
     'pwgen':           ensure => installed;
