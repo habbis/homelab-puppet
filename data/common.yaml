@@ -10,7 +10,6 @@ server_lite::nameserver2: '10.17.2.3'
 server_lite::ntp_server: false
 server_lite::proxy_server: 'hf-proxy.no.habbfarm.net:8888'
 server_lite::no_proxy: '0.0.0.0/0,localhost,.habbfarm.net,.no.habbfarm.net,.ncop.no'
-server_lite::set_proxy_server: true
 
 patching_as_code::patch_schedule:
   group_monday:
