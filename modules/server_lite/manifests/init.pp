@@ -7,7 +7,6 @@ class server_lite (
 # @param ntp_server set if server is ntp server true or false
 # @param http_proxy server
 # @param no_proxy domain name
-# @param set_proxy_server
   String  $search,
   String  $nameserver1,
   String  $nameserver2,
@@ -15,7 +14,6 @@ class server_lite (
   String  $proxy_server,
   String  $no_proxy,
   Boolean $ntp_server,
-  Boolean $set_proxy_server,
 ) {
   include server_lite::sshd
   include server_lite::resolv_conf
