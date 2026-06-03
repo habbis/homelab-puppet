@@ -11,7 +11,7 @@ if  $facts['kernel'] == 'Linux' {
 if  $facts['kernel'] == 'FreeBSD' {
   file { '/etc/profile.d/shell_alias.sh':
     owner  => root,
-    group  => root,
+    group  => wheel,
     mode   => '0755',
     source => 'puppet:///modules/server_lite/bash_profile/shell_alias.sh'
     }
