@@ -5,7 +5,7 @@ class server_lite::packages::freebsd {
     owner   => root,
     group   => wheel,
     mode    => '0644',
-    content => epp('server_lite/pgk/proxy_FreeBSD.conf.epp'),
+    content => epp('server_lite/pgk/FreeBSD.conf.epp'),
     }
 
   package {
