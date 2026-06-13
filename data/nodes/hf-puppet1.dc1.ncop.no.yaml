@@ -11,3 +11,4 @@ puppetboard::manage_virtualenv: true
 puppetboard::reports_count: 40
 puppetboard::apache::vhost::vhost_name: hf-puppet1.dc1.ncop.no
 puppetboard::apache::vhost::port: 80
+set_pip_proxy::proxy_server: http://hf-proxy.no.habbfarm.net:8888
