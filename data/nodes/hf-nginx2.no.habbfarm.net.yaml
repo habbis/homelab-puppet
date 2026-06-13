@@ -1,6 +1,7 @@
 ---
 classes:
   - patching_as_code
+  - nginx_reverse_proxy
 
 
 patching_as_code::patch_group: always
