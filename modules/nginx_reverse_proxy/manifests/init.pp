@@ -1,6 +1,5 @@
 # setup nginx reverese proxy
-class nginx_reverse_proxy (
-# @param keepalived_master 
+class nginx_reverse_proxy ( # @param keepalived_master 
   Boolean $keepalived_master,) {
 
 if $facts['kernel'] == 'Linux' {
@@ -39,7 +38,7 @@ if $facts['os']['family'] =='Debian' {
     }
   exec {
     'nginx_restart_default':
-      command     => '/usr/bin/systemd reload nginx.service',
+      command     => '/usr/bin/systemd restart nginx.service',
       path        => ['/bin','/usr/bin', '/usr/sbin'],
       subscribe   => File['/etc/nginx/sites-enabled/reverse_proxy'],
       refreshonly => true,
@@ -77,7 +76,7 @@ if $keepalived_master == false {
     }
   exec {
     'keepalived_restart_default':
-      command     => '/usr/bin/systemd reload keepalived.service',
+      command     => '/usr/bin/systemd restart keepalived.service',
       path        => ['/bin','/usr/bin', '/usr/sbin'],
       subscribe   => File['/etc/nginx/sites-enabled/reverse_proxy'],
       refreshonly => true,
