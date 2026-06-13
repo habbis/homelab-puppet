@@ -38,7 +38,7 @@ if $facts['os']['family'] =='Debian' {
     }
   exec {
     'nginx_restart_default':
-      command     => '/usr/bin/systemd restart nginx.service',
+      command     => 'service nginx reload',
       path        => ['/bin','/usr/bin', '/usr/sbin'],
       subscribe   => File['/etc/nginx/sites-enabled/reverse_proxy'],
       refreshonly => true,
@@ -76,7 +76,7 @@ if $keepalived_master == false {
     }
   exec {
     'keepalived_restart_default':
-      command     => '/usr/bin/systemd restart keepalived.service',
+      command     => 'service keepalived restart',
       path        => ['/bin','/usr/bin', '/usr/sbin'],
       subscribe   => File['/etc/keepalived/keepalived.conf'],
       refreshonly => true,
