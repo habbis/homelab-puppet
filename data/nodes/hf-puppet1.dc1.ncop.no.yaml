@@ -1,6 +1,6 @@
 ---
 classes:
-  - set_pip_prox
+  - set_pip_proxy
   - openvoxdb
   - openvoxdb::master::config
   - puppetboard
