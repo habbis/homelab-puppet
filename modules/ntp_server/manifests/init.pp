@@ -1,4 +1,4 @@
-# basic server setup
+# setup ntp server
 class ntp_server (
 # @param ntp_pool ntp server
   String  $ntp_pool,) {

@@ -1,0 +1,86 @@
+# setup nginx reverese proxy
+class nginx_reverse_proxy {
+
+if $facts['kernel'] == 'Linux' {
+  package {
+    'psmisc':  ensure => installed;
+    'nginx':  ensure => installed;
+    'keepalived':  ensure => installed;
+    }
+
+if $facts['os']['family'] =='Debian' {
+  file { '/etc/nginx/nginx.conf':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => template('nginx_reverse_proxy/nginx/debian_nginx.conf.erb');
+  }
+  file { '/etc/nginx/sites-enabled/reverse_proxy':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => template('nginx_reverse_proxy/nginx/debian_reverse_proxy.erb');
+  }
+  exec {
+    'test_nginx_config':
+      command => '/usr/sbin/nginx -t',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+  }
+}
+    service {
+      'nginx':
+        ensure     => running,
+        require    => Package['nginx'],
+        enable     => true,
+        hasstatus  => true,
+        hasrestart => true;
+    }
+  exec {
+    'nginx_restart_default':
+      command     => '/usr/bin/systemd reload nginx.service',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/nginx/sites-enabled/reverse_proxy'],
+      refreshonly => true,
+    }
+if $facts['check_keepalived'] == 'MASTER' {
+  file { '/etc/keepalived/keepalived.conf':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => template('nginx_reverse_proxy/keepalived/debian_master_keepalived.conf.erb');
+    }
+  }
+if $facts['check_keepalived'] == 'BACKUP' {
+  file { '/etc/keepalived/keepalived.conf':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => template('nginx_reverse_proxy/keepalived/debian_backup_keepalived.conf.erb');
+    }
+  }
+  exec {
+    'test_keepalived_config':
+      command => '/usr/sbin/keepalived -t',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+    }
+    service {
+      'keepalived':
+        ensure     => running,
+        require    => Package['keepalived'],
+        enable     => true,
+        hasstatus  => true,
+        hasrestart => true;
+    }
+  exec {
+    'keepalived_restart_default':
+      command     => '/usr/bin/systemd reload keepalived.service',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/nginx/sites-enabled/reverse_proxy'],
+      refreshonly => true,
+    }
+  }
+}
