@@ -1,5 +1,7 @@
 # setup nginx reverese proxy
-class nginx_reverse_proxy {
+class nginx_reverse_proxy (
+# @param keepalived_master 
+  Boolean $keepalived_master,) {
 
 if $facts['kernel'] == 'Linux' {
   package {
@@ -42,7 +44,7 @@ if $facts['os']['family'] =='Debian' {
       subscribe   => File['/etc/nginx/sites-enabled/reverse_proxy'],
       refreshonly => true,
     }
-if $facts['check_keepalived'] == 'MASTER' {
+if $facts['check_keepalived'] == 'MASTER' or  $facts['keepalived_master'] == true {
   file { '/etc/keepalived/keepalived.conf':
     ensure  => present,
     owner   => root,
@@ -51,7 +53,7 @@ if $facts['check_keepalived'] == 'MASTER' {
     content => template('nginx_reverse_proxy/keepalived/debian_master_keepalived.conf.erb');
     }
   }
-if $facts['check_keepalived'] == 'BACKUP' {
+if $facts['check_keepalived'] == 'BACKUP' or $facts['keepalived_master'] == false {
   file { '/etc/keepalived/keepalived.conf':
     ensure  => present,
     owner   => root,

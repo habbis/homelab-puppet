@@ -5,3 +5,4 @@ classes:
 
 
 patching_as_code::patch_group: always
+nginx_reverse_proxy::keepalived_master: true
