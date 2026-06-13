@@ -3,7 +3,6 @@ class nginx_reverse_proxy {
 
 if $facts['kernel'] == 'Linux' {
   package {
-    'psmisc':  ensure => installed;
     'nginx':  ensure => installed;
     'keepalived':  ensure => installed;
     }
