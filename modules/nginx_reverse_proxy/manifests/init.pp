@@ -16,6 +16,13 @@ if $facts['os']['family'] =='Debian' {
     mode    => '0644',
     content => template('nginx_reverse_proxy/nginx/debian_nginx.conf.erb');
   }
+  exec {
+    'test_nginx_config':
+      command     => '/usr/sbin/nginx -t',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/nginx/nginx.conf'],
+      refreshonly => true,
+  }
   file { '/etc/nginx/sites-enabled/reverse_proxy':
     ensure  => present,
     owner   => root,
@@ -24,9 +31,11 @@ if $facts['os']['family'] =='Debian' {
     content => template('nginx_reverse_proxy/nginx/debian_reverse_proxy.erb');
   }
   exec {
-    'test_nginx_config':
-      command => '/usr/sbin/nginx -t',
-      path    => ['/bin','/usr/bin', '/usr/sbin'],
+    'test_nginx_proxy_config':
+      command     => '/usr/sbin/nginx -t',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/nginx/sites-enabled/reverse_proxy'],
+      refreshonly => true,
   }
     service {
       'nginx':
@@ -63,8 +72,10 @@ if $keepalived_master == false {
   }
   exec {
     'test_keepalived_config':
-      command => '/usr/sbin/keepalived -t',
-      path    => ['/bin','/usr/bin', '/usr/sbin'],
+      command     => '/usr/sbin/keepalived -t',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/keepalived/keepalived.conf'],
+      refreshonly => true,
     }
     service {
       'keepalived':
