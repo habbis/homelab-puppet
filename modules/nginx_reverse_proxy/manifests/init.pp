@@ -44,7 +44,7 @@ if $facts['os']['family'] =='Debian' {
       subscribe   => File['/etc/nginx/sites-enabled/reverse_proxy'],
       refreshonly => true,
     }
-if $facts['check_keepalived'] == 'MASTER' or  $facts['keepalived_master'] == true {
+if $keepalived_master == true {
   file { '/etc/keepalived/keepalived.conf':
     ensure  => present,
     owner   => root,
@@ -53,7 +53,7 @@ if $facts['check_keepalived'] == 'MASTER' or  $facts['keepalived_master'] == tru
     content => template('nginx_reverse_proxy/keepalived/debian_master_keepalived.conf.erb');
     }
   }
-if $facts['check_keepalived'] == 'BACKUP' or $facts['keepalived_master'] == false {
+if $keepalived_master == false {
   file { '/etc/keepalived/keepalived.conf':
     ensure  => present,
     owner   => root,
