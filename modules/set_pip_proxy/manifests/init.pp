@@ -12,7 +12,7 @@ if $facts['kernel'] == 'Linux' {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('server_lite/pip_config/pip.conf.erb');
+    content => template('set_pip_proxy/pip_config/pip.conf.erb');
   }
 }
 
@@ -21,7 +21,7 @@ if $facts['os']['family'] == 'FreeBSD' {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('server_lite/pip_config/pip.conf.erb');
+    content => template('set_pip_proxy/pip_config/pip.conf.erb');
     }
   }
 }
