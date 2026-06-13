@@ -28,7 +28,6 @@ if $facts['os']['family'] =='Debian' {
       command => '/usr/sbin/nginx -t',
       path    => ['/bin','/usr/bin', '/usr/sbin'],
   }
-}
     service {
       'nginx':
         ensure     => running,
@@ -81,6 +80,7 @@ if $facts['check_keepalived'] == 'BACKUP' {
       path        => ['/bin','/usr/bin', '/usr/sbin'],
       subscribe   => File['/etc/nginx/sites-enabled/reverse_proxy'],
       refreshonly => true,
+      }
     }
   }
 }
