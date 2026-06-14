@@ -10,7 +10,9 @@ class roles::server_lite::packages::redhat {
       'virt-what':       ensure => installed;
       'net-tools':       ensure => installed;
       'tldr':            ensure => absent;
-      'yum-utils':       ensure => installed;
     }
+  if ! defined(Package['yum-utils']) {
+    package { 'yum-utils': ensure => installed }
+}
   }
 }
