@@ -6,4 +6,5 @@ classes:
 
 patching_as_code::patch_group: group_tuesday
 roles::server_lite::ntp_server: true
-ntp_server::ntp_pool: "0.no.pool.ntp.org"
+#roles::ntp_server::ntp_pool: "0.no.pool.ntp.org"
+roles::server_lite::ntp_pool: "0.no.pool.ntp.org"
