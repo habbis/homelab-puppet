@@ -14,6 +14,7 @@ class roles::server_lite (
   String  $proxy_server,
   String  $no_proxy,
   Boolean $ntp_server,
+  Boolean $dns_resolver,
 ) {
   include roles::server_lite::sshd
   include roles::server_lite::resolv_conf
