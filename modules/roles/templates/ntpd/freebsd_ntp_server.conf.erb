@@ -32,7 +32,7 @@ tos minclock 3 maxclock 6
 #
 # The option `iburst' is used for faster initial synchronization.
 #
-pool <%= scope['roles::server_lite::ntp_pool'] %> iburst
+pool <%= scope['roles::ntp_server::ntp_pool'] %> iburst
 
 #
 # If you want to pick yourself which country's public NTP server
