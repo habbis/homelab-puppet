@@ -4,6 +4,6 @@ class roles::server_lite::bash_profile::puppet {
     owner  => root,
     group  => root,
     mode   => '0755',
-    source => 'puppet:///modules/bash_profile/puppet.sh',
+    source => 'puppet:///modules/roles/bash_profile/puppet.sh',
   }
 }
