@@ -4,4 +4,3 @@ classes:
 
 
 patching_as_code::patch_group: group_tuesday
-server_lite::dns_resolver: true

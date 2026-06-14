@@ -1,0 +1,19 @@
+# Class to manage gloabal shell alias setting
+class roles::server_lite::bash_profile::shell_alias {
+if  $facts['kernel'] == 'Linux' {
+  file { '/etc/profile.d/shell_alias.sh':
+    owner  => root,
+    group  => root,
+    mode   => '0755',
+    source => 'puppet:///modules/roles/bash_profile/shell_alias.sh'
+    }
+  }
+if  $facts['kernel'] == 'FreeBSD' {
+  file { '/etc/profile.d/shell_alias.sh':
+    owner  => root,
+    group  => wheel,
+    mode   => '0755',
+    source => 'puppet:///modules/roles/bash_profile/shell_alias.sh'
+    }
+  }
+}

@@ -4,4 +4,4 @@ classes:
 
 server_lite::nameserver1: '127.0.0.1'
 patching_as_code::patch_group: group_tuesday
-server_lite::dns_resolver: true
+roles::server_lite::dns_resolver: true

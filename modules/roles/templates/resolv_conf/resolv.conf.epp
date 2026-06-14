@@ -1,0 +1,10 @@
+##
+# managed by puppet
+##
+search <%= $roles::server_lite::search %>
+<% if $roles::server_lite::nameserver1 or $roles::server_lite::dns_resolver == true { -%>
+nameserver <%= $roles::server_lite::nameserver1 %>
+<% } -%>
+<% if $roles::server_lite::nameserver2 and $server_lite::dns_resolver == false { -%>
+nameserver <%= $roles::server_lite::nameserver2 %>
+<% } -%>
