@@ -2,6 +2,6 @@
 classes:
   - patching_as_code
 
-server_lite::nameserver1: '127.0.0.1'
+roles::server_lite::nameserver1: '127.0.0.1'
 patching_as_code::patch_group: group_tuesday
 roles::server_lite::dns_resolver: true
