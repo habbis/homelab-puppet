@@ -13,7 +13,7 @@ if  $facts['os']['family'] =='RedHat' {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('server_lite/chrony/rhel_chrony_server.conf.erb');
+    content => template('roles/chrony/rhel_chrony_server.conf.erb');
   }
 }
 if $facts['os']['family'] =='Debian' {
@@ -22,7 +22,7 @@ if $facts['os']['family'] =='Debian' {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('ntp_server/chrony/debian_chrony_server.conf.erb');
+    content => template('roles/chrony/debian_chrony_server.conf.erb');
   }
 }
     service {
@@ -41,7 +41,7 @@ if $facts['os']['family'] =='Debian' {
       owner   => root,
       group   => wheel,
       mode    => '0644',
-      content => template('ntp_server/ntpd/freebsd_ntp_server.conf.erb');
+      content => template('roles/ntpd/freebsd_ntp_server.conf.erb');
     }
   exec {
     'ntpd_enable':

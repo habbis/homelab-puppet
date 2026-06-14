@@ -7,7 +7,7 @@ class roles::server_lite::hosts {
     owner   => root,
     group   => wheel,
     mode    => '0644',
-    content => template('server_lite/etc_hosts/freebsd/hosts.erb'),
+    content => template('roles/etc_hosts/freebsd/hosts.erb'),
       }
     }
   if $facts['disks'] != 'vda' and $facts['kernel'] == 'Linux' {
@@ -16,7 +16,7 @@ class roles::server_lite::hosts {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('server_lite/etc_hosts/linux/hosts.erb'),
+    content => template('roles/etc_hosts/linux/hosts.erb'),
     }
   }
 }

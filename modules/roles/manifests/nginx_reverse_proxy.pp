@@ -15,7 +15,7 @@ if $facts['os']['family'] =='Debian' {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('nginx_reverse_proxy/nginx/debian_nginx.conf.erb');
+    content => template('roles/nginx/debian_nginx.conf.erb');
   }
   exec {
     'test_nginx_config':
@@ -29,7 +29,7 @@ if $facts['os']['family'] =='Debian' {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('nginx_reverse_proxy/nginx/debian_reverse_proxy.erb');
+    content => template('roles/nginx/debian_reverse_proxy.erb');
   }
   exec {
     'test_nginx_proxy_config':
@@ -59,7 +59,7 @@ if $keepalived_master == true {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('nginx_reverse_proxy/keepalived/debian_master_keepalived.conf.erb');
+    content => template('roles/keepalived/debian_master_keepalived.conf.erb');
     }
   }
 if $keepalived_master == false {
@@ -68,7 +68,7 @@ if $keepalived_master == false {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('nginx_reverse_proxy/keepalived/debian_backup_keepalived.conf.erb');
+    content => template('roles/keepalived/debian_backup_keepalived.conf.erb');
     }
   }
   exec {
