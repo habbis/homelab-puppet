@@ -1,7 +1,7 @@
 # setup ntp server
 class roles::ntp_server (
 # @param ntp_pool ntp server
-  String  $ntp_server,) {
+  String  $ntp_pool,) {
 
 if $facts['kernel'] == 'Linux' {
   package {
