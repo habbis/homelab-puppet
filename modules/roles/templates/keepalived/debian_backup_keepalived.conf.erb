@@ -1,0 +1,68 @@
+##
+# managed by puppet
+##
+global_defs {
+  enable_script_security
+  script_user root
+}
+
+vrrp_script chk_haproxy {
+    # This will check if the haproxy pid of haproxy is install running if no then failover to the backup.
+    script "/usr/bin/killall -0 nginx"
+    interval 2
+    weight 2
+}
+
+# Configuration for Virtual Interface
+vrrp_instance LB_VIP {
+    # choose the your interface
+    state BACKUP
+    interface eth0
+    priority 100
+    virtual_router_id 51
+
+
+    # Not need to allow ssh for root user it will failover
+    authentication {
+        auth_type PASS
+        # pass only for keepalived
+        auth_pass raelah0W    # Password for accessing vrrpd. Same on all devices
+    }
+    unicast_src_ip 10.31.83.5 # Private IP address of backup
+    unicast_peer {
+        10.31.83.4              # Private IP address of the master haproxy
+   }
+
+    # The virtual ip address shared between the two loadbalancers
+    virtual_ipaddress {
+        10.31.83.6
+    }
+
+    # Use the Defined Script to Check whether to initiate a fail over
+    track_script {
+        chk_haproxy
+    }
+}
+
+vrrp_instance VI_IPv6 {
+    state BACKUP
+    interface eth0
+    virtual_router_id 60
+    priority 90
+    advert_int 1
+
+
+    unicast_src_ip 2a01:799:91a:c806::3/64
+    unicast_peer {
+        2a01:799:91a:c806::2
+   }
+
+    virtual_ipaddress {
+        2a01:799:91a:c806::4/64
+    }
+
+    track_script {
+        chk_haproxy
+    }
+}
+
