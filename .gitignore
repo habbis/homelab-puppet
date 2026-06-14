@@ -1,2 +1,4 @@
 venv
 .venv
+r10k-deploy.json
+modules2
