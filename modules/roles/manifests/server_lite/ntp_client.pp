@@ -1,6 +1,6 @@
 # Class for setting up ntp client on unix server
 class roles::server_lite::ntp_client {
-if  $facts['ntp_server'] == false {
+if  $roles::server_lite::ntp_server == false {
   if $facts['kernel'] == 'Linux' {
   package {
     'chrony':  ensure => installed;
