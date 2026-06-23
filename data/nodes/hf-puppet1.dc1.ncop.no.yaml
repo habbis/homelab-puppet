@@ -1,5 +1,6 @@
 ---
 classes:
+  - patching_as_code
   - roles::set_pip_proxy
   - openvoxdb
   - openvoxdb::master::config
@@ -12,3 +13,4 @@ puppetboard::reports_count: 40
 puppetboard::apache::vhost::vhost_name: hf-puppet1.dc1.ncop.no
 puppetboard::apache::vhost::port: 80
 roles::set_pip_proxy::proxy_server: http://hf-proxy.no.habbfarm.net:8888
+patching_as_code::patch_group: group_friday
