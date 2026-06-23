@@ -4,10 +4,6 @@ class roles::set_pip_proxy (
   String  $proxy_server,) {
 
 if $facts['kernel'] == 'Linux' {
-  package {
-    'chrony':  ensure => installed;
-    }
-
   file { '/etc/pip.conf':
     owner   => root,
     group   => root,
