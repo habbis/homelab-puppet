@@ -5,7 +5,7 @@ class roles::server_lite::packages::freebsd {
     owner   => root,
     group   => wheel,
     mode    => '0644',
-    content => epp('server_lite/pkg/FreeBSD.conf.epp'),
+    content => epp('roles/pkg/FreeBSD.conf.epp'),
     }
 
   package {
