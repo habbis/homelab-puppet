@@ -1,10 +1,12 @@
 # setup mariadb server internal repo unix servers
 class roles::mariadb_server (
 # @param bind_address
-  String  $bind_address,
 # @param bind_port
-  Int     $bind_port,
 # @param type_db_server
+# @param secondary_server_id
+  String  $bind_address,
+  Integer $bind_port,
+  Integer $secondary_server_id,
   Variant[String, Enum['main', 'secondary']]  $type_db_server,) {
 
 if $facts['kernel'] == 'Linux' {

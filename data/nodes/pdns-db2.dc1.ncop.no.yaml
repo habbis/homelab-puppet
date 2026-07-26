@@ -1,0 +1,10 @@
+---
+classes:
+  - patching_as_code
+
+
+patching_as_code::patch_group: group_tuesday
+roles::mariadb_server::bind_address: 0.0.0.0
+roles::mariadb_server::bind_port: 3306
+roles::mariadb_server::type_db_server: secondary
+roles::mariadb_server::secondary_server_id: 2
