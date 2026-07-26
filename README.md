@@ -7,10 +7,15 @@ puppet-lint --no-2sp_soft_tabs-check --no-hard_tabs-check --no-80chars-check </p
 ```
 ### Development
 
+# After upgrading os somtimes you need to delete pre-commit cache.
+```
+rm -rf  ~/.cache/pre-commit
+```
+
 For debian based distro.
 ```bash
 sudo apt install -y build-essential
-sudo apt install -y ruby-dev
+sudo apt install -y ruby-dev libffi-dev
 ```
 
 For rhel based distro.
