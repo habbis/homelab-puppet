@@ -46,14 +46,14 @@ port = <%= $roles::mariadb_server::bind_port %>
 gtid-domain-id=<%= $roles::mariadb_server::server_id %>
 <% } -%>
 <% if $roles::mariadb_server::type_db_server == secondary { -%>
-# Domain = <%= $roles::mariadb_server::secondary_server_id %> for active slave: server B
-gtid-domain-id= <%= $roles::mariadb_server::secondary_server_id %>
+# Domain = <%= $roles::mariadb_server::server_id %> for active slave: server B
+gtid-domain-id= <%= $roles::mariadb_server::server_id %>
 <% } -%>
 
 # # # enable gtid
 gtid_strict_mode=1
 
-server-id               = <%= $roles::mariadb_server::secondary_server_id %>
+server-id               = <%= $roles::mariadb_server::server_id %>
 
 <% if $roles::mariadb_server::type_db_server == main { -%>
 server-id               = <%= $roles::mariadb_server::server_id %>
