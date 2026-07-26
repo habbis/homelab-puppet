@@ -6,7 +6,7 @@ class roles::mariadb_server (
 # @param secondary_server_id
   String  $bind_address,
   Integer $bind_port,
-  Integer $secondary_server_id,
+  Integer $server_id,
   Variant[String, Enum['main', 'secondary']]  $type_db_server,) {
 
 if $facts['kernel'] == 'Linux' {
