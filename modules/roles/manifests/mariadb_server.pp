@@ -15,6 +15,14 @@ if $facts['kernel'] == 'Linux' {
     }
 
 if $facts['os']['family'] == 'Debian' {
+  file { '/var/lib/mysql':
+    ensure => directory,
+    owner  => 'mysql',
+    group  => 'mysql',
+    mode   => '0750',
+
+  }
+
   file { '/etc/mysql/mariadb.conf.d/50-server.cnf':
     ensure  => present,
     owner   => root,
