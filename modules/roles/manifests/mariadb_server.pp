@@ -44,6 +44,7 @@ if $facts['os']['family'] == 'Debian' {
     'mariadb_restart':
       command     => '/usr/bin/systemctl restart mariadb',
       path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/mysql/mariadb.conf.d/50-server.cnf'],
       refreshonly => true;
     }
   }
