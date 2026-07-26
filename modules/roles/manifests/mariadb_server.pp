@@ -15,7 +15,7 @@ if $facts['kernel'] == 'Linux' {
     }
 
 if $facts['os']['family'] == 'Debian' {
-  file { '/var/lib/mysql':
+  file { '/var/log/mysql':
     ensure => directory,
     owner  => 'mysql',
     group  => 'mysql',
