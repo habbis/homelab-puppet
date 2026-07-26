@@ -1,7 +1,7 @@
 ---
 classes:
   - patching_as_code
-  - mariadb_server
+  - roles::mariadb_server
 
 
 patching_as_code::patch_group: group_monday
