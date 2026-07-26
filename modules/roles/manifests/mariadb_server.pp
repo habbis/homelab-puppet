@@ -40,5 +40,11 @@ if $facts['os']['family'] == 'Debian' {
         hasstatus  => true,
         hasrestart => true;
     }
+  exec {
+    'mariadb_restart':
+      command     => '/usr/bin/systemctl restart mariadb',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      refreshonly => true;
+    }
   }
 }
