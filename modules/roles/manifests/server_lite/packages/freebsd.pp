@@ -19,7 +19,7 @@ class roles::server_lite::packages::freebsd {
     'sudo':            ensure => installed;
     'tmux':            ensure => installed;
     'python-3.12_3,2': ensure => installed;
-    'py311-pip':       ensure => installed;
+    'py312-pip':       ensure => installed;
     'vim':       ensure => installed;
   }
 }
