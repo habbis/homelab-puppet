@@ -44,7 +44,7 @@ class roles::server_lite::ca_cert {
       group  => 'wheel',
       mode   => '0644',
     }
-    file { '/usr/local/etc/ssl/certs/habbfarm.crt':
+    file { '/usr/local/share/certs/habbfarm.crt':
       ensure  => present,
       owner   => root,
       group   => wheel,
@@ -55,7 +55,7 @@ class roles::server_lite::ca_cert {
     'ca_enable':
       command => '/usr/sbin/certctl rehash',
       path    => ['/bin','/usr/bin', '/usr/sbin'],
-      unless  => 'ls -al /usr/local/etc/ssl/certs/habbfarm.crt 2>/dev/null';
+      unless  => 'ls -al /usr/local/share/certs/habbfarm.crt 2>/dev/null';
     }
   }
 }
