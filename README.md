@@ -54,6 +54,17 @@ Run pre-commit.
 pre-commit run --all-files
 ```
 
+### Puppet server config file.
+```
+[main]
+server = hf-puppet1.dc1.ncop.no
+
+[server]
+storeconfigs = true
+storeconfigs_backend = puppetdb
+reports = store,puppetdb
+```
+
 ### puppe environments 
 To manage environment use [g10k](https://github.com/xorpaul/g10k?tab=readme-ov-file) or [r10k](https://github.com/puppetlabs/r10k) they work similar. 
 
