@@ -5,7 +5,7 @@
 export http_proxy="http://<%= $roles::server_lite::proxy_server %>"
 export https_proxy="http://<%= $roles::server_lite::proxy_server %>"
 export ftp_proxy="http://<%= $roles::server_lite::proxy_server %>"
-export no_proxy="0.0.0.0/0,localhost,.ncop.no,dc1.ncop.no,.habbfarm.net,.no.habbfarm.net"
+export no_proxy="0.0.0.0/0,127.0.0.1,localhost,.ncop.no,dc1.ncop.no,.habbfarm.net,.no.habbfarm.net"
 # curl
 export HTTP_PROXY="$http_proxy"
 export HTTPS_PROXY="$http_proxy"
