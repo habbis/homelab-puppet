@@ -4,7 +4,7 @@ class roles::server_lite::sshd {
   include roles::server_lite::sshd::linux_install_sshd
 }
 
-if $facts['os']['family'] == 'RedHat' {
+if $facts['os']['name'] == 'RedHat' {
   include roles::server_lite::sshd::rhel
 
 }
