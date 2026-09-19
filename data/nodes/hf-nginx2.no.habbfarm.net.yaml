@@ -1,10 +1,10 @@
 ---
 classes:
   - patching_as_code
-  - roles::nginx_reverse_proxy
   - roles::install_rsync
   - roles::create_ssk_key
   - roles::rsync_remote_server
+  - roles::nginx_reverse_proxy
 
 
 patching_as_code::patch_group: always
