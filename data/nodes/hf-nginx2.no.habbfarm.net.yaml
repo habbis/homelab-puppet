@@ -3,7 +3,7 @@ classes:
   - patching_as_code
   - roles::install_rsync
   - roles::create_ssk_key
-  - roles::rsync_remote_server
+  - roles::rsync_copy
   - roles::nginx_reverse_proxy
 
 
