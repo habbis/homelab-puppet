@@ -2,7 +2,16 @@
 classes:
   - patching_as_code
   - roles::nginx_reverse_proxy
+  - roles::install_rsync
+  - roles::create_ssk_key
+  - roles::rsync_remote_server
 
 
 patching_as_code::patch_group: always
 roles::nginx_reverse_proxy::keepalived_master: false
+
+roles::create_ssk_key::ssh_key_username: root
+roles::rsync_copy::remote_server: hf-nginx2.no.habbfarm.net
+roles::rsync_copy::run_as_user: root
+roles::rsync_copy::remote_source: /etc/letsencrypt
+role::rsync_copy::local_destination: /etc/letsencrypt
