@@ -8,7 +8,7 @@ class roles::create_ssk_key (
       command => '/usr/bin/ssh-keygen -t ed25519  /root/.ssh/id_ed25519 -N "" -C "root@host"',
       user    => root,
       path    => ['/usr/bin/', '/bin/'],
-      creates => /root/.ssh/id_ed25519,
+      creates => '/root/.ssh/id_ed25519',
     }
   } else {
 
