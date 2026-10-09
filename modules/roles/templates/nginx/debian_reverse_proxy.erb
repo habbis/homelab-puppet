@@ -9,11 +9,18 @@ upstream linus_website {
 
 
 server {
+    if ($host = linus.habbfarm.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
 
     listen 80;
     listen [::]:80;
     server_name linus.habbfarm.net;
     return 301 https://$host$request_uri;
+
+
 
 }
 
@@ -22,9 +29,8 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
     server_name linus.habbfarm.net;
-
-    ssl_certificate /etc/ssl/habbfarm.net_ecc/fullchain.cer;
-    ssl_certificate_key /etc/ssl/habbfarm.net_ecc/habbfarm.net.key;
+    ssl_certificate /etc/letsencrypt/live/linus.habbfarm.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/linus.habbfarm.net/privkey.pem; # managed by Certbot
     ssl_session_cache  builtin:1000  shared:SSL:10m;
     ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
@@ -66,14 +72,22 @@ server {
     rewrite ^([^.]*[^/])$ $1/ permanent;
     }
 
+
 }
 
 server {
+    if ($host = test-nextcloud.ncop.no) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
 
     listen 80;
     listen [::]:80;
-    server_name test-nextcloud.habbfarm.net;
+    server_name test-nextcloud.ncop.no;
     return 301 https://$host$request_uri;
+
+
 
 }
 
@@ -83,10 +97,9 @@ server {
 
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name test-nextcloud.habbfarm.net;
-
-    ssl_certificate /etc/ssl/habbfarm.net_ecc/fullchain.cer;
-    ssl_certificate_key /etc/ssl/habbfarm.net_ecc/habbfarm.net.key;
+    server_name test-nextcloud.ncop.no;
+    ssl_certificate /etc/letsencrypt/live/test-nextcloud.ncop.no/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/test-nextcloud.ncop.no/privkey.pem; # managed by Certbot
     ssl_session_cache  builtin:1000  shared:SSL:10m;
     ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
@@ -122,6 +135,7 @@ server {
     # Add the trailing slash
     rewrite ^([^.]*[^/])$ $1/ permanent;
     }
+
 
 }
 
@@ -203,11 +217,18 @@ upstream backend_ipv6_media {
 #}
 
 server {
+    if ($host = media.habbestad.org) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
 
     listen 80;
     listen [::]:80;
     server_name media.habbestad.org;
     return 301 https://$host$request_uri;
+
+
 
 }
 
@@ -218,9 +239,8 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
     server_name media.habbestad.org;
-
-    ssl_certificate /etc/ssl/habbestad.org_ecc/fullchain.cer;
-    ssl_certificate_key /etc/ssl/habbestad.org_ecc/habbestad.org.key;
+    ssl_certificate /etc/letsencrypt/live/media.habbestad.org-0001/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/media.habbestad.org-0001/privkey.pem; # managed by Certbot
     ssl_session_cache  builtin:1000  shared:SSL:10m;
     ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
@@ -284,14 +304,22 @@ server {
      proxy_set_header X-Forwarded-Protocol $scheme;
      proxy_set_header X-Forwarded-Host $http_host;
     }
+
 }
 
 server {
+    if ($host = jellyfin.habbfarm.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
 
     listen 80;
     listen [::]:80;
     server_name jellyfin.habbfarm.net;
     return 301 https://$host$request_uri;
+
+
 
 }
 
@@ -301,9 +329,8 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
     server_name jellyfin.habbfarm.net;
-
-    ssl_certificate /etc/ssl/habbfarm.net_ecc/fullchain.cer;
-    ssl_certificate_key /etc/ssl/habbfarm.net_ecc/habbfarm.net.key;
+    ssl_certificate /etc/letsencrypt/live/jellyfin.habbfarm.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/jellyfin.habbfarm.net/privkey.pem; # managed by Certbot
     ssl_session_cache  builtin:1000  shared:SSL:10m;
     ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
@@ -358,4 +385,5 @@ server {
      proxy_set_header X-Forwarded-Protocol $scheme;
      proxy_set_header X-Forwarded-Host $http_host;
     }
+
 }
