@@ -25,7 +25,7 @@ if $facts['os']['family'] == 'Debian' {
     owner  => root,
     group  => root,
     mode   => '0644',
-    source => "puppet:///modules/roles/files/cri-o/${kubernetes_version}/debian/gpg/cri-o-apt-keyring.gpg"
+    source => "puppet:///modules/roles/cri-o/${kubernetes_version}/debian/gpg/cri-o-apt-keyring.gpg"
       }
 
   file { '/etc/apt/sources.list.d/cri-o.list':
@@ -41,7 +41,7 @@ if $facts['os']['family'] == 'Debian' {
     owner  => root,
     group  => root,
     mode   => '0644',
-    source => "puppet:///modules/roles/files/kubeadm/${kubernetes_version}/debian/gpg/kubernetes-apt-keyring.gpg"
+    source => "puppet:///modules/roles/kubeadm/${kubernetes_version}/debian/gpg/kubernetes-apt-keyring.gpg"
       }
 
   file { '/etc/apt/sources.list.d/kubernetes.list':
@@ -51,6 +51,13 @@ if $facts['os']['family'] == 'Debian' {
     mode    => '0644',
     content => epp("roles/kubeadm/${kubernetes_version}/debian/kubernetes.list.epp");
       }
+
+  exec {
+    'kubeadm_apt_update':
+      command => 'apt-get update',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+    }
+
   package {
     'cri-o':   ensure => installed;
     'kubelet': ensure => installed;
