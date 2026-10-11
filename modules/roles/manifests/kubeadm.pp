@@ -138,6 +138,22 @@ if $facts['os']['family'] == 'Debian' {
     content => epp('roles/kubeadm/http-proxy.conf.epp');
       }
 
+  exec {
+    'crio_systemd_restart':
+      command     => 'systemctl restart crio.service',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/systemd/system/crio.service.d/http-proxy.conf'],
+      refreshonly => true
+    }
+
+  exec {
+    'crio_systemd_daemon_reload':
+      command     => 'systemctl daemon-reload',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/systemd/system/crio.service.d/http-proxy.conf'],
+      refreshonly => true
+    }
+
     service {
       'crio':
         ensure    => running,
