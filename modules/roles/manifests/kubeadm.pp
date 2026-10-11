@@ -123,12 +123,12 @@ if $facts['os']['family'] == 'Debian' {
     'kubectl': ensure => installed;
     }
 
-#  file { '/etc/systemd/system/crio.service.d':
-#    ensure => directory,
-#    owner  => 'root',
-#    group  => 'root',
-#    mode   => '0644',
-#  }
+  file { '/etc/systemd/system/crio.service.d':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
 
   file { '/etc/systemd/system/kubelet.service.d':
     ensure => directory,
@@ -137,13 +137,13 @@ if $facts['os']['family'] == 'Debian' {
     mode   => '0644',
   }
 
-#  file { '/etc/systemd/system/crio.service.d/http-proxy.conf':
-#    ensure  => present,
-#    owner   => root,
-#    group   => root,
-#    mode    => '0644',
-#    content => epp('roles/kubeadm/http-proxy.conf.epp');
-#      }
+  file { '/etc/systemd/system/crio.service.d/http-proxy.conf':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => epp('roles/kubeadm/http-proxy.conf.epp');
+      }
 
   file { '/etc/systemd/system/kubelet.service.d/http-proxy.conf':
     ensure  => present,
@@ -153,21 +153,21 @@ if $facts['os']['family'] == 'Debian' {
     content => epp('roles/kubeadm/http-proxy.conf.epp');
       }
 
-#  exec {
-#    'crio_systemd_restart':
-#      command     => 'systemctl restart crio.service',
-#      path        => ['/bin','/usr/bin', '/usr/sbin'],
-#      subscribe   => File['/etc/systemd/system/crio.service.d/http-proxy.conf'],
-#      refreshonly => true
-#    }
+  exec {
+    'crio_systemd_restart':
+      command     => 'systemctl restart crio.service',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/systemd/system/crio.service.d/http-proxy.conf'],
+      refreshonly => true
+    }
 
-#  exec {
-#    'crio_systemd_daemon_reload':
-#      command     => 'systemctl daemon-reload',
-#      path        => ['/bin','/usr/bin', '/usr/sbin'],
-#      subscribe   => File['/etc/systemd/system/crio.service.d/http-proxy.conf'],
-#      refreshonly => true
-#    }
+  exec {
+    'crio_systemd_daemon_reload':
+      command     => 'systemctl daemon-reload',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/systemd/system/crio.service.d/http-proxy.conf'],
+      refreshonly => true
+    }
 
     service {
       'crio':
