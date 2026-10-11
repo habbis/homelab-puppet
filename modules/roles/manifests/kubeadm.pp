@@ -14,8 +14,8 @@ if $facts['os']['family'] == 'Debian' {
 
   file { '/etc/apt/keyrings':
     ensure => directory,
-    owner  => 'mysql',
-    group  => 'mysql',
+    owner  => 'root',
+    group  => 'root',
     mode   => '0755',
 
   }
