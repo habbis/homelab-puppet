@@ -1,4 +1,4 @@
-# setup mariadb server internal repo unix servers
+# Install kubeadm to setup kubernetes
 class roles::kubeadm (
 # @param kubernetes_version
 # @param crio_version
