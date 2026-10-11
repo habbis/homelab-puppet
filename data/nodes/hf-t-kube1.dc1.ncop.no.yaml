@@ -1,5 +1,5 @@
 ---
 classes:
-  - roles::rubeadm
+  - roles::kubeadm
 
-roles::kubernetes_version: v1.37
+roles::kubeadm::kubernetes_version: v1.37
