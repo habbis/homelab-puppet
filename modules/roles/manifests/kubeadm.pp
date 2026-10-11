@@ -2,8 +2,7 @@
 class roles::kubeadm (
 # @param kubernetes_version
 # @param crio_version
-  String  $kubernetes_version,
-  String  $crio_vesion,) {
+  String  $kubernetes_version,) {
 
 
 if $facts['os']['family'] == 'Debian' {
