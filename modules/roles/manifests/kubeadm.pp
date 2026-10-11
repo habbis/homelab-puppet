@@ -4,6 +4,7 @@ class roles::kubeadm (
 # @param crio_version
   String  $kubernetes_version,) {
 
+if $facts['check_swap'] != 'off' {
   exec {
     'kubeadm_disable_swap':
       command => 'swapoff -a',
@@ -27,6 +28,7 @@ class roles::kubeadm (
       command => 'systemctl daemon-reload',
       path    => ['/bin','/usr/bin', '/usr/sbin'],
     }
+  }
 
 if $facts['os']['family'] == 'Debian' {
   package {
@@ -74,6 +76,38 @@ if $facts['os']['family'] == 'Debian' {
     mode    => '0644',
     content => epp("roles/kubeadm/${kubernetes_version}/debian/kubernetes.list.epp");
       }
+
+  file { '/etc/sysctl.d/90-kubernetes-networking.conf':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => epp('roles/kubeadm/90-kubernetes-networking.conf.epp');
+      }
+
+  exec {
+    'kubeadm_sysctl':
+      command     => 'sysctl --system',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/sysctl.d/90-kubernetes-networking.conf'],
+      refreshonly => true
+    }
+
+  file { '/etc/modules-load.d/br_netfilter.conf':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => epp('roles/kubeadm/br_netfilter.conf.epp');
+      }
+
+  exec {
+    'kubeadm_sysctl':
+      command     => 'update-grub',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/sysctl.d/90-kubernetes-networking.conf'],
+      refreshonly => true
+    }
 
   exec {
     'kubeadm_apt_update':
