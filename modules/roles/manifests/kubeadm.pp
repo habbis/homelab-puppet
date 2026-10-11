@@ -123,14 +123,29 @@ if $facts['os']['family'] == 'Debian' {
     'kubectl': ensure => installed;
     }
 
-  file { '/etc/systemd/system/crio.service.d':
+#  file { '/etc/systemd/system/crio.service.d':
+#    ensure => directory,
+#    owner  => 'root',
+#    group  => 'root',
+#    mode   => '0644',
+#  }
+
+  file { '/etc/systemd/system/kubelet.service.d':
     ensure => directory,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
   }
 
-  file { '/etc/systemd/system/crio.service.d/http-proxy.conf':
+#  file { '/etc/systemd/system/crio.service.d/http-proxy.conf':
+#    ensure  => present,
+#    owner   => root,
+#    group   => root,
+#    mode    => '0644',
+#    content => epp('roles/kubeadm/http-proxy.conf.epp');
+#      }
+
+  file { '/etc/systemd/system/kubelet.service.d/http-proxy.conf':
     ensure  => present,
     owner   => root,
     group   => root,
