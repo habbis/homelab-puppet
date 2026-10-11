@@ -42,7 +42,6 @@ if $facts['os']['family'] == 'Debian' {
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
-
   }
 
   file { '/etc/apt/keyrings/cri-o-apt-keyring.gpg':
@@ -123,6 +122,21 @@ if $facts['os']['family'] == 'Debian' {
     'kubeadm': ensure => installed;
     'kubectl': ensure => installed;
     }
+
+  file { '/etc/systemd/system/crio.service.d':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
+  file { '/etc/modules-load.d/http-proxy.conf':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => epp('roles/kubeadm/http-proxy.conf.epp');
+      }
 
     service {
       'crio':
