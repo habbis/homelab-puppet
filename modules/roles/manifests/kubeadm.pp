@@ -123,6 +123,12 @@ if $facts['os']['family'] == 'Debian' {
     'kubeadm': ensure => installed;
     'kubectl': ensure => installed;
     }
+
+    service {
+      'crio.service':
+        ensure    => running,
+        enable    => true,
+        hasstatus => true,
+    }
   }
 }
-
