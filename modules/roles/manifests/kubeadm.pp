@@ -102,7 +102,7 @@ if $facts['os']['family'] == 'Debian' {
       }
 
   exec {
-    'kubeadm_sysctl':
+    'kubeadm_update_grub':
       command     => 'update-grub',
       path        => ['/bin','/usr/bin', '/usr/sbin'],
       subscribe   => File['/etc/sysctl.d/90-kubernetes-networking.conf'],
