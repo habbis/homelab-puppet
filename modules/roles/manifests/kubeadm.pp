@@ -4,6 +4,29 @@ class roles::kubeadm (
 # @param crio_version
   String  $kubernetes_version,) {
 
+  exec {
+    'kubeadm_disable_swap':
+      command => 'swapoff -a',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+    }
+
+  exec {
+    'kubeadm_remove_swap_fstab':
+      command => "sed -i 's!/dev/mapper/vg0-swap none!#/dev/mapper/vg0-swap!g' /etc/fstab",
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+    }
+
+  exec {
+    'kubeadm_mount':
+      command => 'mount -a',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+    }
+
+  exec {
+    'kubeadm_systemd_daemon_reload':
+      command => 'systemctl daemon-reload',
+      path    => ['/bin','/usr/bin', '/usr/sbin'],
+    }
 
 if $facts['os']['family'] == 'Debian' {
   package {
