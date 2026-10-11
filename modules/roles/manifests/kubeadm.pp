@@ -111,8 +111,10 @@ if $facts['os']['family'] == 'Debian' {
 
   exec {
     'kubeadm_apt_update':
-      command => 'apt-get update',
-      path    => ['/bin','/usr/bin', '/usr/sbin'],
+      command     => 'apt-get update',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/apt/sources.list.d/kubernetes.list'],
+      refreshonly => true
     }
 
   package {
