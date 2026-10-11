@@ -1,0 +1,4 @@
+[Service]
+Environment="HTTP_PROXY=http://hf-proxy.no.habbfarm.net:8888""
+Environment="HTTPS_PROXY=http://hf-proxy.no.habbfarm.net:8888""
+Environment="NO_PROXY=127.0.0.1,localhost,.ncop.no,dc1.ncop.no,.habbfarm.net,.no.habbfarm.net"
