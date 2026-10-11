@@ -125,7 +125,7 @@ if $facts['os']['family'] == 'Debian' {
     }
 
     service {
-      'crio.service':
+      'crio':
         ensure    => running,
         enable    => true,
         hasstatus => true,
