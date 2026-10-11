@@ -130,7 +130,7 @@ if $facts['os']['family'] == 'Debian' {
     mode   => '0644',
   }
 
-  file { '/etc/modules-load.d/http-proxy.conf':
+  file { '/etc/systemd/system/crio.service.d/http-proxy.conf':
     ensure  => present,
     owner   => root,
     group   => root,
