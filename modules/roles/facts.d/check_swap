@@ -1,0 +1,9 @@
+#!/bin/bash
+
+what="$(swapon --show)"
+
+if [ -z "$what" ]; then
+   what=off
+fi
+
+echo "check_swap=$what"

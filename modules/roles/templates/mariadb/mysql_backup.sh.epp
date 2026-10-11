@@ -1,0 +1,80 @@
+#!/bin/bash
+
+LOG=/var/log/backup/preschedule.log
+date >> $LOG
+
+export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+# Cleanup
+echo "Removing old files in /backup"
+rm -f /backup/mysql10_dbbackup.gz* 2>&1 >> $LOG
+
+DOM=$(date +%-d)
+DOW=$(date +%u)
+ext="day"
+if [ "$DOW" -eq 7 ]; then
+        ext="week"
+fi
+if [ "$DOM" -eq 1 ]; then
+        ext="month"
+fi
+
+i=0
+
+echo "stoppin secondary"
+mysql -e "stop slave\G"
+echo "adding gtid secondary info"
+mysql -e "show secondary status\G;" > /var/lib/mysql/mysql_secondary_status.txt
+mysql -e "show global variables like '%gtid%';" > /var/lib/mysql/gtid_info.txt
+mysql -e "show global variables like '%gtid%';" > /var/log/mysql/"$(hostname)"_gtid_info.txt
+
+echo "running show secondary status so gtid in the log"
+mysql -e "show secondary status\G;"   >> $LOG
+
+echo "Stopping MySQL..."
+ /usr/bin/systemctl stop mariadb.service  2>&1 >> $LOG
+# Wait until mysql has really quit
+while pgrep mariadbd  > /dev/null
+do
+  echo "MySQL/Mariadb is not stopped... sleeping five seconds"
+  echo "MySQL/Mariadb is not stopped... sleeping five seconds" >> $LOG
+  sleep 6
+  let "i = $i + 1"
+  if [ "$i" -gt "20" ]; then
+    exit 102
+  fi
+done
+
+
+echo "delete old snapshot"
+zfs destroy mysql10-pool/mysql@mariadb_backup  2>&1 >> $LOG
+
+# Create a snapshot and start mysql
+echo "Creating snapshot mysql10-pool/mysql@mariadb_backup and starting mysql/mariadb"
+zfs snapshot mysql10-pool/mysql@mariadb_backup  && /usr/bin/systemctl start mariadb.service 2>&1 >> $LOG
+
+#echo -n "Giving MySQL 2 minutes to get in sync"
+#echo -n "Giving MySQL 2 minutes to get in sync" >> $LOG
+#for x in {1..120}
+#do
+#  echo -n "."
+#  echo -n "." >> $LOG
+#  sleep 1
+#done
+#echo
+
+echo "compressing backup and sending to /backup"
+if [ -n "$PV" ]; then
+
+ zfs send mysql10-pool/mysql@mariadb_backup  | pv -br | pigz > /backup/mysql10_dbbackup.gz.${ext}
+else
+ zfs send mysql10-pool/mysql@mariadb_backup | pigz > /backup/mysql10_dbbackup.gz.${ext}
+fi
+
+#Takes to long
+#if [ -n "$PV" ]; then
+#   tar -cf - /var/lib/mysql/.zfs/snapshot/mariadb_backup | pv -br | pigz > /backup/mysql10_dbbackup.tar.gz.${ext}
+#else
+#   tar -cf - /var/lib/mysql/.zfs/snapshot/mariadb_backup | pigz > /backup/mysql10_dbbackup.tar.gz.${ext}
+#fi
+
