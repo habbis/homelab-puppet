@@ -1,7 +1,6 @@
-# Install kubeadm to setup kubernetes
+# Install kubectl to setup kubernetes
 class roles::kubectl (
 # @param kubernetes_version
-# @param crio_version
   String  $kubernetes_version,) {
 
   file { '/etc/apt/keyrings/kubernetes-apt-keyring.gpg':
@@ -9,7 +8,7 @@ class roles::kubectl (
     owner  => root,
     group  => root,
     mode   => '0644',
-    source => "puppet:///modules/roles/kubeadm/${kubernetes_version}/debian/gpg/kubernetes-apt-keyring.gpg"
+    source => "puppet:///modules/roles/kubectl/${kubernetes_version}/debian/gpg/kubernetes-apt-keyring.gpg"
       }
 
   file { '/etc/apt/sources.list.d/kubernetes.list':
@@ -17,7 +16,7 @@ class roles::kubectl (
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => epp("roles/kubeadm/${kubernetes_version}/debian/kubernetes.list.epp");
+    content => epp("roles/kubectl/${kubernetes_version}/debian/kubernetes.list.epp");
       }
 
   exec {
