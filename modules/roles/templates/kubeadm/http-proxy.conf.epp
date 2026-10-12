@@ -1,4 +1,7 @@
 [Service]
 Environment="HTTP_PROXY=http://hf-proxy.no.habbfarm.net:8888"
 Environment="HTTPS_PROXY=http://hf-proxy.no.habbfarm.net:8888"
-Environment="NO_PROXY=127.0.0.1,localhost,.ncop.no,dc1.ncop.no,.habbfarm.net,.no.habbfarm.net"
+Environment="NO_PROXY=127.0.0.1,localhost,ironfist.dc1.ncop.no,firestorm.dc1.ncop.no,hydra.dc1.ncop.no,grey-wolf.dc1.ncop.no,.ncop.no,dc1.ncop.no,.habbfarm.net,.no.habbfarm.net"
+Environment="http_proxy=http://hf-proxy.no.habbfarm.net:8888"
+Environment="https_proxy=http://hf-proxy.no.habbfarm.net:8888"
+Environment="no_proxy=127.0.0.1,localhost,ironfist.dc1.ncop.no,firestorm.dc1.ncop.no,hydra.dc1.ncop.no,grey-wolf.dc1.ncop.no,.ncop.no,dc1.ncop.no,.habbfarm.net,.no.habbfarm.net"
