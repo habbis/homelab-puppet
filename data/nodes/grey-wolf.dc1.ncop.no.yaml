@@ -1,0 +1,5 @@
+---
+classes:
+  - roles::kubeadm
+
+roles::kubeadm::kubernetes_version: v1.37
