@@ -29,7 +29,7 @@ if $facts['os']['family'] =='Debian' {
     'nsd_systemd_restart':
       command     => 'systemctl restart nsd.service',
       path        => ['/bin','/usr/bin', '/usr/sbin'],
-      subscribe   => File['/etc/unbound/unbound.conf.d/local.conf'],
+      subscribe   => File['/etc/nsd/nsd.conf'],
       refreshonly => true
     }
   }
