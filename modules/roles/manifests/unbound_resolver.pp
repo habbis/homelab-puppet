@@ -23,5 +23,12 @@ if $facts['os']['family'] =='Debian' {
         hasstatus  => true,
         hasrestart => true;
     }
+  exec {
+    'unbound_systemd_restart':
+      command     => 'systemctl restart unbound.service',
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+      subscribe   => File['/etc/unbound/unbound.conf.d/local.conf'],
+      refreshonly => true
+    }
   }
 }
