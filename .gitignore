@@ -3,3 +3,10 @@ venv
 r10k-deploy.json
 .r10k-deploy.json
 modules2
+.modules/
+.resource_types/
+bolt-debug.log
+.plan_cache.json
+.plugin_cache.json
+.task_cache.json
+.rerun.json
