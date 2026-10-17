@@ -1,0 +1,7 @@
+---
+classes:
+  - patching_as_code
+  - roles::nsd_nameserver
+
+patching_as_code::patch_group: group_tuesday
+roles::server_lite::dns_resolver: true

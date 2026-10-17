@@ -1,2 +1,5 @@
+###
+# managed by puppet
+###
 deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/<%= $roles::kubectl::kubernetes_version %>/deb/ /
 
