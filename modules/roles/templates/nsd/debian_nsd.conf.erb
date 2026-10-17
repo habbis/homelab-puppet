@@ -50,7 +50,7 @@ remote-control:
 key:
    name: "notify_axfr"
    algorithm: hmac-md5
-   secret: "<%= @nsd_hmac_md5_secret %>"
+   secret: "<%= scrope['roles::nsd_nameserver::nsd_hmac_md5_secret'] %>"
 
 zone:
     name: ncop.no
