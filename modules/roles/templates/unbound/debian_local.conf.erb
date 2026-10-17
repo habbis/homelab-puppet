@@ -1,0 +1,101 @@
+# Commenting this out, as one of the files sets auto-trust-anchor-file
+# and other things, but wish to have everything explicitly set here.
+#include-toplevel: "/etc/unbound/unbound.conf.d/*.conf"
+
+# Allow control through a socket file. You will need this if you want to
+# run the command to get statistics etc.
+remote-control:
+  control-enable: yes
+  # by default the control interface is is 127.0.0.1 and ::1 and port 8953
+  # it is possible to use a unix socket too
+  control-interface: /run/unbound.ctl
+
+server:
+    # Listen for external requests
+    interface: 0.0.0.0
+
+    # enable DNSSEC
+    #auto-trust-anchor-file: "/var/lib/unbound/root.key"
+
+    tls-cert-bundle: /etc/ssl/certs/ca-certificates.crt
+
+
+    # One thread should be sufficient, can be increased on beefy
+    # machines. In reality for most users running on small networks or on a
+    # single machine it should be unnecessary to seek performance enhancement
+    # by increasing num-threads above 1.
+    num-threads: <%= @processors['cores'] %>
+
+    # Specify which LAN IPs can connect to query us.
+    #access-control: 192.168.0.0/16 allow
+    #access-control: 172.16.0.0/12 allow
+    #access-control: 10.0.0.0/8 allow
+    access-control: 10.31.0.0/16 allow
+    #access-control: 0.0.0.0/0 allow
+
+    # Trust glue only if it is within the servers authority
+    harden-glue: yes
+
+    # Require DNSSEC data for trust-anchored zones, if such data is absent, the zone becomes BOGUS
+    #harden-dnssec-stripped: yes
+
+    harden-below-nxdomain: yes
+    harden-referral-path: yes
+    harden-algo-downgrade: no
+    hide-identity: yes
+    hide-version: yes
+
+    # Don't use Capitalization randomization as it known to cause DNSSEC issues sometimes
+    # see https://discourse.pi-hole.net/t/unbound-stubby-or-dnscrypt-proxy/9378 for further details
+    use-caps-for-id: no
+
+    # Caching
+    prefetch: yes
+    prefetch-key: yes
+    msg-cache-size: 128k
+    msg-cache-slabs: 2
+    rrset-cache-size: 8m
+    rrset-cache-slabs: 2
+    key-cache-size: 32m
+    key-cache-slabs: 2
+    #cache-min-ttl: 600
+
+    # logging
+    use-syslog: yes
+    verbosity: 3
+    val-log-level: 2
+    log-time-ascii: yes
+    log-queries: yes
+    log-tag-queryreply: yes
+    log-replies: yes
+
+forward-zone:
+    name: "habbfarm.net"
+    #forward-tls-upstream: yes
+    forward-addr: 10.31.3.3@53
+
+#forward-zone:
+#    name: "no.habbfarm.net"
+#    forward-tls-upstream: yes
+#    forward-addr: 10.31.3.2@53
+
+forward-zone:
+    name: "ncop.no"
+    #forward-tls-upstream: yes
+    forward-addr: 10.31.3.2@53
+
+forward-zone:
+    name: "."
+    #forward-tls-upstream: yes
+    forward-addr: 9.9.9.9@53
+    forward-addr: 149.112.112.112@53
+
+#forward-zone:
+#    name: "."
+#    forward-tls-upstream: yes
+#    forward-addr: 2620:fe::fe@853
+#    forward-addr: 2620:fe::9@853
+#
+#   # google
+    forward-addr: 8.8.8.8@853
+    forward-addr: 4.4.4.4@853
