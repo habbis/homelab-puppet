@@ -31,7 +31,7 @@ if $facts['os']['family'] =='Debian' {
     service {
       'pdns':
         ensure     => running,
-        require    => Package['pdns'],
+        require    => Package['pdns-server'],
         enable     => true,
         hasstatus  => true,
         hasrestart => true;
