@@ -9,7 +9,7 @@ if $facts['kernel'] == 'Linux' {
     }
 
 if $facts['os']['family'] =='Debian' {
-  file { '/etc/unbound/unbound.conf.d/local.conf':
+  file { '/etc/nsd/nsd.conf':
     ensure  => present,
     owner   => root,
     group   => root,
