@@ -9,6 +9,13 @@ if $facts['kernel'] == 'Linux' {
     }
 
 if $facts['os']['family'] =='Debian' {
+  file { '/etc/nsd/zones':
+    ensure => directory,
+    owner  => 'nsd',
+    group  => 'nsd',
+    mode   => '0644',
+  }
+
   file { '/etc/nsd/nsd.conf':
     ensure  => present,
     owner   => root,
