@@ -1,6 +1,7 @@
 ---
 classes:
   - patching_as_code
+  - roles::unbound_resolver
 
 roles::server_lite::nameserver1: '127.0.0.1'
 patching_as_code::patch_group:  group_wednesday

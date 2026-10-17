@@ -1,3 +1,6 @@
+###
+# managed by puppet
+###
 [Service]
 Environment="HTTP_PROXY=http://hf-proxy.no.habbfarm.net:8888"
 Environment="HTTPS_PROXY=http://hf-proxy.no.habbfarm.net:8888"

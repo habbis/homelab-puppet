@@ -1,0 +1,76 @@
+### NSD authoritative only DNS
+### nsd.conf :: https://DNSwatch.COM
+### Secondary or "Slave" NSD server
+#
+server:
+  # uncomment to specify specific interfaces to bind (default all).
+    ip-address: 0.0.0.0
+
+  # port to answer queries on. default is 53.
+    port: 53
+
+  # Verbosity level.
+    verbosity: 1
+
+  # After binding socket, drop user privileges.
+  # can be a username, id or id.gid.
+    username: nsd
+
+  # Number of NSD servers to fork.
+    server-count: 2
+
+  # listen only on IPv4 connections
+    ip4-only: yes
+
+  # don't answer VERSION.BIND and VERSION.SERVER CHAOS class queries
+    hide-version: yes
+
+  # identify the server (CH TXT ID.SERVER entry).
+    identity: ""
+
+    logfile: "/var/log/nsd.log"
+
+  # The directory for zonefile: files.
+    zonesdir: "/etc/nsd/zones"
+    zonelistfile: "/var/lib/nsd/zone.list"
+    database: ""
+
+# Remote control (nsd-control)
+remote-control:
+    control-enable: yes
+    control-interface: 127.0.0.1
+    control-port: 8952
+    server-key-file: "/etc/nsd/nsd_server.key"
+    server-cert-file: "/etc/nsd/nsd_server.pem"
+    control-key-file: "/etc/nsd/nsd_control.key"
+    control-cert-file: "/etc/nsd/nsd_control.pem"
+
+# generate secret key
+# dd if=/dev/random of=/dev/stdout count=1 bs=32 | base64
+key:
+   name: "notify_axfr"
+   algorithm: hmac-md5
+   secret: "<%= scope['roles::nsd_nameserver::hmac_md5_secret'] %>"
+
+zone:
+    name: ncop.no
+    zonefile: ncop.no.forward
+    allow-notify: 10.31.3.2 notify_axfr
+    request-xfr: AXFR 10.31.3.2@53 notify_axfr
+
+zone:
+    name: habbfarm.net
+    zonefile: habbfarm.net.forward
+    allow-notify: 10.31.3.2 notify_axfr
+    request-xfr: AXFR 10.31.3.2@53 notify_axfr
+
+zone:
+    name: no.habbfarm.net
+    zonefile: no.habbfarm.net.forward
+    allow-notify: 10.31.3.2 notify_axfr
+    request-xfr: AXFR 10.31.3.2@53 notify_axfr
+
+#
+### NSD authoritative only DNS
+### nsd.conf :: https://DNSwatch.COM
+### Secondary or "Slave" NSD server

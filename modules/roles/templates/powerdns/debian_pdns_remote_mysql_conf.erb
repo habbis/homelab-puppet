@@ -1,0 +1,6 @@
+launch+=gmysql
+gmysql-host=10.31.81.7
+gmysql-dbname=pdns
+gmysql-user=pdns
+gmysql-password=<%= scope['roles::powerdns_authoritative_dns::pdns_mysql_password'] %>
+gmysql-dnssec=yes

@@ -1,0 +1,905 @@
+  {
+    "aio_agent_version": "8.28.1",
+    "apt_dist_updates": 57,
+    "apt_has_dist_updates": true,
+    "apt_has_updates": true,
+    "apt_package_dist_updates": [
+      "base-files",
+      "chrony",
+      "linux-image-6.12.96+deb13-amd64",
+      "python3.13-dev",
+      "libpython3.13-dev",
+      "libpython3.13",
+      "python3.13-venv",
+      "python3.13",
+      "libpython3.13-stdlib",
+      "python3.13-minimal",
+      "libpython3.13-minimal",
+      "liblzma5",
+      "qemu-guest-agent",
+      "libxml2",
+      "bind9-host",
+      "bind9-dnsutils",
+      "bind9-libs",
+      "xz-utils",
+      "curl",
+      "libcurl4t64",
+      "exim4-config",
+      "exim4-base",
+      "exim4-daemon-light",
+      "gpgsm",
+      "gpg-wks-client",
+      "dirmngr",
+      "gpg-wks-server",
+      "gnupg-utils",
+      "gpg-agent",
+      "gpg",
+      "gpgconf",
+      "gpgv",
+      "libbytes-random-secure-perl",
+      "libcurl3t64-gnutls",
+      "libhtml-parser-perl",
+      "samba-common",
+      "libtalloc2",
+      "libtevent0t64",
+      "libsmbclient0",
+      "smbclient",
+      "python3-samba",
+      "python3-ldb",
+      "libtdb1",
+      "python3-tdb",
+      "python3-talloc",
+      "samba-common-bin",
+      "libldb2",
+      "samba-libs",
+      "libwbclient0",
+      "libtasn1-6",
+      "libtiff6",
+      "libxml-libxml-perl",
+      "libxpm4",
+      "linux-image-amd64",
+      "linux-libc-dev",
+      "python3-idna",
+      "tdb-tools"
+    ],
+    "apt_package_security_dist_updates": [
+      "linux-image-6.12.96+deb13-amd64",
+      "bind9-host",
+      "bind9-dnsutils",
+      "bind9-libs",
+      "exim4-config",
+      "exim4-base",
+      "exim4-daemon-light",
+      "libtiff6",
+      "linux-image-amd64",
+      "linux-libc-dev"
+    ],
+    "apt_package_security_updates": [
+      "bind9-host",
+      "bind9-dnsutils",
+      "bind9-libs",
+      "exim4-config",
+      "exim4-base",
+      "exim4-daemon-light",
+      "libtiff6",
+      "linux-libc-dev"
+    ],
+    "apt_package_updates": [
+      "base-files",
+      "chrony",
+      "python3.13-dev",
+      "libpython3.13-dev",
+      "libpython3.13",
+      "python3.13-venv",
+      "python3.13",
+      "libpython3.13-stdlib",
+      "python3.13-minimal",
+      "libpython3.13-minimal",
+      "liblzma5",
+      "qemu-guest-agent",
+      "libxml2",
+      "bind9-host",
+      "bind9-dnsutils",
+      "bind9-libs",
+      "xz-utils",
+      "curl",
+      "libcurl4t64",
+      "exim4-config",
+      "exim4-base",
+      "exim4-daemon-light",
+      "gpgsm",
+      "gpg-wks-client",
+      "dirmngr",
+      "gpg-wks-server",
+      "gnupg-utils",
+      "gpg-agent",
+      "gpg",
+      "gpgconf",
+      "gpgv",
+      "libbytes-random-secure-perl",
+      "libcurl3t64-gnutls",
+      "libhtml-parser-perl",
+      "samba-common",
+      "libtalloc2",
+      "libtevent0t64",
+      "libsmbclient0",
+      "smbclient",
+      "python3-samba",
+      "python3-ldb",
+      "libtdb1",
+      "python3-tdb",
+      "python3-talloc",
+      "samba-common-bin",
+      "libldb2",
+      "samba-libs",
+      "libwbclient0",
+      "libtasn1-6",
+      "libtiff6",
+      "libxml-libxml-perl",
+      "libxpm4",
+      "linux-libc-dev",
+      "python3-idna",
+      "tdb-tools"
+    ],
+    "apt_reboot_required": false,
+    "apt_security_dist_updates": 10,
+    "apt_security_updates": 8,
+    "apt_sources": [
+      "sources.list",
+      "openvox8-release.list"
+    ],
+    "apt_update_last_success": -1,
+    "apt_updates": 55,
+    "architecture": "amd64",
+    "augeas": {
+      "version": "1.14.1"
+    },
+    "augeasversion": "1.14.1",
+    "bios_release_date": "04/01/2014",
+    "bios_vendor": "SeaBIOS",
+    "bios_version": "rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org",
+    "blockdevice_sda_model": "QEMU HARDDISK",
+    "blockdevice_sda_size": 17179869184,
+    "blockdevice_sda_vendor": "QEMU",
+    "blockdevice_sr0_model": "QEMU DVD-ROM",
+    "blockdevice_sr0_size": 4194304,
+    "blockdevice_sr0_vendor": "QEMU",
+    "blockdevices": "sr0,sda",
+    "chassistype": "Other",
+    "check_keepalived": "keepalived not found",
+    "current_patch_policy": "none",
+    "dhcp_servers": {
+      "system": ""
+    },
+    "disks": {
+      "sda": {
+        "model": "QEMU HARDDISK",
+        "serial": "drive-scsi0",
+        "size": "16.00 GiB",
+        "size_bytes": 17179869184,
+        "type": "hdd",
+        "vendor": "QEMU"
+      },
+      "sr0": {
+        "model": "QEMU DVD-ROM",
+        "serial": "QM00003",
+        "size": "4.00 MiB",
+        "size_bytes": 4194304,
+        "type": "hdd",
+        "vendor": "QEMU"
+      }
+    },
+    "dmi": {
+      "bios": {
+        "release_date": "04/01/2014",
+        "vendor": "SeaBIOS",
+        "version": "rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org"
+      },
+      "chassis": {
+        "type": "Other"
+      },
+      "manufacturer": "QEMU",
+      "product": {
+        "name": "Standard PC (i440FX + PIIX, 1996)",
+        "uuid": "d7d56c45-f919-48d7-b949-927d1e24d45b",
+        "version": "pc-i440fx-11.0"
+      }
+    },
+    "domain": "dc1.ncop.no",
+    "env_temp_variable": "/tmp",
+    "facterversion": "5.6.1",
+    "filesystems": "ext2,ext3,ext4,iso9660,xfs",
+    "fips_enabled": false,
+    "fqdn": "hf-test1.dc1.ncop.no",
+    "gid": "root",
+    "habbfarm_virtual": "kvm",
+    "hardwareisa": "x86_64",
+    "hardwaremodel": "x86_64",
+    "hostname": "hf-test1",
+    "hypervisors": {
+      "kvm": {
+      }
+    },
+    "id": "root",
+    "identity": {
+      "gid": 0,
+      "group": "root",
+      "privileged": true,
+      "uid": 0,
+      "user": "root"
+    },
+    "interfaces": "eth0,lo",
+    "ip6tables_version": "1.8.11",
+    "ipaddress": "10.31.22.19",
+    "ipaddress6": "2a01:799:91a:c809:be24:11ff:fed4:4cdf",
+    "ipaddress6_eth0": "2a01:799:91a:c809:be24:11ff:fed4:4cdf",
+    "ipaddress6_lo": "::1",
+    "ipaddress_eth0": "10.31.22.19",
+    "ipaddress_lo": "127.0.0.1",
+    "iptables_version": "1.8.11",
+    "is_pe": false,
+    "is_virtual": true,
+    "kernel": "Linux",
+    "kernelmajversion": "6.12",
+    "kernelrelease": "6.12.94+deb13-amd64",
+    "kernelversion": "6.12.94",
+    "load_averages": {
+      "15m": 0.0,
+      "1m": 0.05,
+      "5m": 0.04
+    },
+    "lsbdistcodename": "trixie",
+    "lsbdistdescription": "Debian GNU/Linux 13 (trixie)",
+    "lsbdistid": "Debian",
+    "lsbdistrelease": "13.5",
+    "lsbmajdistrelease": "13",
+    "lsbminordistrelease": "5",
+    "macaddress": "bc:24:11:d4:4c:df",
+    "macaddress_eth0": "bc:24:11:d4:4c:df",
+    "manufacturer": "QEMU",
+    "memory": {
+      "swap": {
+        "available": "952.00 MiB",
+        "available_bytes": 998240256,
+        "capacity": "0.00%",
+        "total": "952.00 MiB",
+        "total_bytes": 998240256,
+        "used": "0 bytes",
+        "used_bytes": 0
+      },
+      "system": {
+        "available": "3.29 GiB",
+        "available_bytes": 3532300288,
+        "capacity": "15.24%",
+        "total": "3.88 GiB",
+        "total_bytes": 4167323648,
+        "used": "605.61 MiB",
+        "used_bytes": 635023360
+      }
+    },
+    "memoryfree": "3.29 GiB",
+    "memoryfree_mb": 3368.6640625,
+    "memorysize": "3.88 GiB",
+    "memorysize_mb": 3974.26953125,
+    "mountpoints": {
+      "/": {
+        "available": "10.61 GiB",
+        "available_bytes": 11393175552,
+        "capacity": "24.87%",
+        "device": "/dev/mapper/vg0-root",
+        "filesystem": "xfs",
+        "options": [
+          "rw",
+          "relatime",
+          "attr2",
+          "inode64",
+          "logbufs=8",
+          "logbsize=32k",
+          "noquota"
+        ],
+        "size": "14.12 GiB",
+        "size_bytes": 15164506112,
+        "used": "3.51 GiB",
+        "used_bytes": 3771330560
+      },
+      "/boot": {
+        "available": "705.64 MiB",
+        "available_bytes": 739913728,
+        "capacity": "17.57%",
+        "device": "/dev/sda1",
+        "filesystem": "ext4",
+        "options": [
+          "rw",
+          "relatime"
+        ],
+        "size": "919.67 MiB",
+        "size_bytes": 964341760,
+        "used": "150.38 MiB",
+        "used_bytes": 157687808
+      },
+      "/dev": {
+        "available": "429.31 MiB",
+        "available_bytes": 450162688,
+        "capacity": "0%",
+        "device": "udev",
+        "filesystem": "devtmpfs",
+        "options": [
+          "rw",
+          "nosuid",
+          "relatime",
+          "size=439612k",
+          "nr_inodes=109903",
+          "mode=755",
+          "inode64"
+        ],
+        "size": "429.31 MiB",
+        "size_bytes": 450162688,
+        "used": "0 bytes",
+        "used_bytes": 0
+      },
+      "/dev/hugepages": {
+        "available": "0 bytes",
+        "available_bytes": 0,
+        "capacity": "100%",
+        "device": "hugetlbfs",
+        "filesystem": "hugetlbfs",
+        "options": [
+          "rw",
+          "nosuid",
+          "nodev",
+          "relatime",
+          "pagesize=2M"
+        ],
+        "size": "0 bytes",
+        "size_bytes": 0,
+        "used": "0 bytes",
+        "used_bytes": 0
+      },
+      "/dev/mqueue": {
+        "available": "0 bytes",
+        "available_bytes": 0,
+        "capacity": "100%",
+        "device": "mqueue",
+        "filesystem": "mqueue",
+        "options": [
+          "rw",
+          "nosuid",
+          "nodev",
+          "noexec",
+          "relatime"
+        ],
+        "size": "0 bytes",
+        "size_bytes": 0,
+        "used": "0 bytes",
+        "used_bytes": 0
+      },
+      "/dev/pts": {
+        "available": "0 bytes",
+        "available_bytes": 0,
+        "capacity": "100%",
+        "device": "devpts",
+        "filesystem": "devpts",
+        "options": [
+          "rw",
+          "nosuid",
+          "noexec",
+          "relatime",
+          "gid=5",
+          "mode=600",
+          "ptmxmode=000"
+        ],
+        "size": "0 bytes",
+        "size_bytes": 0,
+        "used": "0 bytes",
+        "used_bytes": 0
+      },
+      "/dev/shm": {
+        "available": "1.94 GiB",
+        "available_bytes": 2083659776,
+        "capacity": "0%",
+        "device": "tmpfs",
+        "filesystem": "tmpfs",
+        "options": [
+          "rw",
+          "nosuid",
+          "nodev",
+          "inode64"
+        ],
+        "size": "1.94 GiB",
+        "size_bytes": 2083659776,
+        "used": "0 bytes",
+        "used_bytes": 0
+      },
+      "/run": {
+        "available": "396.84 MiB",
+        "available_bytes": 416120832,
+        "capacity": "0.15%",
+        "device": "tmpfs",
+        "filesystem": "tmpfs",
+        "options": [
+          "rw",
+          "nosuid",
+          "nodev",
+          "noexec",
+          "relatime",
+          "size=406968k",
+          "mode=755",
+          "inode64"
+        ],
+        "size": "397.43 MiB",
+        "size_bytes": 416735232,
+        "used": "600.00 KiB",
+        "used_bytes": 614400
+      },
+      "/run/credentials/getty@tty1.service": {
+        "available": "1.00 MiB",
+        "available_bytes": 1048576,
+        "capacity": "0%",
+        "device": "tmpfs",
+        "filesystem": "tmpfs",
+        "options": [
+          "ro",
+          "nosuid",
+          "nodev",
+          "noexec",
+          "relatime",
+          "nosymfollow",
+          "size=1024k",
+          "nr_inodes=1024",
+          "mode=700",
+          "inode64",
+          "noswap"
+        ],
+        "size": "1.00 MiB",
+        "size_bytes": 1048576,
+        "used": "0 bytes",
+        "used_bytes": 0
+      },
+      "/run/credentials/systemd-journald.service": {
+        "available": "1.00 MiB",
+        "available_bytes": 1048576,
+        "capacity": "0%",
+        "device": "tmpfs",
+        "filesystem": "tmpfs",
+        "options": [
+          "ro",
+          "nosuid",
+          "nodev",
+          "noexec",
+          "relatime",
+          "nosymfollow",
+          "size=1024k",
+          "nr_inodes=1024",
+          "mode=700",
+          "inode64",
+          "noswap"
+        ],
+        "size": "1.00 MiB",
+        "size_bytes": 1048576,
+        "used": "0 bytes",
+        "used_bytes": 0
+      },
+      "/run/lock": {
+        "available": "5.00 MiB",
+        "available_bytes": 5242880,
+        "capacity": "0%",
+        "device": "tmpfs",
+        "filesystem": "tmpfs",
+        "options": [
+          "rw",
+          "nosuid",
+          "nodev",
+          "noexec",
+          "relatime",
+          "size=5120k",
+          "inode64"
+        ],
+        "size": "5.00 MiB",
+        "size_bytes": 5242880,
+        "used": "0 bytes",
+        "used_bytes": 0
+      },
+      "/run/user/1000": {
+        "available": "397.42 MiB",
+        "available_bytes": 416722944,
+        "capacity": "0.00%",
+        "device": "tmpfs",
+        "filesystem": "tmpfs",
+        "options": [
+          "rw",
+          "nosuid",
+          "nodev",
+          "relatime",
+          "size=406964k",
+          "nr_inodes=101741",
+          "mode=700",
+          "uid=1000",
+          "gid=1000",
+          "inode64"
+        ],
+        "size": "397.43 MiB",
+        "size_bytes": 416731136,
+        "used": "8.00 KiB",
+        "used_bytes": 8192
+      },
+      "/tmp": {
+        "available": "1.94 GiB",
+        "available_bytes": 2083639296,
+        "capacity": "0.00%",
+        "device": "tmpfs",
+        "filesystem": "tmpfs",
+        "options": [
+          "rw",
+          "nosuid",
+          "nodev",
+          "size=2034828k",
+          "nr_inodes=1048576",
+          "inode64"
+        ],
+        "size": "1.94 GiB",
+        "size_bytes": 2083663872,
+        "used": "24.00 KiB",
+        "used_bytes": 24576
+      }
+    },
+    "mtu_eth0": 1500,
+    "mtu_lo": 65536,
+    "netmask": "255.255.255.0",
+    "netmask6": "ffff:ffff:ffff:ffff::",
+    "netmask6_eth0": "ffff:ffff:ffff:ffff::",
+    "netmask6_lo": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "netmask_eth0": "255.255.255.0",
+    "netmask_lo": "255.0.0.0",
+    "network": "10.31.22.0",
+    "network6": "2a01:799:91a:c809::",
+    "network6_eth0": "2a01:799:91a:c809::",
+    "network6_lo": "::1",
+    "network_eth0": "10.31.22.0",
+    "network_lo": "127.0.0.0",
+    "networking": {
+      "domain": "dc1.ncop.no",
+      "fqdn": "hf-test1.dc1.ncop.no",
+      "hostname": "hf-test1",
+      "interfaces": {
+        "eth0": {
+          "bindings": [
+            {
+              "address": "10.31.22.19",
+              "netmask": "255.255.255.0",
+              "network": "10.31.22.0"
+            }
+          ],
+          "bindings6": [
+            {
+              "address": "2a01:799:91a:c809:be24:11ff:fed4:4cdf",
+              "netmask": "ffff:ffff:ffff:ffff::",
+              "network": "2a01:799:91a:c809::",
+              "scope6": "global",
+              "flags": [
+  
+              ]
+            },
+            {
+              "address": "fe80::be24:11ff:fed4:4cdf",
+              "netmask": "ffff:ffff:ffff:ffff::",
+              "network": "fe80::",
+              "scope6": "link",
+              "flags": [
+                "permanent"
+              ]
+            }
+          ],
+          "duplex": "unknown",
+          "ip": "10.31.22.19",
+          "ip6": "2a01:799:91a:c809:be24:11ff:fed4:4cdf",
+          "mac": "bc:24:11:d4:4c:df",
+          "mtu": 1500,
+          "netmask": "255.255.255.0",
+          "netmask6": "ffff:ffff:ffff:ffff::",
+          "network": "10.31.22.0",
+          "network6": "2a01:799:91a:c809::",
+          "operational_state": "up",
+          "physical": true,
+          "scope6": "global",
+          "speed": -1
+        },
+        "lo": {
+          "bindings": [
+            {
+              "address": "127.0.0.1",
+              "netmask": "255.0.0.0",
+              "network": "127.0.0.0"
+            }
+          ],
+          "bindings6": [
+            {
+              "address": "::1",
+              "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+              "network": "::1",
+              "scope6": "host",
+              "flags": [
+                "permanent"
+              ]
+            }
+          ],
+          "ip": "127.0.0.1",
+          "ip6": "::1",
+          "mtu": 65536,
+          "netmask": "255.0.0.0",
+          "netmask6": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+          "network": "127.0.0.0",
+          "network6": "::1",
+          "operational_state": "unknown",
+          "physical": false,
+          "scope6": "host"
+        }
+      },
+      "ip": "10.31.22.19",
+      "ip6": "2a01:799:91a:c809:be24:11ff:fed4:4cdf",
+      "mac": "bc:24:11:d4:4c:df",
+      "mtu": 1500,
+      "netmask": "255.255.255.0",
+      "netmask6": "ffff:ffff:ffff:ffff::",
+      "network": "10.31.22.0",
+      "network6": "2a01:799:91a:c809::",
+      "primary": "eth0",
+      "scope6": "global"
+    },
+    "operatingsystem": "Debian",
+    "operatingsystemmajrelease": "13",
+    "operatingsystemrelease": "13.5",
+    "os": {
+      "architecture": "amd64",
+      "distro": {
+        "codename": "trixie",
+        "description": "Debian GNU/Linux 13 (trixie)",
+        "id": "Debian",
+        "release": {
+          "full": "13.5",
+          "major": "13",
+          "minor": "5"
+        }
+      },
+      "family": "Debian",
+      "hardware": "x86_64",
+      "name": "Debian",
+      "release": {
+        "full": "13.5",
+        "major": "13",
+        "minor": "5"
+      },
+      "selinux": {
+        "enabled": false
+      }
+    },
+    "os_patching": {
+      "agent_type": "OSP",
+      "blackouts": {
+      },
+      "block_patching_on_warnings": "false",
+      "blocked": false,
+      "blocked_reasons": [
+  
+      ],
+      "last_run": {
+      },
+      "missing_update_kbs": [
+  
+      ],
+      "package_update_count": 0,
+      "package_updates": [
+  
+      ],
+      "patch_window": "",
+      "pinned_packages": [
+  
+      ],
+      "reboot_override": "default",
+      "reboots": {
+        "reboot_required": "unknown"
+      },
+      "security_package_update_count": 0,
+      "security_package_updates": [
+  
+      ],
+      "warnings": {
+        "security_update_file": "Security update file not found, update information invalid",
+        "update_file": "Update file not found, update information invalid"
+      }
+    },
+    "osfamily": "Debian",
+    "package_provider": "apt",
+    "partitions": {
+      "/dev/mapper/vg0-root": {
+        "filesystem": "xfs",
+        "mount": "/",
+        "size": "14.13 GiB",
+        "size_bytes": 15174991872,
+        "uuid": "01973f07-29a7-4389-b2a9-f6950fdcc12e"
+      },
+      "/dev/mapper/vg0-swap": {
+        "filesystem": "swap",
+        "size": "952.00 MiB",
+        "size_bytes": 998244352,
+        "uuid": "cef3dafe-b211-4e98-ac1e-81795b9be978"
+      },
+      "/dev/sda1": {
+        "filesystem": "ext4",
+        "mount": "/boot",
+        "parttype": "0x83",
+        "partuuid": "23a9a670-01",
+        "size": "953.00 MiB",
+        "size_bytes": 999292928,
+        "uuid": "94e362f7-31bb-419e-9cf6-ae14901d26e1"
+      },
+      "/dev/sda2": {
+        "parttype": "0x5",
+        "partuuid": "23a9a670-02",
+        "size": "1.00 KiB",
+        "size_bytes": 1024
+      },
+      "/dev/sda5": {
+        "filesystem": "LVM2_member",
+        "parttype": "0x8e",
+        "partuuid": "23a9a670-05",
+        "size": "15.07 GiB",
+        "size_bytes": 16177430528,
+        "uuid": "etNEN6-3wzG-kcuB-OCLi-LKfd-EuAi-dzJ3cV"
+      }
+    },
+    "patch_unsafe_process_active": false,
+    "patching_as_code": {
+      "choco_patches_installed_on_last_high_prio_run": [
+  
+      ],
+      "choco_patches_installed_on_last_run": [
+  
+      ],
+      "days_since_last_high_prio_patch_run": 0,
+      "days_since_last_patch_run": 0,
+      "last_high_prio_patch_run": "",
+      "last_patch_run": "",
+      "patches_installed_on_last_high_prio_run": [
+  
+      ],
+      "patches_installed_on_last_run": [
+  
+      ]
+    },
+    "patching_as_code_utc_offset": 2.0,
+    "path": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/puppetlabs/bin",
+    "physicalprocessorcount": 1,
+    "pip3_version": "25.1.1",
+    "pip_version": "25.1.1",
+    "processor0": "QEMU Virtual CPU version 2.5+",
+    "processor1": "QEMU Virtual CPU version 2.5+",
+    "processorcount": 2,
+    "processors": {
+      "cores": 2,
+      "count": 2,
+      "extensions": [
+        "x86_64",
+        "x86_64-v1",
+        "x86_64-v2"
+      ],
+      "isa": "x86_64",
+      "models": [
+        "QEMU Virtual CPU version 2.5+",
+        "QEMU Virtual CPU version 2.5+"
+      ],
+      "physicalcount": 1,
+      "speed": "3.79 GHz",
+      "threads": 1
+    },
+    "productname": "Standard PC (i440FX + PIIX, 1996)",
+    "productversion": "pc-i440fx-11.0",
+    "puppet_agent_pid": 137092,
+    "puppet_client_datadir": "/opt/puppetlabs/puppet/cache/client_data",
+    "puppet_confdir": "/etc/puppetlabs/puppet",
+    "puppet_config": "/etc/puppetlabs/puppet/puppet.conf",
+    "puppet_digest_algorithm": "sha256",
+    "puppet_environmentpath": "/etc/puppetlabs/code/environments",
+    "puppet_master_server": "hf-puppet1.dc1.ncop.no",
+    "puppet_runmode": "agent",
+    "puppet_server": "hf-puppet1.dc1.ncop.no",
+    "puppet_ssldir": "/etc/puppetlabs/puppet/ssl",
+    "puppet_sslpaths": {
+      "certdir": {
+        "path": "/etc/puppetlabs/puppet/ssl/certs",
+        "path_exists": true
+      },
+      "hostcrl": {
+        "path": "/etc/puppetlabs/puppet/ssl/crl.pem",
+        "path_exists": true
+      },
+      "privatedir": {
+        "path": "/etc/puppetlabs/puppet/ssl/private",
+        "path_exists": true
+      },
+      "privatekeydir": {
+        "path": "/etc/puppetlabs/puppet/ssl/private_keys",
+        "path_exists": true
+      },
+      "publickeydir": {
+        "path": "/etc/puppetlabs/puppet/ssl/public_keys",
+        "path_exists": true
+      },
+      "requestdir": {
+        "path": "/etc/puppetlabs/puppet/ssl/certificate_requests",
+        "path_exists": true
+      }
+    },
+    "puppet_stringify_facts": false,
+    "puppet_vardir": "/opt/puppetlabs/puppet/cache",
+    "puppetversion": "8.28.1",
+    "python3_release": "3.13",
+    "python3_version": "3.13.5",
+    "root_home": "/root",
+    "ruby": {
+      "platform": "x86_64-linux",
+      "sitedir": "/opt/puppetlabs/puppet/lib/ruby/site_ruby/3.2.0",
+      "version": "3.2.11"
+    },
+    "rubyplatform": "x86_64-linux",
+    "rubysitedir": "/opt/puppetlabs/puppet/lib/ruby/site_ruby/3.2.0",
+    "rubyversion": "3.2.11",
+    "scope6": "global",
+    "scope6_eth0": "global",
+    "scope6_lo": "host",
+    "selinux": false,
+    "service_provider": "systemd",
+    "ssh": {
+      "ecdsa": {
+        "fingerprints": {
+          "sha1": "SSHFP 3 1 9c923ee21130e3967728d0979efcc580be86ed55",
+          "sha256": "SSHFP 3 2 b5a819bfda4762a210d4260cda14033cb575c82c99926f7c516efb04fef4b335"
+        },
+        "key": "AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNzgByiSdCXq+KOGwz7c0Io4b7T3udIF+cUNi+neDlX9ieS9n6jKsCJXKbKYHUmDJbCSDjq6X9ZyEK1y/+nzfzo=",
+        "type": "ecdsa-sha2-nistp256"
+      },
+      "ed25519": {
+        "fingerprints": {
+          "sha1": "SSHFP 4 1 4c23276810db1ac0d0357cca86e1346f33bef476",
+          "sha256": "SSHFP 4 2 bef86ba41c619fa326ebdcf77f084120d42654817905cb7845231dec77da3a68"
+        },
+        "key": "AAAAC3NzaC1lZDI1NTE5AAAAIOOn65a/w78ywI83AZgQhq+YAKotYM+gzeSNn9d6KwJk",
+        "type": "ssh-ed25519"
+      },
+      "rsa": {
+        "fingerprints": {
+          "sha1": "SSHFP 1 1 413f00692fd86251c7de440d7864c0a46c272736",
+          "sha256": "SSHFP 1 2 790cc6e22536521a1a54cfc4f7deb6f1b08ae3c41770049443a20875f097f146"
+        },
+        "key": "AAAAB3NzaC1yc2EAAAADAQABAAABgQCn7CRQKGPQDdsOfc37XLwn8W4kEsOBI7TJaJZu9cYnkdBAGWoju1rWKTI5lsJLIw49zg28zqAlZyWcsnYzESPtbb9DtctyBrXRTeNJ9x6cEsUAMqaydim3xU6W2jfkqcB/dWtxV8rNmBZo62hL/yg4RMaKS5YLNgYSPLiP/7F78VT8dJIx2V/sy0AxTkyO9ZA5uaCIGv304pbGzg94v3jTVLZqoa8lh82c1MfTnhIg24nMAYsOwzjO6xIJS/Q2BqPxJP/5aluLJSnovTn0+FggLkJD0GEwABitjE6H9HkcYWGi5u/rqpBEIwFvIfjYrPmQEZpkwAz1OizcnIjWSoZIR6tgscuOPKoST27t5LhrZNjZWMTzyejuomZylB+kufHs09GqJT35eHXljjuUmaFqYPWtDt5HE7f7TJVaUysb1ASuebKFfGxI/xKk/i7JhW1tWNCY0Y6FDpuQZ5gCf3h31BSIOGss9fec3CbLbeliIx7SutLKF5QzIOy3EwKbhF8=",
+        "type": "ssh-rsa"
+      }
+    },
+    "ssh_host_ecdsa_key": "/etc/ssh/ssh_host_ecdsa_key",
+    "sshecdsakey": "AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNzgByiSdCXq+KOGwz7c0Io4b7T3udIF+cUNi+neDlX9ieS9n6jKsCJXKbKYHUmDJbCSDjq6X9ZyEK1y/+nzfzo=",
+    "sshed25519key": "AAAAC3NzaC1lZDI1NTE5AAAAIOOn65a/w78ywI83AZgQhq+YAKotYM+gzeSNn9d6KwJk",
+    "sshfp_ecdsa": "SSHFP 3 1 9c923ee21130e3967728d0979efcc580be86ed55\nSSHFP 3 2 b5a819bfda4762a210d4260cda14033cb575c82c99926f7c516efb04fef4b335",
+    "sshfp_ed25519": "SSHFP 4 1 4c23276810db1ac0d0357cca86e1346f33bef476\nSSHFP 4 2 bef86ba41c619fa326ebdcf77f084120d42654817905cb7845231dec77da3a68",
+    "sshfp_rsa": "SSHFP 1 1 413f00692fd86251c7de440d7864c0a46c272736\nSSHFP 1 2 790cc6e22536521a1a54cfc4f7deb6f1b08ae3c41770049443a20875f097f146",
+    "sshrsakey": "AAAAB3NzaC1yc2EAAAADAQABAAABgQCn7CRQKGPQDdsOfc37XLwn8W4kEsOBI7TJaJZu9cYnkdBAGWoju1rWKTI5lsJLIw49zg28zqAlZyWcsnYzESPtbb9DtctyBrXRTeNJ9x6cEsUAMqaydim3xU6W2jfkqcB/dWtxV8rNmBZo62hL/yg4RMaKS5YLNgYSPLiP/7F78VT8dJIx2V/sy0AxTkyO9ZA5uaCIGv304pbGzg94v3jTVLZqoa8lh82c1MfTnhIg24nMAYsOwzjO6xIJS/Q2BqPxJP/5aluLJSnovTn0+FggLkJD0GEwABitjE6H9HkcYWGi5u/rqpBEIwFvIfjYrPmQEZpkwAz1OizcnIjWSoZIR6tgscuOPKoST27t5LhrZNjZWMTzyejuomZylB+kufHs09GqJT35eHXljjuUmaFqYPWtDt5HE7f7TJVaUysb1ASuebKFfGxI/xKk/i7JhW1tWNCY0Y6FDpuQZ5gCf3h31BSIOGss9fec3CbLbeliIx7SutLKF5QzIOy3EwKbhF8=",
+    "swapfree": "952.00 MiB",
+    "swapfree_mb": 951.99609375,
+    "swapsize": "952.00 MiB",
+    "swapsize_mb": 951.99609375,
+    "system_uptime": {
+      "days": 9,
+      "hours": 224,
+      "seconds": 808331,
+      "uptime": "9 days"
+    },
+    "timezone": "CEST",
+    "uptime": "9 days",
+    "uptime_days": 9,
+    "uptime_hours": 224,
+    "uptime_seconds": 808331,
+    "uuid": "d7d56c45-f919-48d7-b949-927d1e24d45b",
+    "virtual": "kvm",
+    "implementation": "openvox",
+    "clientcert": "hf-test1.dc1.ncop.no",
+    "clientversion": "8.28.1",
+    "clientnoop": false
+  }

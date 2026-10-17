@@ -1,0 +1,20 @@
+# This is an example inventory.yaml
+# To read more about inventory files, see https://pup.pt/bolt-inventory
+#
+ groups:
+   - name: test
+     targets:
+       #- hf-test1.dc1.ncop.no
+       #- hf-nginx2.no.habbfarm.net
+       - ntp3.no.habbfarm.net
+#     config:
+#       transport: ssh
+#       ssh:
+#         host-key-check: false
+#         run-as: root
+#         user: ansible
+ config:
+   ssh:
+      host-key-check: false
+      run-as: root
+      user: ansible

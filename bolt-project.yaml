@@ -1,0 +1,6 @@
+name: homelab_puppet
+compile-concurrency: 5
+concurrency: 50
+format: human
+#format: json
+hiera-config: hiera.yaml
