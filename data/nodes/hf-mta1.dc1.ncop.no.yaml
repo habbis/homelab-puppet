@@ -7,4 +7,4 @@ classes:
 patching_as_code::patch_group: group_tuesday
 roles::postfix_mta::smtp_relay_server: mail.habbestad.tech
 roles::postfix_mta::smtp_reloay_port: 587
-roles::postfix_mta::email_relay::user: unix@habbestad.tech
+roles::postfix_mta::email_relay_user: unix@habbestad.tech
