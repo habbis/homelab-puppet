@@ -1,4 +1,4 @@
 ###
 # managed by puppet
 ###
- [<%= $roles::postfix_mta::smtp_relay_server %>]:<%= $roles::postfix_mta::smtp_relay_port %> <%= $roles::postfix_mta::email_reloay_user %>:<%= $roles::postfix_mta::email_reloay_password %>
+ [<%= $roles::postfix_mta::smtp_relay_server %>]:<%= $roles::postfix_mta::smtp_relay_port %> <%= $roles::postfix_mta::email_relay_user %>:<%= $roles::postfix_mta::email_relay_password %>

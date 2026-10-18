@@ -4,8 +4,8 @@ class roles::postfix_mta (
 # @param email_user
 # @param email_password
   String  $smtp_relay_server,
-  Integer $smtp_reloay_port,
-  String  $email_reloay_user,
+  Integer $smtp_relay_port,
+  String  $email_relay_user,
   String  $email_relay_password,) {
 
 if $facts['os']['family'] =='Debian' {
