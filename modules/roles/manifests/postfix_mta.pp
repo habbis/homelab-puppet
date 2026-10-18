@@ -28,7 +28,7 @@ if $facts['os']['family'] =='Debian' {
     ensure  => present,
     owner   => root,
     group   => root,
-    mode    => '0600',
+    mode    => '0400',
     content => epp('roles/postfix_mta/debian_sasl_passwd.epp');
   }
     service {
