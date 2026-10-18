@@ -3,10 +3,10 @@ class roles::postfix_mta (
 # @param smtp_server
 # @param email_user
 # @param email_password
-  String $smtp_relay_server,
-  String $smtp_reloay_port,
-  String $email_reloay_user,
-  String $email_relay_password,) {
+  String  $smtp_relay_server,
+  Integer $smtp_reloay_port,
+  String  $email_reloay_user,
+  String  $email_relay_password,) {
 
 if $facts['os']['family'] =='Debian' {
   package {
