@@ -1,7 +1,7 @@
 ---
 classes:
   - patching_as_code
-  - postfix_mta
+  - roles::postfix_mta
 
 
 patching_as_code::patch_group: group_tuesday
