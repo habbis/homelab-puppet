@@ -1,0 +1,6 @@
+###
+# managed by puppet
+###
+auto lo:0
+iface lo:0 inet static
+    address <%= $roles::frr_bgp::anycast_ipv4_address %>/32

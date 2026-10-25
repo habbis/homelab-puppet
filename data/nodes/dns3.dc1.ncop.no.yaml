@@ -1,0 +1,11 @@
+---
+classes:
+  - patching_as_code
+  - roles::unbound_resolver
+  - roles::frr_bgp
+
+roles::server_lite::nameserver1: '127.0.0.1'
+patching_as_code::patch_group:  group_wednesday
+roles::server_lite::dns_resolver: true
+roles::frr_bgp::anycast_ipv4_address: '10.17.2.10'
+roles::frr_bgp::bgp_nr: '65011'

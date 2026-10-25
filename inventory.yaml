@@ -2,17 +2,22 @@
 # To read more about inventory files, see https://pup.pt/bolt-inventory
 #
  groups:
+   - name: dns
+     targets:
+       - dns3.dc1.ncop.no
+       - dns4.dc1.ncop.no
+       - dns5.dc1.ncop.no
+       - dns6.dc1.ncop.no
+   - name: ntp
+     targets:
+       - ntp3.dc1.ncop.no
+       - ntp4.dc1.ncop.no
+       - ntp5.dc1.ncop.no
+       - ntp6.dc1.ncop.no
    - name: test
      targets:
-       #- hf-test1.dc1.ncop.no
+       - hf-test1.dc1.ncop.no
        #- hf-nginx2.no.habbfarm.net
-       - ntp3.no.habbfarm.net
-#     config:
-#       transport: ssh
-#       ssh:
-#         host-key-check: false
-#         run-as: root
-#         user: ansible
  config:
    ssh:
       host-key-check: false

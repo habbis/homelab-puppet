@@ -1,6 +1,6 @@
 moduledir 'modules2'
 
-mod 'puppetlabs-stdlib', '9.7.0'
+mod 'puppetlabs-stdlib', '10.1.0'
 mod 'puppetlabs-puppetdb', '8.1.0'
 mod 'puppet-openvoxdb', '9.1.1'
 mod 'puppetlabs-firewall', '8.2.0'
