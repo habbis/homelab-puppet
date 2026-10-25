@@ -30,7 +30,7 @@ if $facts['os']['family'] =='Debian' {
     content => epp('roles/frr_bgp/debian_frr_conf.epp');
   }
     service {
-      'unbound':
+      'frr':
         ensure     => running,
         require    => Package['frr'],
         enable     => true,
