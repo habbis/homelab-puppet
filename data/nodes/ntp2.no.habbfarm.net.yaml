@@ -2,8 +2,11 @@
 classes:
   - patching_as_code
   - roles::ntp_server
+  - roles::frr_bgp
 
 
 patching_as_code::patch_group: group_tuesday
 roles::server_lite::ntp_server: true
 roles::ntp_server::ntp_pool: "0.no.pool.ntp.org"
+roles::frr_bgp::anycast_ipv4_address: '10.31.15.10'
+roles::frr_bgp::bgp_nr: '65012'
