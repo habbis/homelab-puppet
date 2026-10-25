@@ -1,0 +1,20 @@
+# default to using syslog. /etc/rsyslog.d/45-frr.conf places the log in
+# /var/log/frr/frr.log
+log syslog informational
+
+frr defaults traditional
+hostname <%= $facts['networking']['fqdn'] %>
+!
+router bgp <%= $roles::frr_bgp::bgp_nr %>
+ bgp router-id <%= $facts['networking']['ip'] %>
+ no bgp ebgp-requires-policy
+ !
+ neighbor <%= $facts['get_default_gateway'] %> remote-as 65000
+ neighbor <%= $facts['get_default_gateway'] %> description UDM-Pro-Max
+ !
+ address-family ipv4 unicast eth0
+  network <%= $roles::frr_bgp::anycast_ipv4_address %>/32
+  neighbor <%= $facts['get_default_gateway'] %> activate
+  neighbor <%= $facts['get_default_gateway'] %> soft-reconfiguration inbound
+ exit-address-family
+!
