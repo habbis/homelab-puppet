@@ -19,7 +19,7 @@ if $facts['os']['family'] =='Debian' {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => epp('roles/frr_bgp/debian_inerface_anycast.epp');
+    content => epp('roles/frr_bgp/debian_interface_anycast.epp');
   }
 
   file { '/etc/frr/frr.conf':
