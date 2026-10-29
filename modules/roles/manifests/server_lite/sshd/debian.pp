@@ -1,6 +1,6 @@
 # Class to deploy sshd config
 class roles::server_lite::sshd::debian inherits roles::server_lite::sshd {
-  if $facts['os']['release']['major'] == '13' {
+  if $facts['os']['release']['major'] == '13' and $facts['check_pve'] != 'pve' {
   file { '/etc/ssh/sshd_config':
     ensure  => 'present',
     owner   => root,
@@ -8,7 +8,15 @@ class roles::server_lite::sshd::debian inherits roles::server_lite::sshd {
     mode    => '0600',
     content => template('roles/sshd/debian/sshd_config_deb13.erb');
     }
-  } elsif $facts['os']['release']['major'] == '12' {
+  } elsif $facts['os']['release']['major'] == '13' and $facts['check_pve'] == 'pve' {
+  file { '/etc/ssh/sshd_config':
+    ensure  => 'present',
+    owner   => root,
+    group   => root,
+    mode    => '0600',
+    content => template('roles/sshd/debian/sshd_config_deb13_proxmox.erb');
+      }
+  } elsif $facts['os']['release']['major'] == '12' and $facts['check_pve'] != 'pve' {
   file { '/etc/ssh/sshd_config':
     ensure  => 'present',
     owner   => root,
@@ -16,7 +24,7 @@ class roles::server_lite::sshd::debian inherits roles::server_lite::sshd {
     mode    => '0600',
     content => template('roles/sshd/debian/sshd_config_deb12.erb');
       }
-    } elsif $facts['os']['release']['major'] == '11' {
+    } elsif $facts['os']['release']['major'] == '11' and $facts['check_pve'] != 'pve' {
   file { '/etc/ssh/sshd_config':
     ensure  => 'present',
     owner   => root,

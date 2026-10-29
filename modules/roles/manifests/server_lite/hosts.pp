@@ -10,13 +10,23 @@ class roles::server_lite::hosts {
     content => template('roles/etc_hosts/freebsd/hosts.erb'),
       }
     }
-  if $facts['disks'] != 'vda' and $facts['kernel'] == 'Linux' {
+  if $facts['disks'] != 'vda' and $facts['kernel'] == 'Linux' and $facts['check_pve'] != 'pve' {
   file { '/etc/hosts':
     ensure  => present,
     owner   => root,
     group   => root,
     mode    => '0644',
     content => template('roles/etc_hosts/linux/hosts.erb'),
+    }
+
+  if $facts['disks'] != 'vda' and $facts['kernel'] == 'Linux' and $facts['check_pve'] == 'pve' {
+  file { '/etc/hosts':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => template('roles/etc_hosts/linux/hosts_proxmox.erb'),
+      }
     }
   }
 }
