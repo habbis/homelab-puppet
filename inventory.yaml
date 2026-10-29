@@ -2,8 +2,17 @@
 # To read more about inventory files, see https://pup.pt/bolt-inventory
 #
  groups:
+   - name: pve
+     targets:
+       - tiger.dc1.ncop.no
+       - ironfist.dc1.ncop.no
+       - hydra.dc1.ncop.no
+       - firestorm.dc1.ncop.no
+       - grey-wolf.dc1.ncop.no
    - name: dns
      targets:
+       - dns01.no.habbfarm.net
+       - dns02.no.habbfarm.net
        - dns3.dc1.ncop.no
        - dns4.dc1.ncop.no
        - dns5.dc1.ncop.no
