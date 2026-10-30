@@ -2,8 +2,15 @@
 # To read more about inventory files, see https://pup.pt/bolt-inventory
 #
  groups:
+   - name: tiger
+     targets:
+       - tiger.dc1.ncop.no
+   - name: mini
+     targets:
+       - mini.dc1.ncop.no
    - name: pve
      targets:
+       - mini.dc1.ncop.no
        - tiger.dc1.ncop.no
        - ironfist.dc1.ncop.no
        - hydra.dc1.ncop.no
@@ -31,5 +38,5 @@
    ssh:
       host-key-check: false
       run-as: root
-      user: ansible
-      #user: root
+      #user: ansible
+      user: root

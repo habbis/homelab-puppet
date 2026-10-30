@@ -299,6 +299,53 @@ To merge into production.
 git checkout production
 git merge test
 ```
+### Using bolt
+
+To install add same repo openvox-agent and openvox-server
+```shell
+apt install -y openbolt or yum install -y openbolt
+```
+
+To show plan
+```shell
+bolt plan show
+```
+
+To show task
+```shell
+bolt task show
+```
+
+To run a task
+```shell
+bolt task run openvox_install::agent -t ntp server=hf-puppet1.dc1.ncop.no
+```
+
+
+
+
+
+To run a existing puppet class
+
+First add puppet file to include module or class
+
+Examples
+```shell
+cat bolt_apply/proxmox_vm.pp
+include proxmox_vm
+```
+To include from roles
+```shell
+cat bolt_apply/server_lite.pp
+include ::roles::server_lite
+```
+To run
+```shell
+bolt apply bolt_apply/proxmox_vm.pp  -t mini  --hiera-config  hiera.yaml
+```
+
+
+
 
 ### how to configure vim
 
@@ -310,6 +357,9 @@ Alternately, use [gmarik/vundle](https://github.com/gmarik/vundle) or [tpope/pat
 - [puppet_language](https://help.puppet.com/core/current/Content/PuppetCore/puppet_language.htm)
 - [lang_data_type_list](https://help.puppet.com/core/current/Content/PuppetCore/lang_data_type_list.htm)
 - [function](https://help.puppet.com/core//current/Content/PuppetCore/Markdown/function.htm)
+
+### links to openvox odc
+- [openbolt](https://docs.openvoxproject.org/openbolt/latest/)
 
 ### links to puppet/openvox related articles
 - [my-journey-to-securing-sensitive-data-in-puppet-code](https://beanbag.technicalissues.us/my-journey-to-securing-sensitive-data-in-puppet-code/)

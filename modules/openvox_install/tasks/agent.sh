@@ -3,7 +3,7 @@
 # Parameters arrive as PT_* environment variables (input_method: environment).
 set -euo pipefail
 
-collection="${PT_collection:-openvox8}"
+collection="${PT_collection:-openvox9}"
 version="${PT_version:-}"
 server="${PT_server:-}"
 start_service="${PT_start_service:-false}"
