@@ -9,7 +9,7 @@ proxmox_vm::vms:
     vmid: 5001
     template: 2108
     bridge: 'vmbr0'
-    vlan: '22'
+    vlan: 22
     storage: 'int_dc1_vm_storage'
     memory: 1024
     ipconfig0: 'ip=10.31.22.30/24,gw=10.31.22.1'
