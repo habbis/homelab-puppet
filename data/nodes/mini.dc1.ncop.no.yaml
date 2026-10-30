@@ -5,7 +5,7 @@ classes:
 proxmox_vm::vms:
   web03:
     node: 'mini'
-    vmid: 5002
+    #vmid: 5002
     template: 2100
     bridge: 'vmbr0'
     vlan: 22

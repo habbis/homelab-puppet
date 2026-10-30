@@ -7,10 +7,17 @@
 #   * iso      - create a VM with an empty disk and the ISO attached as CD-ROM
 #   * none     - create a VM with an empty disk
 #
+# VM identity:
+#   * With `vmid` set, the VM is identified by that ID.
+#   * Without `vmid`, the VM is identified by its name (the resource title).
+#     On creation the next free ID is taken from `pvesh get /cluster/nextid`
+#     (honours the datacenter "next-id" range). Names must then be unique
+#     across the cluster; duplicates make the run fail instead of guessing.
+#
 # Resources are only applied when Puppet runs on `node`, so the same
 # catalog data can be applied to every node in a cluster.
 #
-# @param vmid          Proxmox VM ID (cluster-unique).
+# @param vmid          Proxmox VM ID (cluster-unique). Optional: omit to auto-assign.
 # @param ensure        present | running | stopped | absent (absent destroys the VM and its disks!).
 # @param node          Proxmox node that should own the VM.
 # @param template      VM ID of a template to clone.
@@ -41,35 +48,35 @@
 # @param timeout       Timeout in seconds for create/clone/import.
 #
 define proxmox_vm::vm (
-  Integer[100, 999999999]                      $vmid,
-  Enum['present', 'running', 'stopped', 'absent'] $ensure = 'running',
-  String[1]                                    $node         = $facts['networking']['hostname'],
-  Optional[Integer[100, 999999999]]            $template     = undef,
-  Boolean                                      $full_clone   = true,
-  Optional[Stdlib::Absolutepath]               $image        = undef,
-  Optional[Pattern[/^[\w.-]+:iso\/[^\s,]+$/]]  $iso          = undef,
-  Pattern[/^[\w.-]+$/]                         $storage      = 'local-lvm',
-  Pattern[/^(scsi|virtio|sata|ide)\d+$/]       $disk         = 'scsi0',
-  Optional[Integer[1]]                         $disk_gb      = 32,
-  Integer[1, 512]                              $cores        = 2,
-  Integer[1, 8]                                $sockets      = 1,
-  Integer[16]                                  $memory       = 2048,
-  String[1]                                    $cpu          = 'host',
-  String[1]                                    $ostype       = 'l26',
-  Pattern[/^[\w.-]+$/]                         $bridge       = 'vmbr0',
-  Optional[Integer[1, 4094]]                   $vlan         = undef,
+  Optional[Integer[100, 999999999]]           $vmid         = undef,
+  Enum['present', 'running', 'stopped', 'absent'] $ensure   = 'running',
+  String[1]                                   $node         = $facts['networking']['hostname'],
+  Optional[Integer[100, 999999999]]           $template     = undef,
+  Boolean                                     $full_clone   = true,
+  Optional[Stdlib::Absolutepath]              $image        = undef,
+  Optional[Pattern[/^[\w.-]+:iso\/[^\s,]+$/]] $iso          = undef,
+  Pattern[/^[\w.-]+$/]                        $storage      = 'local-lvm',
+  Pattern[/^(scsi|virtio|sata|ide)\d+$/]      $disk         = 'scsi0',
+  Optional[Integer[1]]                        $disk_gb      = 32,
+  Integer[1, 512]                             $cores        = 2,
+  Integer[1, 8]                               $sockets      = 1,
+  Integer[16]                                 $memory       = 2048,
+  String[1]                                   $cpu          = 'host',
+  String[1]                                   $ostype       = 'l26',
+  Pattern[/^[\w.-]+$/]                        $bridge       = 'vmbr0',
+  Optional[Integer[1, 4094]]                  $vlan         = undef,
   Enum['virtio', 'e1000', 'e1000e', 'rtl8139', 'vmxnet3'] $net_model = 'virtio',
-  Boolean                                      $onboot       = true,
-  Boolean                                      $agent        = true,
-  Array[Pattern[/^[\w.-]+$/]]                  $tags         = [],
-  Optional[Pattern[/^[^\n]+$/]]                $description  = undef,
-  Optional[String[1]]                          $ciuser       = undef,
-  Array[String[1]]                             $ssh_keys     = [],
-  Optional[String[1]]                          $ipconfig0    = undef,
-  Optional[String[1]]                          $nameserver   = undef,
-  Optional[String[1]]                          $searchdomain = undef,
-  Hash[Pattern[/^[a-z][a-z0-9]*$/], Scalar]    $extra_config = {},
-  Integer[1]                                   $timeout      = 1800,
+  Boolean                                     $onboot       = true,
+  Boolean                                     $agent        = true,
+  Array[Pattern[/^[\w.-]+$/]]                 $tags         = [],
+  Optional[Pattern[/^[^\n]+$/]]               $description  = undef,
+  Optional[String[1]]                         $ciuser       = undef,
+  Array[String[1]]                            $ssh_keys     = [],
+  Optional[String[1]]                         $ipconfig0    = undef,
+  Optional[String[1]]                         $nameserver   = undef,
+  Optional[String[1]]                         $searchdomain = undef,
+  Hash[Pattern[/^[a-z][a-z0-9]*$/], Scalar]   $extra_config = {},
+  Integer[1]                                  $timeout      = 1800,
 ) {
   include proxmox_vm
 
@@ -85,7 +92,20 @@ define proxmox_vm::vm (
   # Only act on the node that owns this VM.
   if $node == $facts['networking']['hostname'] {
     $helper = '/usr/local/sbin/puppet-qm-check'
-    $id     = String($vmid)
+
+    # How to refer to the VM:
+    #   $ref  - argument for the helper (VMID or name:<name>)
+    #   $pre  - shell prefix that resolves the VMID at run time
+    #   $id   - the VMID as used in qm commands
+    if $vmid =~ NotUndef {
+      $ref = String($vmid)
+      $pre = ''
+      $id  = String($vmid)
+    } else {
+      $ref = "name:${title}"
+      $pre = "vmid=\$(${helper} id ${ref}) && "
+      $id  = '"$vmid"'
+    }
 
     Exec {
       path      => ['/usr/sbin', '/usr/bin', '/sbin', '/bin'],
@@ -93,19 +113,21 @@ define proxmox_vm::vm (
       logoutput => 'on_failure',
     }
 
+    $keyfile = "${proxmox_vm::state_dir}/${title}.pub"
+
     if $ensure == 'absent' {
-      exec { "proxmox_vm ${id} destroy":
-        command => "qm stop ${id} >/dev/null 2>&1; qm destroy ${id} --purge 1 --destroy-unreferenced-disks 1",
-        onlyif  => "${helper} local ${id}",
+      exec { "proxmox_vm ${title} destroy":
+        command => "${pre}{ qm stop ${id} >/dev/null 2>&1; qm destroy ${id} --purge 1 --destroy-unreferenced-disks 1; }",
+        onlyif  => "${helper} local ${ref}",
         timeout => $timeout,
         require => File[$helper],
       }
-      file { "${proxmox_vm::state_dir}/${id}.pub":
+      file { $keyfile:
         ensure => absent,
       }
     } else {
       # ---------------------------------------------------------------
-      # 1. Create (clone / import / blank) if the VMID doesn't exist anywhere
+      # 1. Create (clone / import / blank) if the VM doesn't exist anywhere
       # ---------------------------------------------------------------
       $q_name    = stdlib::shell_escape($title)
       $q_storage = stdlib::shell_escape($storage)
@@ -113,12 +135,18 @@ define proxmox_vm::vm (
       $net0_parts = [$net_model, "bridge=${bridge}"] + ($vlan ? { undef => [], default => ["tag=${vlan}"] })
       $net0 = $net0_parts.join(',')
 
+      # New VMID: fixed, or the next free one at creation time.
+      $new_pre = $vmid ? {
+        undef   => 'vmid=$(pvesh get /cluster/nextid | tr -dc 0-9) && [ -n "$vmid" ] && ',
+        default => '',
+      }
+
       if $template {
         $clone_opts = $full_clone ? {
           true  => "--full 1 --storage ${q_storage}",
           false => '--full 0',
         }
-        $create_cmd = "qm clone ${template} ${id} --name ${q_name} ${clone_opts}"
+        $create_cmd = "${new_pre}qm clone ${template} ${id} --name ${q_name} ${clone_opts}"
       } else {
         $size = pick($disk_gb, 32)
         $disk_opt = $image ? {
@@ -137,7 +165,7 @@ define proxmox_vm::vm (
           default => "order=${disk};ide2",
         }
         $create_cmd = [
-          "qm create ${id} --name ${q_name}",
+          "${new_pre}qm create ${id} --name ${q_name}",
           "--memory ${memory} --cores ${cores} --sockets ${sockets}",
           "--cpu ${stdlib::shell_escape($cpu)} --ostype ${stdlib::shell_escape($ostype)}",
           '--scsihw virtio-scsi-single',
@@ -148,9 +176,9 @@ define proxmox_vm::vm (
         ].filter |$p| { !$p.empty }.join(' ')
       }
 
-      exec { "proxmox_vm ${id} create":
+      exec { "proxmox_vm ${title} create":
         command => $create_cmd,
-        unless  => "${helper} exists ${id}",
+        unless  => "${helper} exists ${ref}",
         timeout => $timeout,
         require => File[$helper],
       }
@@ -179,30 +207,29 @@ define proxmox_vm::vm (
       $set_args   = $settings.map |$k, $v| { "--${k} ${stdlib::shell_escape(String($v))}" }.join(' ')
       $check_args = $settings.map |$k, $v| { stdlib::shell_escape("${k}=${v}") }.join(' ')
 
-      exec { "proxmox_vm ${id} configure":
-        command => "qm set ${id} ${set_args}",
-        unless  => "${helper} config ${id} ${check_args}",
-        require => Exec["proxmox_vm ${id} create"],
+      exec { "proxmox_vm ${title} configure":
+        command => "${pre}qm set ${id} ${set_args}",
+        unless  => "${helper} config ${ref} ${check_args}",
+        require => Exec["proxmox_vm ${title} create"],
       }
 
       # ---------------------------------------------------------------
       # 3. Grow the disk (never shrinks)
       # ---------------------------------------------------------------
       if $disk_gb {
-        exec { "proxmox_vm ${id} resize ${disk}":
-          command => "qm resize ${id} ${disk} ${disk_gb}G",
-          unless  => "${helper} disk-ge ${id} ${disk} ${disk_gb}G",
-          require => Exec["proxmox_vm ${id} configure"],
+        exec { "proxmox_vm ${title} resize ${disk}":
+          command => "${pre}qm resize ${id} ${disk} ${disk_gb}G",
+          unless  => "${helper} disk-ge ${ref} ${disk} ${disk_gb}G",
+          require => Exec["proxmox_vm ${title} configure"],
         }
-        $before_power = Exec["proxmox_vm ${id} resize ${disk}"]
+        $before_power = Exec["proxmox_vm ${title} resize ${disk}"]
       } else {
-        $before_power = Exec["proxmox_vm ${id} configure"]
+        $before_power = Exec["proxmox_vm ${title} configure"]
       }
 
       # ---------------------------------------------------------------
       # 4. Cloud-init SSH keys (qm needs them in a file)
       # ---------------------------------------------------------------
-      $keyfile = "${proxmox_vm::state_dir}/${id}.pub"
       if $ssh_keys.empty {
         file { $keyfile: ensure => absent }
       } else {
@@ -213,10 +240,10 @@ define proxmox_vm::vm (
           mode    => '0600',
           content => "${ssh_keys.join("\n")}\n",
         }
-        exec { "proxmox_vm ${id} sshkeys":
-          command => "qm set ${id} --sshkeys ${keyfile}",
-          unless  => "${helper} sshkeys ${id} ${keyfile}",
-          require => [Exec["proxmox_vm ${id} configure"], File[$keyfile]],
+        exec { "proxmox_vm ${title} sshkeys":
+          command => "${pre}qm set ${id} --sshkeys ${keyfile}",
+          unless  => "${helper} sshkeys ${ref} ${keyfile}",
+          require => [Exec["proxmox_vm ${title} configure"], File[$keyfile]],
           before  => $before_power,
         }
       }
@@ -226,16 +253,16 @@ define proxmox_vm::vm (
       # ---------------------------------------------------------------
       case $ensure {
         'running': {
-          exec { "proxmox_vm ${id} start":
-            command => "qm start ${id}",
-            unless  => "${helper} status ${id} running",
+          exec { "proxmox_vm ${title} start":
+            command => "${pre}qm start ${id}",
+            unless  => "${helper} status ${ref} running",
             require => $before_power,
           }
         }
         'stopped': {
-          exec { "proxmox_vm ${id} shutdown":
-            command => "qm shutdown ${id} --timeout 180 --forceStop 1",
-            unless  => "${helper} status ${id} stopped",
+          exec { "proxmox_vm ${title} shutdown":
+            command => "${pre}qm shutdown ${id} --timeout 180 --forceStop 1",
+            unless  => "${helper} status ${ref} stopped",
             timeout => 300,
             require => $before_power,
           }
