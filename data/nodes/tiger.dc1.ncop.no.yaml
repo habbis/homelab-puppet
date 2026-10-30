@@ -6,6 +6,7 @@ proxmox_vm::vms:
   web01:
     ciuser: 'dc1-infra'
     node: 'tiger'
+    vmid: 5000
     template: 2108
     bridge: 'vmbr0'
     storage: 'local-lvm'
