@@ -4,7 +4,6 @@ classes:
 
 proxmox_vm::vms:
   web02:
-    ciuser: 'dc1-infra'
     node: 'ironfist'
     vmid: 5001
     template: 2108
