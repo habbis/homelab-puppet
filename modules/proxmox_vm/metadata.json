@@ -1,0 +1,17 @@
+{
+  "name": "habbis-proxmox_vm",
+  "version": "0.1.0",
+  "author": "habbis",
+  "summary": "Create and manage Proxmox VE virtual machines with the qm CLI",
+  "license": "Apache-2.0",
+  "source": "",
+  "dependencies": [
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 9.0.0 < 10.0.0" }
+  ],
+  "operatingsystem_support": [
+    { "operatingsystem": "Debian", "operatingsystemrelease": ["12", "13"] }
+  ],
+  "requirements": [
+    { "name": "puppet", "version_requirement": ">= 7.0.0 < 9.0.0" }
+  ]
+}
