@@ -1,0 +1,14 @@
+---
+classes:
+  - patching_as_code
+  - proxmox_vm
+
+proxmox_vm::vms:
+  web01:
+    ciuser: 'dc1-infra'
+    node: 'tiger'
+    template: 2108
+    bridge: 'vmbr0'
+    storage: 'local-lvm'
+    memory: 1024
+    ipconfig0: 'ip=10.31.22.30/24,gw=10.31.22.1'
