@@ -1,6 +1,5 @@
 ---
 classes:
-  - patching_as_code
   - proxmox_vm
 
 proxmox_vm::vms:
