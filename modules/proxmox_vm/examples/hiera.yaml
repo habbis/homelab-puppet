@@ -1,0 +1,54 @@
+# Example Hiera data (e.g. data/common.yaml) for the proxmox_vm class.
+# Apply `include proxmox_vm` to every Proxmox node; each node only builds
+# the VMs whose `node` matches its hostname.
+
+proxmox_vm::defaults:
+  node: 'pve1'
+  storage: 'local-lvm'
+  bridge: 'vmbr0'
+  ciuser: 'admin'
+  ssh_keys:
+    - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAA... admin@workstation'
+  nameserver: '1.1.1.1'
+  searchdomain: 'example.lan'
+
+proxmox_vm::vms:
+  # Clone from a cloud-init template (VM 9000 on pve1)
+  web01:
+    vmid: 201
+    template: 9000
+    cores: 2
+    memory: 4096
+    disk_gb: 40
+    ipconfig0: 'ip=10.0.10.21/24,gw=10.0.10.1'
+    vlan: 10
+    tags: ['web', 'prod']
+
+  # Import a cloud image straight from disk on the node
+  db01:
+    vmid: 202
+    image: '/var/lib/vz/template/cloud/debian-12-genericcloud-amd64.qcow2'
+    cores: 4
+    memory: 8192
+    disk_gb: 100
+    ipconfig0: 'ip=dhcp'
+    extra_config:
+      serial0: 'socket'
+      vga: 'serial0'
+
+  # Classic ISO install, created but left powered off
+  win01:
+    vmid: 203
+    node: 'pve2'
+    ensure: 'stopped'
+    iso: 'local:iso/Win11_24H2_English_x64.iso'
+    ostype: 'win11'
+    cores: 4
+    memory: 8192
+    disk_gb: 80
+    agent: false
+
+  # Remove a VM (stops it and destroys it with its disks)
+  oldbox:
+    vmid: 150
+    ensure: 'absent'

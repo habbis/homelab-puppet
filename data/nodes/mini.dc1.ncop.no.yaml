@@ -1,0 +1,15 @@
+---
+classes:
+  - proxmox_vm
+
+proxmox_vm::vms:
+  web03:
+    node: 'mini'
+    vmid: 5002
+    template: 2100
+    bridge: 'vmbr0'
+    vlan: 22
+    storage: 'local-ssd'
+    memory: 1024
+    ipconfig0: 'ip=10.31.22.26/24,gw=10.31.22.1'
+    ensure: 'absent'

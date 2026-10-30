@@ -6,7 +6,7 @@
     "collection": {
       "description": "OpenVox release collection to use (openvox8 or openvox9). Agents must not be newer than the server.",
       "type": "Optional[Enum[openvox8, openvox9]]",
-      "default": "openvox8"
+      "default": "openvox9"
     },
     "version": {
       "description": "Specific openvox-agent package version to install (e.g. 8.25.0). Defaults to latest in the collection.",

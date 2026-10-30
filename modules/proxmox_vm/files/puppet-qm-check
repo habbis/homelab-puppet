@@ -1,0 +1,102 @@
+#!/bin/bash
+# Managed by Puppet (proxmox_vm). Read-only predicates used as exec guards.
+# Exit 0 = condition true (nothing to do), non-zero = action needed.
+#
+#   puppet-qm-check exists  VMID              VMID exists anywhere in the cluster
+#   puppet-qm-check local   VMID              VMID exists on this node
+#   puppet-qm-check config  VMID key=val ...  qm config matches all key=val pairs
+#   puppet-qm-check disk-ge VMID DISK SIZE    DISK is at least SIZE (e.g. 32G)
+#   puppet-qm-check sshkeys VMID FILE         cloud-init sshkeys equal FILE contents
+#   puppet-qm-check status  VMID STATE        qm status is STATE (running|stopped)
+set -u
+
+cmd=${1:-}
+vmid=${2:-}
+shift 2 2>/dev/null || { echo "usage: $0 CMD VMID [ARGS]" >&2; exit 2; }
+[[ "$vmid" =~ ^[0-9]+$ ]] || { echo "invalid vmid: $vmid" >&2; exit 2; }
+
+# Convert 512M / 32G / 1.5T / 1048576K to MiB (integer).
+to_mib() {
+  awk -v s="$1" 'BEGIN {
+    u = toupper(substr(s, length(s))); n = substr(s, 1, length(s) - 1)
+    if (u ~ /[0-9]/) { n = s; u = "G" }
+    f = (u == "K") ? 1/1024 : (u == "M") ? 1 : (u == "G") ? 1024 : (u == "T") ? 1048576 : -1
+    if (f < 0) exit 1
+    printf "%d\n", n * f
+  }'
+}
+
+# Every comma-separated component of $1 must appear in $2, either exactly or
+# as "component=..." (so "virtio,bridge=vmbr0" matches "virtio=BC:24:..,bridge=vmbr0").
+components_match() {
+  local want=$1 have=$2 w h found
+  local -a wc hc
+  IFS=',' read -ra wc <<<"$want"
+  IFS=',' read -ra hc <<<"$have"
+  for w in "${wc[@]}"; do
+    found=0
+    for h in "${hc[@]}"; do
+      if [[ "$h" == "$w" || "$h" == "$w="* ]]; then found=1; break; fi
+    done
+    (( found )) || return 1
+  done
+  # Single values (memory, cores, name, ...) must match exactly.
+  if [[ "$want" != *,* && "$want" != *=* ]]; then
+    [[ "$want" == "$have" ]] || return 1
+  fi
+  return 0
+}
+
+sort_tags() { tr ';,' '\n\n' <<<"$1" | sed '/^$/d' | sort | paste -sd';' -; }
+
+get_key() { sed -n "s/^$1: //p" <<<"$2" | head -n1; }
+
+case "$cmd" in
+  exists)
+    compgen -G "/etc/pve/nodes/*/qemu-server/${vmid}.conf" >/dev/null
+    ;;
+  local)
+    [[ -e "/etc/pve/qemu-server/${vmid}.conf" ]]
+    ;;
+  config)
+    conf=$(qm config "$vmid" 2>/dev/null) || exit 1
+    for pair in "$@"; do
+      key=${pair%%=*}
+      want=${pair#*=}
+      [[ "$key" =~ ^[a-z][a-z0-9]*$ ]] || { echo "invalid key: $key" >&2; exit 2; }
+      have=$(get_key "$key" "$conf")
+      if [[ "$key" == tags ]]; then
+        [[ "$(sort_tags "$want")" == "$(sort_tags "$have")" ]] || exit 1
+      else
+        components_match "$want" "$have" || exit 1
+      fi
+    done
+    ;;
+  disk-ge)
+    disk=${1:?disk}
+    want=${2:?size}
+    [[ "$disk" =~ ^[a-z]+[0-9]+$ ]] || exit 2
+    conf=$(qm config "$vmid" 2>/dev/null) || exit 1
+    have=$(get_key "$disk" "$conf" | tr ',' '\n' | sed -n 's/^size=//p')
+    [[ -n "$have" ]] || exit 1
+    have_mib=$(to_mib "$have") || exit 1
+    want_mib=$(to_mib "$want") || exit 2
+    (( have_mib >= want_mib ))
+    ;;
+  sshkeys)
+    file=${1:?file}
+    conf=$(qm config "$vmid" 2>/dev/null) || exit 1
+    enc=$(get_key sshkeys "$conf")
+    have=$(printf '%b' "${enc//%/\\x}")   # Proxmox stores the keys URL-encoded
+    want=$(cat "$file") || exit 1
+    [[ "$have" == "$want" ]]
+    ;;
+  status)
+    state=${1:?state}
+    [[ "$(qm status "$vmid" 2>/dev/null)" == "status: ${state}" ]]
+    ;;
+  *)
+    echo "unknown command: $cmd" >&2
+    exit 2
+    ;;
+esac
