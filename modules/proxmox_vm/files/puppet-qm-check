@@ -2,17 +2,48 @@
 # Managed by Puppet (proxmox_vm). Read-only predicates used as exec guards.
 # Exit 0 = condition true (nothing to do), non-zero = action needed.
 #
-#   puppet-qm-check exists  VMID              VMID exists anywhere in the cluster
-#   puppet-qm-check local   VMID              VMID exists on this node
-#   puppet-qm-check config  VMID key=val ...  qm config matches all key=val pairs
-#   puppet-qm-check disk-ge VMID DISK SIZE    DISK is at least SIZE (e.g. 32G)
-#   puppet-qm-check sshkeys VMID FILE         cloud-init sshkeys equal FILE contents
-#   puppet-qm-check status  VMID STATE        qm status is STATE (running|stopped)
+#   puppet-qm-check exists  REF               VM exists anywhere in the cluster
+#   puppet-qm-check local   REF               VM exists on this node
+#   puppet-qm-check id      REF               print the VMID
+#   puppet-qm-check config  REF key=val ...   qm config matches all key=val pairs
+#   puppet-qm-check disk-ge REF DISK SIZE     DISK is at least SIZE (e.g. 32G)
+#   puppet-qm-check sshkeys REF FILE          cloud-init sshkeys equal FILE contents
+#   puppet-qm-check status  REF STATE         qm status is STATE (running|stopped)
+#
+# REF is a numeric VMID or name:<vm-name>. A name must match exactly one
+# QEMU VM in the cluster; zero matches exits 1, several exit 3.
 set -u
 
+PVE_DIR=${PVE_DIR:-/etc/pve}
+
 cmd=${1:-}
-vmid=${2:-}
-shift 2 2>/dev/null || { echo "usage: $0 CMD VMID [ARGS]" >&2; exit 2; }
+ref=${2:-}
+shift 2 2>/dev/null || { echo "usage: $0 CMD REF [ARGS]" >&2; exit 2; }
+
+# Print the VMIDs of all QEMU VMs named $1 (ignores snapshot sections).
+find_by_name() {
+  local f
+  for f in "$PVE_DIR"/nodes/*/qemu-server/*.conf; do
+    [[ -e "$f" ]] || continue
+    if awk -v n="$1" '/^\[/ { exit } $0 == "name: " n { found = 1; exit } END { exit !found }' "$f"; then
+      basename "$f" .conf
+    fi
+  done
+}
+
+if [[ "$ref" == name:* ]]; then
+  name=${ref#name:}
+  [[ "$name" =~ ^[A-Za-z0-9.-]+$ ]] || { echo "invalid name: $name" >&2; exit 2; }
+  mapfile -t ids < <(find_by_name "$name")
+  case ${#ids[@]} in
+    0) [[ "$cmd" == id ]] && echo "no VM named '$name'" >&2; exit 1 ;;
+    1) vmid=${ids[0]} ;;
+    *) [[ "$cmd" == exists ]] && exit 0
+       echo "several VMs named '$name': ${ids[*]}" >&2; exit 3 ;;
+  esac
+else
+  vmid=$ref
+fi
 [[ "$vmid" =~ ^[0-9]+$ ]] || { echo "invalid vmid: $vmid" >&2; exit 2; }
 
 # Convert 512M / 32G / 1.5T / 1048576K to MiB (integer).
@@ -53,10 +84,13 @@ get_key() { sed -n "s/^$1: //p" <<<"$2" | head -n1; }
 
 case "$cmd" in
   exists)
-    compgen -G "/etc/pve/nodes/*/qemu-server/${vmid}.conf" >/dev/null
+    compgen -G "$PVE_DIR/nodes/*/qemu-server/${vmid}.conf" >/dev/null
+    ;;
+  id)
+    echo "$vmid"
     ;;
   local)
-    [[ -e "/etc/pve/qemu-server/${vmid}.conf" ]]
+    [[ -e "$PVE_DIR/qemu-server/${vmid}.conf" ]]
     ;;
   config)
     conf=$(qm config "$vmid" 2>/dev/null) || exit 1

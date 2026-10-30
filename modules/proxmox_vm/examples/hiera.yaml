@@ -24,9 +24,9 @@ proxmox_vm::vms:
     vlan: 10
     tags: ['web', 'prod']
 
-  # Import a cloud image straight from disk on the node
+  # Import a cloud image straight from disk on the node.
+  # No vmid: the next free ID is assigned and the VM is tracked by name.
   db01:
-    vmid: 202
     image: '/var/lib/vz/template/cloud/debian-12-genericcloud-amd64.qcow2'
     cores: 4
     memory: 8192
