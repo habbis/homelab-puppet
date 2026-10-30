@@ -1,12 +1,11 @@
 #!/bin/bash
 
 what=""
-pve_path="$(ls -la /etc/pve)"
 
-if [ -z "$pve_path" ]; then
-   what="none"
-else
+if [ -d /etc/pve ]; then
    what="pve"
+else
+   what="none"
 fi
 
 echo "check_pve=$what"
