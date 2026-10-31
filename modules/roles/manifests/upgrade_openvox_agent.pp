@@ -133,11 +133,16 @@ class roles::upgrade_openvox_agent (
       }
       $deb_path = '/var/tmp/openvox9-release.deb'
 
+      file { '/etc/apt/sources.list.d/openvox8-release.list':
+        ensure => absent,
+      }
+
       file { $deb_path:
         ensure => file,
         source => "${apt_base}/openvox9-release-${codename}.deb",
         mode   => '0644',
       }
+
 
       package { 'openvox9-release':
         ensure   => installed,
