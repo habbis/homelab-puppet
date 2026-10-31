@@ -1,0 +1,70 @@
+groups:
+  - name: firestorm
+    targets:
+      - db1.dc1.ncop.no
+      - dns02.no.habbfarm.net
+      - firestorm.dc1.ncop.no
+      - hf-desktop2.dc1.ncop.no
+      - hf-linbast2.no.habbfarm.net
+      - hf-pdns1.dc1.ncop.no
+      - hf-squid2.no.habbfarm.net
+      - hf-t-mailarchive1.dc1.ncop.no
+      - ntp1.no.habbfarm.net
+      - zabbix1.dc1.ncop.no
+  - name: grey-wolf
+    targets:
+      - grey-wolf.dc1.ncop.no
+  - name: hydra
+    targets:
+      - hf-puppet1.dc1.ncop.no
+      - hf-varnish-media1.dc1.ncop.no
+      - hydra.dc1.ncop.no
+      - pdns-db1.dc1.ncop.no
+  - name: ironfist
+    targets:
+      - ironfist.dc1.ncop.no
+  - name: tiger
+    targets:
+      - hf-info1.no.habbfarm.net
+      - hf-mta1.dc1.ncop.no
+      - hf-varnish1.dc1.ncop.no
+      - media2.no.habbfarm.net
+      - pdns-db2.dc1.ncop.no
+      - tiger.dc1.ncop.no
+  - name: pve
+    targets:
+      - firestorm.dc1.ncop.no
+      - grey-wolf.dc1.ncop.no
+      - hydra.dc1.ncop.no
+      - ironfist.dc1.ncop.no
+      - tiger.dc1.ncop.no
+  - name: apache
+    targets:
+      - hf-info1.no.habbfarm.net
+  - name: database
+    targets:
+      - db1.dc1.ncop.no
+  - name: jellyfin
+    targets:
+      - media2.no.habbfarm.net
+  - name: postgresql
+    targets:
+      - db1.dc1.ncop.no
+  - name: puppet
+    targets:
+      - hf-puppet1.dc1.ncop.no
+  - name: terraform
+    targets:
+      - db1.dc1.ncop.no
+  - name: varnish
+    targets:
+      - hf-varnish-media1.dc1.ncop.no
+      - hf-varnish1.dc1.ncop.no
+  - name: web
+    targets:
+      - hf-info1.no.habbfarm.net
+config:
+  ssh:
+    host-key-check: false
+    run-as: root
+    user: ansible
