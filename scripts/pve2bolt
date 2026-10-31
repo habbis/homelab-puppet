@@ -1,0 +1,184 @@
+#!/usr/bin/env python3
+"""
+Generate a Puppet Bolt inventory.yaml from the Proxmox VE API.
+
+Groups produced:
+  - one group per PVE node (e.g. "tiger" -> tiger.dc1.ncop.no)
+  - "pve" group containing every cluster node
+  - one group per guest tag (e.g. VMs tagged "dns" -> group "dns")
+
+Target names:
+  - nodes:  <node>.<domain>
+  - guests: the guest name if it already contains a dot (FQDN),
+            otherwise <name>.<domain>
+
+Auth uses a Proxmox API token (read-only is enough, e.g. role PVEAuditor):
+  export PVE_HOST=tiger.dc1.ncop.no
+  export PVE_TOKEN_ID='bolt@pve!inventory'
+  export PVE_TOKEN_SECRET='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+  ./pve2bolt.py -o inventory.yaml
+
+No third-party dependencies (stdlib only).
+"""
+
+import argparse
+import json
+import os
+import ssl
+import sys
+import urllib.request
+from collections import defaultdict
+
+
+def api_get(host, port, path, token_id, token_secret, verify_ssl):
+    url = f"https://{host}:{port}/api2/json{path}"
+    req = urllib.request.Request(url)
+    req.add_header("Authorization", f"PVEAPIToken={token_id}={token_secret}")
+    ctx = ssl.create_default_context()
+    if not verify_ssl:
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+    with urllib.request.urlopen(req, context=ctx, timeout=30) as resp:
+        return json.load(resp)["data"]
+
+
+def fqdn(name, domain):
+    if "." in name or not domain:
+        return name
+    return f"{name}.{domain}"
+
+
+def parse_tags(raw):
+    if not raw:
+        return []
+    # PVE separates tags with ';' (older versions/UIs may use ',' or spaces)
+    for sep in (",", " "):
+        raw = raw.replace(sep, ";")
+    return [t.strip() for t in raw.split(";") if t.strip()]
+
+
+def build_groups(nodes, guests, args):
+    groups = {}  # name -> sorted list of targets; insertion order kept
+
+    node_targets = []
+    for n in sorted(nodes, key=lambda n: n["node"]):
+        if args.online_only and n.get("status") != "online":
+            continue
+        target = fqdn(n["node"], args.node_domain or args.domain)
+        node_targets.append(target)
+        if args.node_groups:
+            groups[n["node"]] = [target]
+
+    if node_targets:
+        groups[args.pve_group] = node_targets
+
+    tag_groups = defaultdict(set)
+    for g in guests:
+        if g.get("template"):
+            continue
+        if g.get("type") not in args.types:
+            continue
+        if not args.include_stopped and g.get("status") != "running":
+            continue
+        name = g.get("name")
+        if not name:
+            continue
+        target = fqdn(name, args.domain)
+        for tag in parse_tags(g.get("tags")):
+            if args.tag_prefix:
+                if not tag.startswith(args.tag_prefix):
+                    continue
+                tag = tag[len(args.tag_prefix):]
+            if tag in args.exclude_tags or not tag:
+                continue
+            tag_groups[tag].add(target)
+
+    for tag in sorted(tag_groups):
+        if tag in groups:
+            # merge with an existing node group of the same name
+            groups[tag] = sorted(set(groups[tag]) | tag_groups[tag])
+        else:
+            groups[tag] = sorted(tag_groups[tag])
+
+    return groups
+
+
+def render_yaml(groups, args):
+    lines = ["groups:"]
+    for name, targets in groups.items():
+        lines.append(f"  - name: {name}")
+        lines.append("    targets:")
+        for t in targets:
+            lines.append(f"      - {t}")
+    lines += [
+        "config:",
+        "  ssh:",
+        f"    host-key-check: {'true' if args.host_key_check else 'false'}",
+        f"    run-as: {args.run_as}",
+        f"    user: {args.ssh_user}",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def main():
+    p = argparse.ArgumentParser(description="Generate Bolt inventory from Proxmox VE")
+    p.add_argument("--host", default=os.environ.get("PVE_HOST"),
+                   help="PVE API host (env PVE_HOST)")
+    p.add_argument("--port", type=int, default=int(os.environ.get("PVE_PORT", 8006)))
+    p.add_argument("--token-id", default=os.environ.get("PVE_TOKEN_ID"),
+                   help="e.g. 'bolt@pve!inventory' (env PVE_TOKEN_ID)")
+    p.add_argument("--token-secret", default=os.environ.get("PVE_TOKEN_SECRET"),
+                   help="(env PVE_TOKEN_SECRET)")
+    p.add_argument("--insecure", action="store_true",
+                   help="skip TLS certificate verification (self-signed PVE certs)")
+    p.add_argument("--domain", default="dc1.ncop.no",
+                   help="domain appended to short guest names (default: dc1.ncop.no)")
+    p.add_argument("--node-domain", default=None,
+                   help="domain for PVE nodes (default: same as --domain)")
+    p.add_argument("--pve-group", default="pve", help="group holding all nodes")
+    p.add_argument("--no-node-groups", dest="node_groups", action="store_false",
+                   help="don't create a group per PVE node")
+    p.add_argument("--online-only", action="store_true",
+                   help="only include nodes that are online")
+    p.add_argument("--include-stopped", action="store_true",
+                   help="include stopped guests (default: running only)")
+    p.add_argument("--types", nargs="+", default=["qemu", "lxc"],
+                   choices=["qemu", "lxc"], help="guest types to include")
+    p.add_argument("--tag-prefix", default="",
+                   help="only use tags with this prefix, stripped "
+                        "(e.g. 'bolt-' makes tag 'bolt-dns' -> group 'dns')")
+    p.add_argument("--exclude-tags", nargs="*", default=[],
+                   help="tags to ignore")
+    p.add_argument("--ssh-user", default="root")
+    p.add_argument("--run-as", default="root")
+    p.add_argument("--host-key-check", action="store_true")
+    p.add_argument("-o", "--output", default="-", help="output file (default stdout)")
+    args = p.parse_args()
+
+    missing = [n for n, v in (("--host", args.host), ("--token-id", args.token_id),
+                              ("--token-secret", args.token_secret)) if not v]
+    if missing:
+        p.error("missing: " + ", ".join(missing))
+
+    def get(path):
+        return api_get(args.host, args.port, path, args.token_id,
+                       args.token_secret, not args.insecure)
+
+    try:
+        nodes = get("/nodes")
+        guests = get("/cluster/resources?type=vm")
+    except Exception as e:
+        sys.exit(f"Proxmox API error: {e}")
+
+    out = render_yaml(build_groups(nodes, guests, args), args)
+
+    if args.output == "-":
+        sys.stdout.write(out)
+    else:
+        with open(args.output, "w") as f:
+            f.write(out)
+        print(f"wrote {args.output}", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()

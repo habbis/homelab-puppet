@@ -1,5 +1,6 @@
 ---
 classes:
+  - roles::upgrade_openvox_agent
   - roles::server_lite
 
 
