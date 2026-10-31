@@ -1,6 +1,5 @@
 ---
 classes:
-  - roles::upgrade_openvox_agent
   - patching_as_code
   - roles::ntp_server
   - roles::frr_bgp
