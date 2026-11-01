@@ -32,5 +32,7 @@ router bgp <%= $roles::frr_bgp::bgp_nr %>
  exit-address-family
 !
 route-map PREPEND permit 10
-  set as-path prepend <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %>
+  # more as path prepend  bgp_nr longer the route
+  #set as-path prepend <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %>
+  set as-path prepend <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %>
 <% } -%>
