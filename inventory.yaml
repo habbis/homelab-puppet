@@ -34,6 +34,9 @@
      targets:
        - hf-test1.dc1.ncop.no
        #- hf-nginx2.no.habbfarm.net
+   - name: nautobot
+     targets:
+       - nautobot.dc1.ncop.no
  config:
    ssh:
       host-key-check: false
