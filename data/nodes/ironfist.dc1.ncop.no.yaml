@@ -1,5 +1,4 @@
 ---
 classes:
-  - roles::kubeadm
+  - proxmox_vm
 
-roles::kubeadm::kubernetes_version: v1.37
