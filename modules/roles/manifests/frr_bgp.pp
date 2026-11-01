@@ -40,25 +40,14 @@ if $facts['os']['family'] =='Debian' {
     content => epp('roles/frr_bgp/debian_interface_anycast.epp');
   }
 
-if $roles::frr_bgp::type_frr_server == main {
   file { '/etc/frr/frr.conf':
     ensure  => present,
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => epp('roles/frr_bgp/debian_main_frr_conf.epp');
+    content => epp('roles/frr_bgp/debian_frr_conf.epp');
     }
-  }
 
-if $roles::frr_bgp::type_frr_server == secondary {
-  file { '/etc/frr/frr.conf':
-    ensure  => present,
-    owner   => root,
-    group   => root,
-    mode    => '0644',
-    content => epp('roles/frr_bgp/debian_secondary_frr_conf.epp');
-    }
-  }
     service {
       'frr':
         ensure     => running,
