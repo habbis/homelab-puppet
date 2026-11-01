@@ -24,14 +24,6 @@ if $facts['os']['family'] =='Debian' {
     content => epp('roles/frr_bgp/debian_frr_daemon.epp');
     }
 
-  file { '/etc/frr/daemons':
-    ensure  => present,
-    owner   => root,
-    group   => root,
-    mode    => '0644',
-    content => epp('roles/frr_bgp/debian_frr_daemon.epp');
-    }
-
   file { '/etc/network/interfaces.d/anycast':
     ensure  => present,
     owner   => root,
