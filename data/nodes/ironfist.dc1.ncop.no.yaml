@@ -5,7 +5,7 @@ classes:
 proxmox_vm::vms:
   nautobot.dc1.ncop.no:
     node: 'ironfist'
-    template: 2108
+    template: 2202
     bridge: 'vmbr0'
     vlan: 28
     storage: 'int_dc1_vm_storage'
