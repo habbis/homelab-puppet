@@ -24,7 +24,7 @@ router bgp <%= $roles::frr_bgp::bgp_nr %>
 !
 <% } -%>
 <% if $roles::frr_bgp::type_frr_server == secondary { -%>
- address-family ipv4 unicast eth0
+ address-family ipv4 unicast
   network <%= $roles::frr_bgp::anycast_ipv4_address %>/32
   neighbor <%= $facts['get_default_gateway'] %> activate
   neighbor <%= $facts['get_default_gateway'] %> soft-reconfiguration inbound
@@ -32,5 +32,5 @@ router bgp <%= $roles::frr_bgp::bgp_nr %>
  exit-address-family
 !
 route-map PREPEND permit 10
-  set as-path prepend <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %>
+  set as-path prepend <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %> <%= $roles::frr_bgp::bgp_nr %>
 <% } -%>
