@@ -7,7 +7,7 @@ classes:
 roles::server_lite::ntp_pool: 'pool.habbfarm.net'
 roles::server_lite::search: 'no.habbfarm.net habbfarm.net ncop.no dc1.ncop.no'
 roles::server_lite::nameserver1: '10.17.2.10'
-#roles::server_lite::nameserver2: '10.17.2.3'
+roles::server_lite::nameserver2: 'none'
 roles::server_lite::ntp_server: false
 roles::server_lite::dns_resolver: false
 roles::server_lite::proxy_server: 'hf-proxy.no.habbfarm.net:8888'
