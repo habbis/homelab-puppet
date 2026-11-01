@@ -9,7 +9,7 @@ proxmox_vm::vms:
     bridge: 'vmbr0'
     vlan: 28
     storage: 'int_dc1_vm_storage'
-    memory: 4024
+    #memory: 4024
     cores: 4
     ipconfig0: 'ip=10.31.28.2/24,gw=10.31.28.1'
     #ensure: 'absent'
