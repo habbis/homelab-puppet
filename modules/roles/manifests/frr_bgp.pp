@@ -3,7 +3,8 @@ class roles::frr_bgp (
   # @param ipv4 anycast address
   # @param bgp nr
   String $anycast_ipv4_address,
-  String $bgp_nr
+  String $bgp_nr,
+  Variant[String, Enum['main', 'secondary']]  $type_frr_server,
   ) {
 
 if $facts['kernel'] == 'Linux' {
@@ -14,13 +15,22 @@ if $facts['os']['family'] =='Debian' {
     'frr-pythontools': ensure => installed;
     }
 
+
   file { '/etc/frr/daemons':
     ensure  => present,
     owner   => root,
     group   => root,
     mode    => '0644',
     content => epp('roles/frr_bgp/debian_frr_daemon.epp');
-  }
+    }
+
+  file { '/etc/frr/daemons':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => epp('roles/frr_bgp/debian_frr_daemon.epp');
+    }
 
   file { '/etc/network/interfaces.d/anycast':
     ensure  => present,
@@ -30,12 +40,24 @@ if $facts['os']['family'] =='Debian' {
     content => epp('roles/frr_bgp/debian_interface_anycast.epp');
   }
 
+if $type_frr_server == 'main' {
   file { '/etc/frr/frr.conf':
     ensure  => present,
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => epp('roles/frr_bgp/debian_frr_conf.epp');
+    content => epp('roles/frr_bgp/debian_main_frr_conf.epp');
+    }
+  }
+
+if $type_frr_server == 'secondary' {
+  file { '/etc/frr/frr.conf':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => epp('roles/frr_bgp/debian_secondary_frr_conf.epp');
+    }
   }
     service {
       'frr':
