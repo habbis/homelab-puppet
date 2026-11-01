@@ -15,9 +15,9 @@ remote-control:
 
 server:
     # Listen for external requests
-    interface: 0.0.0.0
-    #interface: 127.0.0.1
-    outgoing-interface: 10.17.2.10
+    interface: 10.17.2.10
+    interface: 127.0.0.1
+    outgoing-interface: <%= @networking['ip'] %>
     ip-freebind: yes
 
     # enable DNSSEC
